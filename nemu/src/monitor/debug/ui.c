@@ -45,10 +45,23 @@ static int cmd_si(char *args){
     }
     cpu_exec(n);
     return 0;
-}
+}   
 
 static int cmd_info(char *args){
-   return 0;
+    if (args == NULL){
+        return 0;
+    }
+    if (strcmp(args, "r")){
+        char *regName[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+        int i;
+        for (i = R_EAX; i <= R_EDI; i++){
+            printf("%s : %x\n", regName[i], reg_l(i));
+        }
+    } else if (strcmp(args, "w")){
+
+    }
+    
+    return 0;
 }
 
 static struct {
