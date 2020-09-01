@@ -40,7 +40,7 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args){
     int n = 1;
-    if (strlen(args) != 0){
+    if (args != NULL){
         n = atoi(args);
     }
     cpu_exec(n);
