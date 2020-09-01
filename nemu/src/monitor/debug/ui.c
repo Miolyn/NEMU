@@ -86,7 +86,7 @@ static int cmd_x(char *args){
     for (i = 0; i < n; i++){
         uint32_t addrI = uAddr + i * 32;
         uint32_t val = swaddr_read(addrI, 4);
-        printf("addr:%x,val:0x%d\n", addrI, val);
+        printf("addr:0x%x,val:%d\n", addrI, val);
     }
     return 0;
 }
