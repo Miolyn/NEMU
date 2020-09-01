@@ -72,9 +72,22 @@ static int cmd_x(char *args){
     if (nStr == NULL){
         return 0;
     }
-    char *numStr = nStr + strlen(nStr) + 1;
-    int num = strtol(numStr, NULL, 16);
-    printf("%d\n", num);
+    int n = atoi(nStr);
+    if (n <= 0){
+        return 0;
+    }
+    char *addrStr = nStr + strlen(nStr) + 1;
+    int addr = strtol(addrStr, NULL, 16);
+    if (addr < 0){
+        return 0;
+    }
+    uint32_t uAddr = addr;
+    int i;
+    for (i = 0; i < n; i++){
+        uint32_t addrI = uAddr + i * 32;
+        uint32_t val = swaddr_read(addrI, 4);
+        printf("addr:%x,val:%d\n", addrI, val);
+    }
     return 0;
 }
 static struct {
