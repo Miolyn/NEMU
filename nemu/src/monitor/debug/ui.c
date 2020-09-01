@@ -55,7 +55,7 @@ static int cmd_info(char *args){
         char *regName[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
         int i;
         for (i = R_EAX; i <= R_EDI; i++){
-            printf("%s : %x\n", regName[i], reg_l(i));
+            printf("%s: %x\n", regName[i], reg_l(i));
         }
     } else if (strcmp(args, "w") == 0){
 
@@ -64,6 +64,19 @@ static int cmd_info(char *args){
     return 0;
 }
 
+static int cmd_x(char *args){
+    if (args == NULL){
+        return 0;
+    }
+    char *nStr = strtok(args, " ");
+    if (nStr == NULL){
+        return 0;
+    }
+    char *numStr = nStr + strlen(nStr) + 1;
+    int num = strtol(numStr, NULL, 16);
+    printf("%d\n", num);
+    return 0;
+}
 static struct {
 	char *name;
 	char *description;
@@ -75,7 +88,9 @@ static struct {
 
 	/* TODO: Add more commands */
     {"si", "run by step", cmd_si },
-    {"info", "print the info of register or point", cmd_info }
+    {"info", "print the info of register or point", cmd_info },
+    {"x", "print n value of the memory addr", cmd_x },
+
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
