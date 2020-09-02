@@ -262,6 +262,7 @@ int find_dominant_operator(uint32_t p, uint32_t q){
                 }
             }
         }
-    } 
+    }
+    printf("op pos:%d\n", op);
     return op;
 }
