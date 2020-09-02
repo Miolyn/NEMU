@@ -137,7 +137,7 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	// panic("please implement me");
-    printf("nr_tolen:%d\n", nr_token);
+    printf("nr_token:%d\n", nr_token);
 	return eval(success, 0, nr_token - 1);
 }
 
@@ -263,6 +263,6 @@ int find_dominant_operator(uint32_t p, uint32_t q){
             }
         }
     }
-    printf("op pos:%d\n", op);
+    printf("p=%d,q=%d,op pos:%d\n", p, q, op);
     return op;
 }
