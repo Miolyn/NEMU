@@ -15,7 +15,7 @@ void reg_test() {
 	cpu.eip = eip_sample;
 
 	int i;
-	for(i = R_EAX; i <= R_EDI; i ++) {
+	for(i = R_EAX; i <= R_EDI; i++) {
 		sample[i] = rand();
 		reg_l(i) = sample[i];
 		assert(reg_w(i) == (sample[i] & 0xffff));
@@ -42,3 +42,19 @@ void reg_test() {
 	assert(eip_sample == cpu.eip);
 }
 
+uint32_t get_reg_by_str(bool *success, char *e){
+    int i;
+    if (strlen(e) == 3){
+        for (i = R_EAX; i < R_EDI; i++){
+            if (strcmp(e, regsl[i]) == 0){
+                return reg_l(i);
+            }
+        }
+    } else if(strlen(e) == 2){
+        
+    } else{
+        *success = false;
+        return 0;
+    }
+    return 0;
+}

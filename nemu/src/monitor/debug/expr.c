@@ -37,7 +37,7 @@ static struct rule {
     {"\\*", '*'},                   // multi
     {"/", '/'},                     // /
     {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},  // hex
-    {"\\$[a-z]{3}", REG},                   // reg
+    {"\\$[eE]?(ax|cx|dx|bx|sp|bp|si|di)[a-z]{3}", REG},                   // reg
     {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
 };
 
@@ -132,6 +132,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q);
 bool check_parentheses(int *info, uint32_t p, uint32_t q);
 int find_dominant_operator(uint32_t p, uint32_t q);
 uint32_t expr(char *e, bool *success) {
+    *success = true;
 	if(!make_token(e)) {
 		*success = false;
 	    return 0;
@@ -158,6 +159,8 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             res = atoi(tokens[p].str);
         } else if(tokens[p].type == HEXADECIMAL){
             res = strtol(tokens[p].str, NULL, 16);
+        } else if(tokens[p].type == REG){
+            res = get_reg_by_str(success, tokens[p].str);
         } else{
             *success = false;
         }

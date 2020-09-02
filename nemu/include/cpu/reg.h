@@ -46,4 +46,5 @@ extern const char* regsl[];
 extern const char* regsw[];
 extern const char* regsb[];
 
+extern uint32_t get_reg_by_str(bool *success, char *e);
 #endif
