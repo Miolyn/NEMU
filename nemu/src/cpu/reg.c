@@ -47,6 +47,7 @@ uint32_t get_reg_by_str(bool *success, char *e){
     if (strlen(e) == 3){
         for (i = R_EAX; i < R_EDI; i++){
             if (strcmp(e, regsl[i]) == 0){
+                printf("reg:%s,val:%u", e, reg_l(i));
                 return reg_l(i);
             }
         }
