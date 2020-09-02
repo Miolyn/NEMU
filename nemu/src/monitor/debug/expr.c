@@ -137,6 +137,7 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	// panic("please implement me");
+    printf("nr_tolen:%d\n", nr_token);
 	return eval(success, 0, nr_token - 1);
 }
 
