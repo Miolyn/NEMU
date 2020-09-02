@@ -37,7 +37,7 @@ static struct rule {
     {"\\*", '*'},                   // multi
     {"/", '/'},                     // /
     {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},  // hex
-    {"\\$[eE]?(ax|cx|dx|bx|sp|bp|si|di)[a-z]{3}", REG},                   // reg
+    {"\\$[eE]?(ax|cx|dx|bx|sp|bp|si|di)", REG},                   // reg
     {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
 };
 
