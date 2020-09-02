@@ -210,7 +210,7 @@ bool check_parentheses(int *info, uint32_t p, uint32_t q){
         }
         if (i == q + 1 && suc == 0){
             *info = NO_PARENTHESES;
-            return true;
+            return false;
         }
         return false;
     }
@@ -227,7 +227,7 @@ bool check_parentheses(int *info, uint32_t p, uint32_t q){
     }
     if (i == q + 1 && suc == 0){
         *info = NO_PARENTHESES;
-        return true;
+        return false;
     }
     return false;
 }
