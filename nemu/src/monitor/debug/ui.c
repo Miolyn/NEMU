@@ -64,6 +64,13 @@ static int cmd_info(char *args){
     return 0;
 }
 
+static int cmd_p(char *args){
+    bool success;
+    uint32_t res = expr(args, &success);
+    printf("%d\n", res);
+    return 0;
+}
+
 static int cmd_x(char *args){
     if (args == NULL){
         return 0;
@@ -103,6 +110,7 @@ static struct {
     {"si", "run by step", cmd_si },
     {"info", "print the info of register or point", cmd_info },
     {"x", "print n value of the memory addr", cmd_x },
+    {"p", "calculate expression", cmd_p },
 
 };
 

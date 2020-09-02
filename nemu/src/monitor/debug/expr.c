@@ -5,9 +5,16 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256,
+    EQ,
+    NUMBER,
+    HEXADECIMAL,
+    REG,
+    DEREF,
 
 	/* TODO: Add more token types */
 
@@ -23,8 +30,15 @@ static struct rule {
 	 */
 
 	{" +",	NOTYPE},				// spaces
+    {"==", EQ},                     // equal
+
 	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+    {"-", '-'},                     // minux
+    {"\\*", '*'},                   // multi
+    {"/", '/'},                     // /
+    {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
+    {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},  // hex
+    {"\\$[a-z]{3}", REG},           // reg
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -77,9 +91,26 @@ static bool make_token(char *e) {
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
 				 */
-
+                
+                if (substr_len > 32){
+                    return false;
+                }
+                
+                
 				switch(rules[i].token_type) {
-					default: panic("please implement me");
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '(':
+                    case ')':
+                    case NUMBER: {
+                        tokens[nr_token].type = rules[i].token_type;
+                        strncpy(tokens[nr_token].str, substr_start, substr_len);
+                        tokens[nr_token++].str[substr_len] = '\0';
+
+                    }
+				    //	default: panic("please implement me");
 				}
 
 				break;
@@ -95,14 +126,141 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+uint32_t eval(bool *success, uint32_t p, uint32_t q);
+bool check_parentheses(int *info, uint32_t p, uint32_t q);
+int find_dominant_operator(uint32_t p, uint32_t q);
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
-		return 0;
+	    return 0;
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
 	panic("please implement me");
-	return 0;
+	return eval(success, 0, nr_token - 1);
 }
 
+
+const int ERROR = -1;
+const int NO_PARENTHESES = 1;
+
+uint32_t eval(bool *success, uint32_t p, uint32_t q){
+    int info;
+    if (p > q){
+        *success = false;
+        return 0;
+    } else if(p == q){
+        uint32_t res = 0;
+        if(tokens[p].type == NUMBER){
+            res = atoi(tokens[p].str);
+        } else if(tokens[p].type == HEXADECIMAL){
+            res = strtol(tokens[p].str, NULL, 16);
+        } else{
+            *success = false;
+        }
+        return res;
+    } else if(check_parentheses(&info, p, q)){
+        return eval(success, p + 1, q - 1);
+    } else if(info == NO_PARENTHESES){
+        uint32_t op = find_dominant_operator(p, q);
+        uint32_t val1 = eval(success, p, op - 1);
+        uint32_t val2 = eval(success, op + 1, q);
+        switch(tokens[op].type){
+            case '+': return val1 + val2;
+            case '-': return val1 - val2;
+            case '*': return val1 * val2;
+            case '/': return val1 / val2;
+            default: assert(0);
+        }
+    }
+        
+    return 0;
+}
+
+bool check_parentheses(int *info, uint32_t p, uint32_t q){
+    int i;
+    int suc = 0;
+    if (tokens[p].type == '(' && tokens[q].type == ')'){
+        for (i = p + 1; i <= q - 1; i++){
+            if (tokens[i].type == '('){
+                ++suc;
+            } else if(tokens[i].type == ')'){
+                --suc;
+            }
+
+            if (suc < 0){
+                break;
+            }
+        }
+        if (i == q){
+            return (suc == 0);
+        }
+        suc = 0;
+        for (i = p; i <= q; i++){
+            if (tokens[i].type == '('){
+                ++suc;
+            } else if (tokens[i].type == '('){
+                --suc;
+            }
+
+            if (suc < 0){
+                return false;
+            }
+        }
+        if (i == q + 1 && suc == 0){
+            *info = NO_PARENTHESES;
+            return true;
+        }
+        return false;
+    }
+    for (i = p; i <= q; i++){
+        if (tokens[i].type == '('){
+            ++suc;
+        } else if (tokens[i].type == ')'){
+            --suc;
+        }
+
+        if (suc < 0){
+            return false;
+        }
+    }
+    if (i == q + 1 && suc == 0){
+        *info = NO_PARENTHESES;
+        return true;
+    }
+    return false;
+}
+
+int find_dominant_operator(uint32_t p, uint32_t q){
+    int op = p;
+    int par = 0;
+    int i;
+    for (i = p; i <= q; i++){
+        if (tokens[i].type > NOTYPE){
+           continue;
+        }
+
+        if(tokens[i].type == '('){
+            ++par;
+        } else if(tokens[i].type == ')'){
+           ++par; 
+        }
+
+        if (par == 0){
+            if (tokens[i].type == '+'){
+                op = i;
+            } else if(tokens[i].type == '-'){
+                op = i;
+            } else if (tokens[i].type == '*'){
+                if (tokens[op].type == '*' || tokens[op].type == '/'){
+                    op = i;
+                }
+            } else if (tokens[i].type == '/'){
+                if (tokens[op].type == '*' || tokens[op].type == '/'){
+                    op = i;
+                }
+            }
+        }
+    } 
+    return op;
+}
