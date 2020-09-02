@@ -36,9 +36,9 @@ static struct rule {
     {"-", '-'},                     // minux
     {"\\*", '*'},                   // multi
     {"/", '/'},                     // /
-    {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
     {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},  // hex
-    {"\\$[a-z]{3}", REG},           // reg
+    {"\\$[a-z]{3}", REG},                   // reg
+    {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
