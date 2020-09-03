@@ -127,7 +127,7 @@ static bool make_token(char *e) {
     // find *addr
     for(i = 0; i < nr_token; i++){
         if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER || tokens[i - 1].type != REG || tokens[i - 1].type != HEXADECIMAL))){
-            // printf("deref:%d\n", i);
+            printf("deref:%d\n", i);
             tokens[i].type = DEREF;
         }
     }
@@ -264,8 +264,10 @@ int find_dominant_operator(uint32_t p, uint32_t q){
 
         if(tokens[i].type == '('){
             ++par;
+            continue;
         } else if(tokens[i].type == ')'){
-           ++par; 
+            --par; 
+            continue;
         }
 
         if (par == 0){
@@ -274,6 +276,7 @@ int find_dominant_operator(uint32_t p, uint32_t q){
             } else if(tokens[i].type == '-'){
                 op = i;
             } else if (tokens[i].type == '*'){
+                printf("optype%d\n", tokens[op].type);
                 if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
                     op = i;
                 }
