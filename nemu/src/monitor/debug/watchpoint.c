@@ -27,21 +27,27 @@ WP* new_wp(bool *success, char *e){
     if (free_ == NULL){
         assert(0);
     }
+    char *exp = (char*)malloc(32 * sizeof(char));
+    strcpy(exp, e);
+    uint32_t res = expr(exp, success);
+    if(!*success){
+        return NULL;
+    }
     if (head == NULL){
         head = free_;
         free_ = free_->next;
         head->next = NULL;
+        head->expr = exp;
+        head->val = res;
         return head;
     }
     WP* p = free_;
     free_ = free_->next;
     p->next = head;
     head = p;
-    char *exp = (char*) malloc(32 *sizeof(char));
-    strcpy(exp, e);
     head->expr = exp;
     printf("%s\n", exp);
-    head->val = expr(exp, success);
+    head->val = res;
     return head;
 }
 
