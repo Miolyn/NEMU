@@ -45,13 +45,22 @@ void reg_test() {
 uint32_t get_reg_by_str(bool *success, char *e){
     int i;
     if (strlen(e) == 3){
-        for (i = R_EAX; i < R_EDI; i++){
+        for (i = R_EAX; i <= R_EDI; i++){
             if (strcmp(e, regsl[i]) == 0){
                 return reg_l(i);
             }
         }
     } else if(strlen(e) == 2){
-        
+        for(i = R_AX; i <= R_DI; i++){
+            if(strcmp(e, regsw[i]) == 0){
+                return reg_w(i);
+            }
+        }
+        for(i = R_AL; i <= R_BH; i++){
+            if(strcmp(e, regsb[i]) == 0){
+                return reg_b(i);
+            }
+        }
     } else{
         *success = false;
         return 0;

@@ -9,12 +9,12 @@
 #include <stdio.h>
 
 enum {
-	NOTYPE = 256,
-    EQ,
-    NUMBER,
-    HEXADECIMAL,
-    REG,
-    DEREF,
+	NOTYPE = 256,   // ' '
+    EQ,             // ==
+    DEREF,          // *addr
+    NUMBER,         //number
+    HEXADECIMAL,    // hex
+    REG,            // register
 
 	/* TODO: Add more token types */
 
@@ -29,16 +29,16 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// spaces
-    {"==", EQ},                     // equal
+	{" +",	NOTYPE},				                                            // spaces
+    {"==", EQ},                                                                 // equal
 
-	{"\\+", '+'},					// plus
-    {"-", '-'},                     // minux
-    {"\\*", '*'},                   // multi
-    {"/", '/'},                     // /
-    {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},  // hex
-    {"\\$[eE]?(ax|cx|dx|bx|sp|bp|si|di)", REG},                   // reg
-    {"([1-9][0-9]{1,31})|[0-9]", NUMBER},   // number
+	{"\\+", '+'},					                                            // plus+
+    {"-", '-'},                                                                 // minus-
+    {"\\*", '*'},                                                               // multi*
+    {"/", '/'},                                                                 // div/
+    {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},                                     // hex
+    {"\\$([eE]?(ax|cx|dx|bx|sp|bp|si|di))|([a-d][hl])", REG},                   // reg
+    {"([1-9][0-9]{1,31})|[0-9]", NUMBER},                                       // number
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -112,7 +112,7 @@ static bool make_token(char *e) {
                         tokens[nr_token++].str[substr_len] = '\0';
 
                     }
-				    //	default: panic("please implement me");
+				    default: panic("error char eixst");
 				}
 
 				break;
@@ -124,7 +124,12 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-
+    // find *addr
+    for(i = 0; i < nr_token; i++){
+        if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER || tokens[i - 1].type != REG || tokens[i - 1].type != HEXADECIMAL))){
+            tokens[i].type = DEREF;
+        }
+    }
 	return true; 
 }
 
@@ -151,7 +156,6 @@ const int NO_PARENTHESES = 1;
 uint32_t eval(bool *success, uint32_t p, uint32_t q){
     int info;
     if (p > q){
-        *success = false;
         return 0;
     } else if(p == q){
         uint32_t res = 0;
@@ -176,6 +180,9 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             case '-': return val1 - val2;
             case '*': return val1 * val2;
             case '/': return val1 / val2;
+            case DEREF:{
+                return swaddr_read(val2, 4);              
+            }
             default: assert(0);
         }
     }
@@ -241,6 +248,11 @@ int find_dominant_operator(uint32_t p, uint32_t q){
     int op = p;
     int par = 0;
     int i;
+    // find deref
+    if(p + 1 == q && tokens[p].type == DEREF){
+        op = p;
+        return op;
+    }
     for (i = p; i <= q; i++){
         if (tokens[i].type > NOTYPE){
            continue;
