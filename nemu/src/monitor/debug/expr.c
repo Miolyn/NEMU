@@ -82,6 +82,7 @@ Token tokens[32];
 int nr_token;
 
 bool is_parentheses(int i);
+bool is_logic(int i);
 static bool make_token(char *e) {
 	int position = 0;
 	int i;
@@ -198,6 +199,10 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         uint32_t op = find_dominant_operator(success, p, q);
         // printf("op pos%d\n", op);
         uint32_t val1 = eval(success, p, op - 1);
+        if(p == op - 1 && is_logic(op)){
+            *success = false;
+            return 0;
+        }
         uint32_t val2 = eval(success, op + 1, q);
         // printf("val1:%d,val2:%d\n", val1, val2);
         switch(tokens[op].type){
@@ -209,6 +214,11 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
                 return swaddr_read(val2, 4);              
             }
             case NEG: return -1 * val2;
+            case LNOT: return !val2;
+            case EQ: return val1 == val2;
+            case NEQ: return val1 != val2;
+            case LAND: return val1 && val2;
+            case LOR: return val1 || val2;
             default: assert(0);
         }
     }
@@ -277,6 +287,11 @@ bool check_parentheses(int *info, uint32_t p, uint32_t q){
 bool is_parentheses(int i){
     return (tokens[i].type == '(' || tokens[i].type == ')');
 }
+
+bool is_logic(int i){
+    int tp = tokens[i].type;
+    return (tp == LAND || tp == LOR || tp == EQ || tp == NEQ);
+}
 int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int op = p;
     int par = 0;
@@ -305,18 +320,21 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
         // printf("pos%d,par%d\n", i, par);
         if (par == 0){
             // printf("is:%d\n", is_parentheses(op));
-            if (tokens[i].type == '+'){
+            if (is_logic(i)){
                 flag = true;
                 op = i;
-            } else if(tokens[i].type == '-'){
+            } if (tokens[i].type == '+' && !is_logic(op)){
                 flag = true;
                 op = i;
-            } else if (tokens[i].type == '*'){
+            } else if(tokens[i].type == '-' && !is_logic(op)){
+                flag = true;
+                op = i;
+            } else if (tokens[i].type == '*' && !is_logic(op)){
                 if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE || is_parentheses(op)){
                     flag = true;
                     op = i;
                 }
-            } else if (tokens[i].type == '/'){
+            } else if (tokens[i].type == '/' && !is_logic(op)){
                 if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE || is_parentheses(op)){
                     flag = true;
                     op = i;
