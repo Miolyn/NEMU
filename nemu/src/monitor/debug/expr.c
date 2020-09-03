@@ -177,6 +177,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         printf("op pos%d\n", op);
         uint32_t val1 = eval(success, p, op - 1);
         uint32_t val2 = eval(success, op + 1, q);
+        printf("val1:%d,val2:%d\n", val1, val2);
         switch(tokens[op].type){
             case '+': return val1 + val2;
             case '-': return val1 - val2;
