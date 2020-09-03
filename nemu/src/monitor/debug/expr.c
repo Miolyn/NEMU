@@ -164,7 +164,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         return 0;
     } else if(p == q){
         uint32_t res = 0;
-        printf("%s", tokens[p].str);
+        // printf("%s ", tokens[p].str);
         if(tokens[p].type == NUMBER){
             printf("number\n");
             res = atoi(tokens[p].str);
@@ -281,9 +281,9 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
             --par; 
             continue;
         }
-        printf("pos%d,par%d\n", i, par);
+        // printf("pos%d,par%d\n", i, par);
         if (par == 0){
-            printf("is:%d\n", is_parentheses(op));
+            // printf("is:%d\n", is_parentheses(op));
             if (tokens[i].type == '+'){
                 flag = true;
                 op = i;
