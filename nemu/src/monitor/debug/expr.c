@@ -278,6 +278,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
         }
 
         if (par == 0){
+            printf("is:%d\n", is_parentheses(op));
             if (tokens[i].type == '+'){
                 flag = true;
                 op = i;
@@ -298,7 +299,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
         }
     }
     for(i = p; i <= q; i++){
-        printf("%s", tokens[i].str);
+        printf("%s ", tokens[i].str);
     }
     printf("\n");
     printf("p=%d,q=%d,op pos:%d\n", p, q, op);
