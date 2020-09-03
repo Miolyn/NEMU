@@ -166,13 +166,13 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         uint32_t res = 0;
         // printf("%s ", tokens[p].str);
         if(tokens[p].type == NUMBER){
-            printf("number\n");
+            // printf("number\n");
             res = atoi(tokens[p].str);
         } else if(tokens[p].type == HEXADECIMAL){
-            printf("hex\n");
+            // printf("hex\n");
             res = strtol(tokens[p].str, NULL, 16);
         } else if(tokens[p].type == REG){
-            printf("reg\n");
+            // printf("reg\n");
             res = get_reg_by_str(success, tokens[p].str + 1);
         } else{
             *success = false;
