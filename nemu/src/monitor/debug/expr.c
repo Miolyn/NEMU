@@ -155,6 +155,7 @@ const int ERROR = -1;
 const int NO_PARENTHESES = 1;
 
 uint32_t eval(bool *success, uint32_t p, uint32_t q){
+    printf("p:%d,q:%d\n", p, q);
     int info;
     if (p > q || p < 0 || q < 0){
         return 0;
