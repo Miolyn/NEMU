@@ -135,6 +135,7 @@ static bool make_token(char *e) {
             if (tokens[i].type == '*'){
                 tokens[i].type = DEREF;
             } else if(tokens[i].type == '-'){
+                printf("neg pos%d\n", i);
                 tokens[i].type = NEG;
             }
         }
