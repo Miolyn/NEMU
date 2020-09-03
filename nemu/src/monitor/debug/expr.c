@@ -209,6 +209,10 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
 }
 
 bool check_parentheses(int *info, uint32_t p, uint32_t q){
+    if (tokens[p].type == NEG || tokens[p].type == DEREF){
+        *info = NO_PARENTHESES;
+        return false;
+    }
     int i;
     int suc = 0;
     if (tokens[p].type == '(' && tokens[q].type == ')'){
@@ -271,7 +275,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int i;
     // find deref
     bool flag = false;
-    if(p + 1 == q && (tokens[p].type == DEREF || tokens[p].type == NEG)){
+    if(tokens[p].type == DEREF || tokens[p].type == NEG){
         op = p;
         flag = true;
         return op;
