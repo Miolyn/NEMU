@@ -10,6 +10,9 @@
 
 enum {
 	NOTYPE = 256,   // ' '
+    NUMBER,         // number
+    HEXADECIMAL,    // hex
+    REG,            // register
     EQ,             // ==
     NEQ,            // !=
     LAND,           // &&
@@ -17,9 +20,6 @@ enum {
     LNOT,           // !
     DEREF,          // *addr
     NEG,            // neg -
-    NUMBER,         //number
-    HEXADECIMAL,    // hex
-    REG,            // register
 
 	/* TODO: Add more token types */
 
@@ -311,7 +311,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
         }
     }
     for (i = p; i <= q; i++){
-        if (tokens[i].type > NOTYPE){
+        if (tokens[i].type > NOTYPE && tokens[i].type < EQ){
            continue;
         }
 
