@@ -270,7 +270,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int i;
     // find deref
     bool flag = false;
-    if(p + 1 == q && tokens[p].type == DEREF){
+    if(p + 1 == q && (tokens[p].type == DEREF || tokens[p].type == NEG)){
         op = p;
         flag = true;
         return op;
