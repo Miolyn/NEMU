@@ -169,7 +169,7 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	// panic("please implement me");
-    printf("nr_token:%d\n", nr_token);
+    // printf("nr_token:%d\n", nr_token);
 	return eval(success, 0, nr_token - 1);
 }
 
@@ -184,15 +184,15 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         return 0;
     } else if(p == q){
         uint32_t res = 0;
-        printf("%s ", tokens[p].str);
+        // printf("%s ", tokens[p].str);
         if(tokens[p].type == NUMBER){
-            printf("number\n");
+            // printf("number\n");
             res = atoi(tokens[p].str);
         } else if(tokens[p].type == HEXADECIMAL){
-            printf("hex\n");
+            // printf("hex\n");
             res = strtol(tokens[p].str, NULL, 16);
         } else if(tokens[p].type == REG){
-            printf("reg\n");
+            // printf("reg\n");
             res = get_reg_by_str(success, tokens[p].str + 1);
         } else{
             *success = false;
@@ -352,11 +352,11 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
             }
         }
     }
-    for(i = p; i <= q; i++){
-        printf("%s ", tokens[i].str);
-    }
-    printf("\n");
-    printf("p=%d,q=%d,op pos:%d\n", p, q, op);
+    // for(i = p; i <= q; i++){
+    //    printf("%s ", tokens[i].str);
+    // }
+    //printf("\n");
+    //printf("p=%d,q=%d,op pos:%d\n", p, q, op);
     if (!flag){
         *success = false;
     }

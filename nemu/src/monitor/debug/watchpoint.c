@@ -70,7 +70,6 @@ bool free_wp(int no){
 
 void check_wp(int *state){
     WP *p = head;
-    printf("start check wp\n");
     while(p != NULL){
         bool success = true;
         uint32_t v = expr(p->expr, &success);
