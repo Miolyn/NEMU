@@ -72,6 +72,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
+bool is_parentheses(int i);
 static bool make_token(char *e) {
 	int position = 0;
 	int i;
@@ -128,7 +129,7 @@ static bool make_token(char *e) {
 	}
     // find *addr
     for(i = 0; i < nr_token; i++){
-        if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER && tokens[i - 1].type != REG && tokens[i - 1].type != HEXADECIMAL))){
+        if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER && tokens[i - 1].type != REG && tokens[i - 1].type != HEXADECIMAL && !is_parentheses(i - 1)))){
             // printf("deref:%d\n", i);
             tokens[i].type = DEREF;
         }
