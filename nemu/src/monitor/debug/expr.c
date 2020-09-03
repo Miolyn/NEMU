@@ -112,7 +112,7 @@ static bool make_token(char *e) {
                         tokens[nr_token++].str[substr_len] = '\0';
                         break;
                     }
-				    default: panic("error char eixst");
+				   // default: panic("error char eixst");
 				}
 
 				break;
@@ -127,7 +127,7 @@ static bool make_token(char *e) {
     // find *addr
     for(i = 0; i < nr_token; i++){
         if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER || tokens[i - 1].type != REG || tokens[i - 1].type != HEXADECIMAL))){
-            printf("deref:%d\n", i);
+            // printf("deref:%d\n", i);
             tokens[i].type = DEREF;
         }
     }
@@ -155,7 +155,7 @@ const int ERROR = -1;
 const int NO_PARENTHESES = 1;
 
 uint32_t eval(bool *success, uint32_t p, uint32_t q){
-    printf("p:%d,q:%d\n", p, q);
+    // printf("p:%d,q:%d\n", p, q);
     int info;
     if (p > q || p == -1 || q == -1){
         return 0;
@@ -175,10 +175,10 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         return eval(success, p + 1, q - 1);
     } else if(info == NO_PARENTHESES){
         uint32_t op = find_dominant_operator(p, q);
-        printf("op pos%d\n", op);
+        // printf("op pos%d\n", op);
         uint32_t val1 = eval(success, p, op - 1);
         uint32_t val2 = eval(success, op + 1, q);
-        printf("val1:%d,val2:%d\n", val1, val2);
+        // printf("val1:%d,val2:%d\n", val1, val2);
         switch(tokens[op].type){
             case '+': return val1 + val2;
             case '-': return val1 - val2;
