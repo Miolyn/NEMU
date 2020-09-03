@@ -39,6 +39,7 @@ WP* new_wp(bool *success, char *e){
     char *exp = (char*) malloc(32 *sizeof(char));
     strcpy(exp, e);
     head->expr = exp;
+    printf("%s\n", exp);
     head->val = expr(exp, success);
     return head;
 }
