@@ -12,6 +12,7 @@ enum {
 	NOTYPE = 256,   // ' '
     EQ,             // ==
     DEREF,          // *addr
+    NEG,            // neg -
     NUMBER,         //number
     HEXADECIMAL,    // hex
     REG,            // register
@@ -129,9 +130,13 @@ static bool make_token(char *e) {
 	}
     // find *addr
     for(i = 0; i < nr_token; i++){
-        if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != NUMBER && tokens[i - 1].type != REG && tokens[i - 1].type != HEXADECIMAL && !is_parentheses(i - 1)))){
+        if((tokens[i].type == '*' || tokens[i].type == '-')&& (i == 0 || (tokens[i - 1].type != NUMBER && tokens[i - 1].type != REG && tokens[i - 1].type != HEXADECIMAL && !is_parentheses(i - 1)))){
             // printf("deref:%d\n", i);
-            tokens[i].type = DEREF;
+            if (tokens[i].type == '*'){
+                tokens[i].type = DEREF;
+            } else if(tokens[i].type == '-'){
+                tokens[i].type = NEG;
+            }
         }
     }
 	return true; 
@@ -194,6 +199,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             case DEREF:{
                 return swaddr_read(val2, 4);              
             }
+            case NEG: return -1 * val2;
             default: assert(0);
         }
     }
