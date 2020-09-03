@@ -138,7 +138,7 @@ static bool make_token(char *e) {
 
 uint32_t eval(bool *success, uint32_t p, uint32_t q);
 bool check_parentheses(int *info, uint32_t p, uint32_t q);
-int find_dominant_operator(uint32_t p, uint32_t q);
+int find_dominant_operator(bool *success, uint32_t p, uint32_t q);
 uint32_t expr(char *e, bool *success) {
     *success = true;
 	if(!make_token(e)) {
@@ -176,7 +176,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
     } else if(check_parentheses(&info, p, q)){
         return eval(success, p + 1, q - 1);
     } else if(info == NO_PARENTHESES){
-        uint32_t op = find_dominant_operator(p, q);
+        uint32_t op = find_dominant_operator(success, p, q);
         // printf("op pos%d\n", op);
         uint32_t val1 = eval(success, p, op - 1);
         uint32_t val2 = eval(success, op + 1, q);
@@ -250,13 +250,15 @@ bool check_parentheses(int *info, uint32_t p, uint32_t q){
     return false;
 }
 
-int find_dominant_operator(uint32_t p, uint32_t q){
+int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int op = p;
     int par = 0;
     int i;
     // find deref
+    bool flag = false;
     if(p + 1 == q && tokens[p].type == DEREF){
         op = p;
+        flag = true;
         return op;
     }
     for (i = p; i <= q; i++){
@@ -274,20 +276,27 @@ int find_dominant_operator(uint32_t p, uint32_t q){
 
         if (par == 0){
             if (tokens[i].type == '+'){
+                flag = true;
                 op = i;
             } else if(tokens[i].type == '-'){
+                flag = true;
                 op = i;
             } else if (tokens[i].type == '*'){
                 if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
+                    flag = true;
                     op = i;
                 }
             } else if (tokens[i].type == '/'){
                 if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
+                    flag = true;
                     op = i;
                 }
             }
         }
     }
     printf("p=%d,q=%d,op pos:%d\n", p, q, op);
+    if (!flag){
+        *success = false;
+    }
     return op;
 }

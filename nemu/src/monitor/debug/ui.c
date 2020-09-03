@@ -65,8 +65,12 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-    bool success;
+    bool success = true;
     uint32_t res = expr(args, &success);
+    if (!success){
+        printf("error expression\n");
+        return 0;
+    }
     printf("%d\n", res);
     return 0;
 }
@@ -83,12 +87,13 @@ static int cmd_x(char *args){
     if (n <= 0){
         return 0;
     }
-    char *addrStr = nStr + strlen(nStr) + 1;
-    int addr = strtol(addrStr, NULL, 16);
-    if (addr < 0){
+    char *exprStr = nStr + strlen(nStr) + 1;
+    bool success = true;
+    uint32_t uAddr = expr(exprStr, &success);
+    if (!success){
+        printf("error expression\n");
         return 0;
     }
-    uint32_t uAddr = addr;
     int i;
     for (i = 0; i < n; i++){
         uint32_t addrI = uAddr + i * 32;
