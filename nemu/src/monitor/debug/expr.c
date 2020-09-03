@@ -156,7 +156,7 @@ const int NO_PARENTHESES = 1;
 
 uint32_t eval(bool *success, uint32_t p, uint32_t q){
     int info;
-    if (p > q){
+    if (p > q || p < 0 || q < 0){
         return 0;
     } else if(p == q){
         uint32_t res = 0;
