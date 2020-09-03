@@ -283,10 +283,12 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int i;
     // find deref
     bool flag = false;
-    if((tokens[p].type == DEREF || tokens[p].type == NEG || tokens[p].type == LNOT) && p + 1 == q){
+    if(tokens[p].type == DEREF || tokens[p].type == NEG || tokens[p].type == LNOT){
         op = p;
         flag = true;
-        return op;
+        if (p + 1 == q){
+            return op;
+        }
     }
     for (i = p; i <= q; i++){
         if (tokens[i].type > NOTYPE){
