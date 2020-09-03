@@ -62,9 +62,14 @@ bool free_wp(int no){
     if (p == NULL){
         return false;
     }
-    q->next = p->next;
+    if (q != NULL){
+        q->next = p->next;
+    }
     p->next = free_;
     free_ = p;
+    if(p == head){
+        head = NULL;
+    }
     return true;
 }
 
