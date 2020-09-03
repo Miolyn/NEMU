@@ -276,7 +276,7 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
             --par; 
             continue;
         }
-
+        printf("pos%d,par%d\n", i, par);
         if (par == 0){
             printf("is:%d\n", is_parentheses(op));
             if (tokens[i].type == '+'){
