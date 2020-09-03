@@ -294,6 +294,10 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
             }
         }
     }
+    for(i = p; i <= q; i++){
+        printf("%s", tokens[i].str);
+    }
+    printf("\n");
     printf("p=%d,q=%d,op pos:%d\n", p, q, op);
     if (!flag){
         *success = false;
