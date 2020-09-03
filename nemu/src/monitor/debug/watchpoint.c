@@ -1,11 +1,11 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
-
+#include "monitor/monitor.h"
 #define NR_WP 32
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
-
+void wp_change_info(WP *wp, uint32_t o_v, uint32_t n_v);
 void init_wp_pool() {
 	int i;
 	for(i = 0; i < NR_WP; i ++) {
@@ -52,4 +52,23 @@ void free_wp(int no){
     q->next = p->next;
     p->next = free_;
     free_ = p;
+}
+
+void check_wp(int *state){
+    WP *p = head;
+    while(p != NULL){
+        bool success = true;
+        uint32_t v = expr(p->expr, &success);
+        if (v != p->val){
+            *state = STOP;
+            wp_change_info(p, p->val, v);
+            p->val = v;
+            return;
+        }
+        p = p->next;
+    }
+}
+
+void wp_change_info(WP *wp, uint32_t o_v, uint32_t n_v){
+    printf("watchpoint trgger, NO:%d,expression:%s,original value:%d,now value:%d\n", wp->NO, wp->expr, o_v, n_v);
 }

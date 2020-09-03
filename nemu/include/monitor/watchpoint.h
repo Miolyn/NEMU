@@ -12,5 +12,7 @@ typedef struct watchpoint {
     uint32_t val;
 
 } WP;
-
+extern WP* new_wp(bool *success, char *e);
+extern void free_wp(int no);
+extern void check_wp(int *state);
 #endif
