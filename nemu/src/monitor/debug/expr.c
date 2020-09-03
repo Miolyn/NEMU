@@ -117,6 +117,11 @@ static bool make_token(char *e) {
                     case '/':
                     case '(':
                     case ')':
+                    case EQ:
+                    case NEQ:
+                    case LNOT:
+                    case LAND:
+                    case LOR:
                     case HEXADECIMAL:
                     case REG:
                     case NUMBER: {
