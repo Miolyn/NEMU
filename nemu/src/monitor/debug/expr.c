@@ -39,6 +39,7 @@ static struct rule {
     {"\\(", '('},                                                                 // (
     {"\\)", ')'},                                                                 //)
     {"\\$([eE]?(ax|cx|dx|bx|sp|bp|si|di))|([a-d][hl])", REG},                   // reg
+    {"0[xX][0-9]{1,8}", HEXADECIMAL},                                            // hex
     {"([1-9][0-9]{1,31})|[0-9]", NUMBER},                                       // number
 };
 
