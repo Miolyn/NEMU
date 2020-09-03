@@ -1,6 +1,7 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
 #include "monitor/monitor.h"
+#include "stdlib.h"
 #define NR_WP 32
 
 static WP wp_pool[NR_WP];
@@ -35,8 +36,10 @@ WP* new_wp(bool *success, char *e){
     free_ = free_->next;
     p->next = head;
     head = p;
-    head->expr = e;
-    head->val = expr(e, success);
+    char *exp = (char*) malloc(32 *sizeof(char));
+    strcpy(exp, e);
+    head->expr = exp;
+    head->val = expr(exp, success);
     return head;
 }
 
@@ -87,7 +90,7 @@ void wp_info(int eip){
     WP *p = head;
     printf("watchpoint info at eip:%d\n", eip);
     while(p != NULL){
-        printf("NO:%d,expression:%s,value:%d", p->NO, p->expr, p->val);
+        printf("NO:%d,expression:%s,value:%d\n", p->NO, p->expr, p->val);
         p = p->next;
     }
 }
