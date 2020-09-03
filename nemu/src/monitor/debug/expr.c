@@ -250,6 +250,9 @@ bool check_parentheses(int *info, uint32_t p, uint32_t q){
     return false;
 }
 
+bool is_parentheses(int i){
+    return (tokens[i].type == '(' || tokens[i].type == ')');
+}
 int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
     int op = p;
     int par = 0;
@@ -282,12 +285,12 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
                 flag = true;
                 op = i;
             } else if (tokens[i].type == '*'){
-                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
+                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE || is_parentheses(op)){
                     flag = true;
                     op = i;
                 }
             } else if (tokens[i].type == '/'){
-                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
+                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE || is_parentheses(op)){
                     flag = true;
                     op = i;
                 }
