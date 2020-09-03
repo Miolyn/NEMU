@@ -274,11 +274,11 @@ int find_dominant_operator(uint32_t p, uint32_t q){
             } else if(tokens[i].type == '-'){
                 op = i;
             } else if (tokens[i].type == '*'){
-                if (tokens[op].type == '*' || tokens[op].type == '/'){
+                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
                     op = i;
                 }
             } else if (tokens[i].type == '/'){
-                if (tokens[op].type == '*' || tokens[op].type == '/'){
+                if (tokens[op].type == '*' || tokens[op].type == '/' || tokens[op].type > NOTYPE){
                     op = i;
                 }
             }
