@@ -58,7 +58,7 @@ static int cmd_info(char *args){
             printf("%s: %x\n", regName[i], reg_l(i));
         }
     } else if (strcmp(args, "w") == 0){
-
+        wp_info(cpu.eip);
     }
     
     return 0;
@@ -104,10 +104,24 @@ static int cmd_x(char *args){
 }
 
 static int cmd_w(char *args){
+    bool success = true;
+    WP *wp = new_wp(&success, args);
+    if (!success){
+        printf("expression error\n");
+        return 0;
+    }
+    printf("set watchpoint no:%d\n", wp->NO);
     return 0;
 }
 
 static int cmd_d(char *args){
+    int n = atoi(args);
+    bool suc = free_wp(n);
+    if(suc){
+        printf("free watchpoint no:%d success\n", n);
+        return 0;
+    }
+    printf("free watchpoint no:%d error\n", n);
     return 0;
 }
 

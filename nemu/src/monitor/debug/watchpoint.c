@@ -39,7 +39,7 @@ WP* new_wp(bool *success, char *e){
     return head;
 }
 
-void free_wp(int no){
+bool free_wp(int no){
     WP* q = NULL;
     WP* p = head;
     while(p != NULL){
@@ -49,9 +49,13 @@ void free_wp(int no){
         q = p;
         p = p->next;
     }
+    if (p == NULL){
+        return false;
+    }
     q->next = p->next;
     p->next = free_;
     free_ = p;
+    return true;
 }
 
 void check_wp(int *state){
@@ -71,4 +75,17 @@ void check_wp(int *state){
 
 void wp_change_info(WP *wp, uint32_t o_v, uint32_t n_v){
     printf("watchpoint trgger, NO:%d,expression:%s,original value:%d,now value:%d\n", wp->NO, wp->expr, o_v, n_v);
+}
+
+void wp_info(int eip){
+    if (head == NULL){
+        printf("no watch point\n");
+        return;
+    }
+    WP *p = head;
+    printf("watchpoint info at eip:%d\n", eip);
+    while(p != NULL){
+        printf("NO:%d,expression:%s,value:%d", p->NO, p->expr, p->val);
+        p = p->next;
+    }
 }
