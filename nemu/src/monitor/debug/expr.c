@@ -326,8 +326,13 @@ int find_dominant_operator(bool *success, uint32_t p, uint32_t q){
         if (par == 0){
             // printf("is:%d\n", is_parentheses(op));
             if (is_logic(i)){
-                flag = true;
-                op = i;
+                if(tokens[i].type == EQ || tokens[i].type == NEQ){
+                    op = i;
+                    flag = true;
+                } else if (tokens[op].type != EQ && tokens[op].type != NEQ){
+                    flag = true;
+                    op = i;
+                }
             } if (tokens[i].type == '+' && !is_logic(op)){
                 flag = true;
                 op = i;
