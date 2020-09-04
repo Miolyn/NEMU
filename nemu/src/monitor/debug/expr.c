@@ -19,7 +19,7 @@ enum {
     LOR,            // ||
     LNOT,           // !
     DEREF,          // *addr
-    NEG,            // neg - negative
+    NEG,            // neg - negative is fu hao
 
 	/* TODO: Add more token types */
 
