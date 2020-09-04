@@ -19,7 +19,7 @@ enum {
     LOR,            // ||
     LNOT,           // !
     DEREF,          // *addr
-    NEG,            // neg -
+    NEG,            // neg - negative
 
 	/* TODO: Add more token types */
 
