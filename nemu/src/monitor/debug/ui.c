@@ -118,7 +118,7 @@ static int cmd_w(char *args){
 
 static int cmd_d(char *args){
     if (args == NULL){
-        printf("watchpoint no needed, please enter the cmd like[d 0]\n");
+        printf("watchpoint no needed, please enter the cmd like [d 0]\n");
         return 0;
     }
     int n = atoi(args);
