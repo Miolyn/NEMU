@@ -77,10 +77,12 @@ static int cmd_p(char *args){
 
 static int cmd_x(char *args){
     if (args == NULL){
+        printf("n needed, please enter the cmd like [x 10 0x100000]\n");
         return 0;
     }
     char *nStr = strtok(args, " ");
     if (nStr == NULL){
+        printf("n needed, please enter the cmd like [x 10 0x100000]\n");
         return 0;
     }
     int n = atoi(nStr);
@@ -115,6 +117,10 @@ static int cmd_w(char *args){
 }
 
 static int cmd_d(char *args){
+    if (args == NULL){
+        printf("watchpoint no needed, please enter the cmd like[d 0]\n");
+        return 0;
+    }
     int n = atoi(args);
     bool suc = free_wp(n);
     if(suc){
