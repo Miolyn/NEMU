@@ -3,7 +3,7 @@
 #define instr call
 
 static void do_execute(){
-    cpu.eip = (cpu.eip + op_src.imm);
+    W_REG(eip, (cpu.eip + op_src.imm));
 }
 
 make_instr_helper(i)

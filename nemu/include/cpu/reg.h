@@ -42,6 +42,7 @@ static inline int check_reg_index(int index) {
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
 #define reg_eip (cpu.eip)
+#define reg_eflags (cpu.eflags)
 
 extern const char* regsl[];
 extern const char* regsw[];

@@ -16,6 +16,11 @@
 		return idex(eip, concat4(decode_, type, _, SUFFIX), do_execute); \
 	}
 
+#define write_reg(name) \
+	void_helper(concat(write_reg_, name)) { \
+		concat(reg_, name) = src; \
+	} 
+
 extern char assembly[];
 #ifdef DEBUG
 #define print_asm(...) Assert(snprintf(assembly, 80, __VA_ARGS__) < 80, "buffer overflow!")
