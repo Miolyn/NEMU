@@ -3,6 +3,7 @@
 
 #include "all-instr.h"
 
+// function pointer
 typedef int (*helper_fun)(swaddr_t);
 static make_helper(_2byte_esc);
 
@@ -93,6 +94,7 @@ make_group(group7,
 
 /* TODO: Add more instructions!!! */
 
+// 2^8 one byte
 helper_fun opcode_table [256] = {
 /* 0x00 */	inv, inv, inv, inv,
 /* 0x04 */	inv, inv, inv, inv,
@@ -227,7 +229,9 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0xfc */	inv, inv, inv, inv
 };
 
+// turn to exec(swaddr_t eip)
 make_helper(exec) {
+	// get the first bit
 	ops_decoded.opcode = instr_fetch(eip, 1);
 	return opcode_table[ ops_decoded.opcode ](eip);
 }
