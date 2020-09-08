@@ -5,6 +5,8 @@
 
 // function pointer
 typedef int (*helper_fun)(swaddr_t);
+// #define make_helper(name) int name(swaddr_t eip)
+// make_helper to make a funciton
 static make_helper(_2byte_esc);
 
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \

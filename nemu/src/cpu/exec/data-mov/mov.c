@@ -13,7 +13,12 @@
 #undef DATA_BYTE
 
 /* for instruction encoding overloading */
-
+/*
+#define make_helper_v(name) \
+    make_helper(concat(name, _v)) { \
+		return (ops_decoded.is_operand_size_16 ? concat(name, _w) : concat(name, _l)) (eip); \
+	}
+*/
 make_helper_v(mov_i2r)
 make_helper_v(mov_i2rm)
 make_helper_v(mov_r2rm)
