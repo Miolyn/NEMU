@@ -26,7 +26,7 @@ WP* new_wp(bool *success, char *e){
     if (free_ == NULL){
         assert(0);
     }
-    char *exp = (char*)malloc(32 * sizeof(char));
+    char *exp = (char*)malloc(1024 * sizeof(char));
     strcpy(exp, e);
     uint32_t res = expr(exp, success);
     if(!*success){
