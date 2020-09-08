@@ -206,6 +206,10 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             *success = false;
             return 0;
         }
+        if(is_logic(op) && op >= q){
+            *success = false;
+            return 0;
+        }
         uint32_t val1 = eval(success, p, op - 1);
         uint32_t val2 = eval(success, op + 1, q);
         // printf("val1:%d,val2:%d\n", val1, val2);
