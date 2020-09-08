@@ -89,7 +89,7 @@ void check_wp(int *state){
 }
 
 void wp_change_info(WP *wp, uint32_t o_v, uint32_t n_v){
-    printf("watchpoint trgger, NO:%d,expression:%s,original value:%d,now value:%d\n", wp->NO, wp->expr, o_v, n_v);
+    printf("watchpoint tragger, NO:%d,expression:%s,original value:%d,now value:%d\n", wp->NO, wp->expr, o_v, n_v);
 }
 
 void wp_info(int eip){
