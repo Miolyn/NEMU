@@ -28,7 +28,7 @@ typedef struct {
         };
     };
 	swaddr_t eip;
-
+	swaddr_t eflags;
 } CPU_state;
 
 extern CPU_state cpu;
