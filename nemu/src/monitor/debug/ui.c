@@ -148,7 +148,7 @@ static struct {
     {"x", "print n value of the memory addr", cmd_x },
     {"p", "calculate expression, support negative number and *addr, $register only support lowercase reg name", cmd_p },
     {"w", "add watch point", cmd_w},
-    {"d", "delete wath point", cmd_d},
+    {"d", "delete watch point", cmd_d},
 
 };
 
