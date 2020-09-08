@@ -131,6 +131,8 @@ static int cmd_d(char *args){
     return 0;
 }
 
+
+// function test2
 static struct {
 	char *name;
 	char *description;
