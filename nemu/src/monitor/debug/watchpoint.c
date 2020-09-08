@@ -26,9 +26,9 @@ WP* new_wp(bool *success, char *e){
     if (free_ == NULL){
         assert(0);
     }
-    char *exp = (char*)malloc(1024 * sizeof(char));
-    strcpy(exp, e);
-    uint32_t res = expr(exp, success);
+    // char *exp = (char*)malloc(1024 * sizeof(char));
+    // strcpy(exp, e);
+    uint32_t res = expr(e, success);
     if(!*success){
         return NULL;
     }
@@ -36,7 +36,8 @@ WP* new_wp(bool *success, char *e){
         head = free_;
         free_ = free_->next;
         head->next = NULL;
-        head->expr = exp;
+        // head->expr = exp;
+        strcpy(head->expr, e);
         head->val = res;
         return head;
     }
@@ -44,7 +45,8 @@ WP* new_wp(bool *success, char *e){
     free_ = free_->next;
     p->next = head;
     head = p;
-    head->expr = exp;
+    // head->expr = exp;
+    strcpy(head->expr, e);
     head->val = res;
     return head;
 }
