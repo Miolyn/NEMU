@@ -206,7 +206,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             *success = false;
             return 0;
         }
-        if(is_logic(op) && op >= q){
+        if(op >= q){
             *success = false;
             return 0;
         }
