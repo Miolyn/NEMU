@@ -204,6 +204,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
         printf("op pos%d\n", op);
         if (op - 1 < p && (is_logic(op) || tokens[op].type == '/')){
             *success = false;
+            printf("error\n");
             return 0;
         }
         uint32_t val1 = eval(success, p, op - 1);
