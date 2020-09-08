@@ -202,7 +202,7 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
     } else if(info == NO_PARENTHESES){
         uint32_t op = find_dominant_operator(success, p, q);
         printf("op pos%d type %c %d %d %d\n", op, tokens[op].type, op - 1, p, (tokens[op].type == '/'));
-        if (op - 1 < p && (is_logic(op) || tokens[op].type == '/')){
+        if (op - 1 == -1 && (is_logic(op) || tokens[op].type == '/')){
             *success = false;
             printf("error\n");
             return 0;
