@@ -156,7 +156,7 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-uint32_t eval(bool *success, uint32_t p, uint32_t q);
+int eval(bool *success, uint32_t p, uint32_t q);
 bool check_parentheses(int *info, uint32_t p, uint32_t q);
 int find_dominant_operator(bool *success, uint32_t p, uint32_t q);
 uint32_t expr(char *e, bool *success) {
@@ -176,13 +176,13 @@ uint32_t expr(char *e, bool *success) {
 const int ERROR = -1;
 const int NO_PARENTHESES = 1;
 
-uint32_t eval(bool *success, uint32_t p, uint32_t q){
+int eval(bool *success, uint32_t p, uint32_t q){
     // printf("p:%d,q:%d\n", p, q);
     int info;
     if (p > q || p == -1 || q == -1){
         return 0;
     } else if(p == q){
-        uint32_t res = 0;
+        int res = 0;
         // printf("%s ", tokens[p].str);
         if(tokens[p].type == NUMBER){
             // printf("number\n");
@@ -210,8 +210,8 @@ uint32_t eval(bool *success, uint32_t p, uint32_t q){
             *success = false;
             return 0;
         }
-        uint32_t val1 = eval(success, p, op - 1);
-        uint32_t val2 = eval(success, op + 1, q);
+        int val1 = eval(success, p, op - 1);
+        int val2 = eval(success, op + 1, q);
         // printf("val1:%d,val2:%d\n", val1, val2);
         switch(tokens[op].type){
             case '+': return val1 + val2;
