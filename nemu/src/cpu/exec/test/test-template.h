@@ -13,7 +13,7 @@ static void do_execute(){
 }
 
 // make_instr_helper(ai)
-make_instr_helper(si2a)
-
+make_instr_helper(i2a)
+make_instr_helper(i2rm)
 
 #include "cpu/exec/template-end.h"

@@ -12,4 +12,5 @@
 #include "test-template.h"
 #undef DATA_BYTE
 
-make_helper_v(test_si2a)
+make_helper_v(test_i2a)
+make_helper_v(test_i2rm)
