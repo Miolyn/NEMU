@@ -181,6 +181,16 @@ make_helper(concat(decode_r_, SUFFIX)) {
 	return decode_r_internal(eip, op_src);
 }
 
+
+make_helper(concat(decode_m_, SUFFIX)) {
+
+	op_src->type = OP_TYPE_MEM;
+	op_src->addr = instr_fetch(eip, DATA_BYTE);
+	op_src->val = op_src->addr;
+	op_src->size = DATA_BYTE;
+	return DATA_BYTE;
+}
+
 // #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(decode_si2rm_, SUFFIX)) {
 	int len = decode_rm_internal(eip, op_dest, op_src2);	/* op_src2 not use here */
@@ -230,11 +240,19 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 	else { assert(0); }
 }
 
+
+
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 void_helper(concat(push_stack_, SUFFIX)){
 	REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	swaddr_write(REG(R_SP), DATA_BYTE, src);
 }
+
+void_op_helper(concat(pop_stack_, SUFFIX)) {
+	concat(write_operand_, SUFFIX)(op, swaddr_read(REG(R_SP), DATA_BYTE));
+	REG(R_SP) = REG(R_SP) + DATA_BYTE;
+}
+
 #endif
 
 #include "cpu/exec/template-end.h"
