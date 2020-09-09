@@ -14,5 +14,3 @@
 
 
 make_helper_v(je_rel)
-
-
