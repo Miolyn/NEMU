@@ -5,6 +5,7 @@
 #define decode_r_internal concat3(decode_r_, SUFFIX, _internal)
 #define decode_rm_internal concat3(decode_rm_, SUFFIX, _internal)
 #define decode_i concat(decode_i_, SUFFIX)
+#define decode_si concat(decode_si_, SUFFIX)
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
 
@@ -115,6 +116,14 @@ make_helper(concat(decode_rm2r_, SUFFIX)) {
 make_helper(concat(decode_i2a_, SUFFIX)) {
 	decode_a(eip, op_dest);
 	return decode_i(eip);
+}
+
+/* AL <- Ib
+ * eAX <- Iv
+ */
+make_helper(concat(decode_si2a_, SUFFIX)) {
+	decode_a(eip, op_dest);
+	return decode_si(eip);
 }
 
 /* Gv <- EvIb

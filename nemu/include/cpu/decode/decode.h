@@ -55,6 +55,10 @@ make_helper(decode_ai_b);
 make_helper(decode_ai_w);
 make_helper(decode_ai_l);
 
+make_helper(decode_si2a_b);
+make_helper(decode_si2a_w);
+make_helper(decode_si2a_l);
+
 void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);
 void write_operand_l(Operand *, uint32_t);

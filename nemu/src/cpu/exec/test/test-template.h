@@ -12,7 +12,8 @@ static void do_execute(){
     parity_flag(res);
 }
 
-make_instr_helper(ai)
+// make_instr_helper(ai)
+make_instr_helper(si2a)
 
 
 #include "cpu/exec/template-end.h"
