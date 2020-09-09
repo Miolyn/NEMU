@@ -67,3 +67,32 @@ uint32_t get_reg_by_str(bool *success, char *e){
     }
     return 0;
 }
+
+void parity_flag(int res){
+	int low = low8(res);
+	int tmp = (low >> 4) ^ (low & 0xF);
+	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
+	// odd
+	
+	if ((tmp1 >> 1) ^ (tmp1 &1)){
+		reset_eflags(PF);
+	} else{
+		set_eflags(PF);
+	}
+}
+
+void zero_flag(int res){
+	if (res){
+		set_eflags(ZF);
+	} else{
+		reset_eflags(ZF);
+	}
+}
+
+void sign_flag(int res){
+	if (res < 0){
+		set_eflags(SF);
+	} else{
+		reset_eflags(SF);
+	}
+}

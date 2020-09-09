@@ -57,6 +57,20 @@ static int concat(decode_a_, SUFFIX) (swaddr_t eip, Operand *op) {
 	return 0;
 }
 
+/* eax and imm*/
+make_helper(concat(decode_ai_, SUFFIX)){
+	concat(decode_a_, SUFFIX)(eip, op_dest);
+	/* eip here is pointing to the immediate */
+	op_src->type = OP_TYPE_IMM;
+	op_src->imm = instr_fetch(eip, DATA_BYTE);
+	op_src->val = op_src->imm;
+
+#ifdef DEBUG
+	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->imm);
+#endif
+	return DATA_BYTE;
+}
+
 /* eXX: eAX, eCX, eDX, eBX, eSP, eBP, eSI, eDI */
 static int concat3(decode_r_, SUFFIX, _internal) (swaddr_t eip, Operand *op) {
 	op->type = OP_TYPE_REG;
@@ -190,7 +204,6 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 void_helper(concat(push_stack_, SUFFIX)){
 	REG(R_SP) = REG(R_SP) - DATA_BYTE;
-	printf("data byte %d\n", DATA_BYTE);
 	swaddr_write(REG(R_SP), DATA_BYTE, src);
 }
 #endif
