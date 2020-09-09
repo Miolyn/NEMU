@@ -190,6 +190,7 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 void_helper(concat(push_stack_, SUFFIX)){
 	REG(R_SP) = REG(R_SP) - DATA_BYTE;
+	printf("data byte %d\n", DATA_BYTE);
 	swaddr_write(REG(R_SP), src, DATA_BYTE);
 }
 #endif
