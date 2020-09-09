@@ -11,7 +11,7 @@
 make_helper(call_rel_l){
     int len = decode_si_l(eip);
     PUSH_STACK(eip + len);
-    cpu.eip = cpu.eip + op_src2->imm;
+    cpu.eip = cpu.eip + op_src->imm;
     return -1;
 }
 #endif
