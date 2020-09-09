@@ -37,4 +37,7 @@ extern char assembly[];
 #define print_asm_template3() \
 	print_asm(str(instr) str(SUFFIX) " %s,%s,%s", op_src->str, op_src2->str, op_dest->str)
 
+#define print_asm_template4() \
+	print_asm(str(instr) str(SUFFIX) " %s,%s", cpu.eip, op_src->str, )
+
 #endif
