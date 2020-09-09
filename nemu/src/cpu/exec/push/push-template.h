@@ -10,7 +10,7 @@ static void do_execute() {
 	// OPERAND_W(op_dest, op_src->val);
 	// REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	// swaddr_write(REG(R_SP), op_src->val, DATA_BYTE);
-	// PUSH_STACK(op_src->val);
+	PUSH_STACK(op_src->val);
 	print_asm_template2();
 }
 
