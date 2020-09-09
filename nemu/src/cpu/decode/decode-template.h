@@ -147,12 +147,29 @@ make_helper(concat(decode_i2rm_, SUFFIX)) {
 	return len;
 }
 
+
+/* Eb <- Ib
+ * Ev <- Iv
+ */
+// make_helper(concat(decode_si2rm_, SUFFIX)) {
+// 	int len = decode_rm_internal(eip, op_dest, op_src2);		/* op_src2 not use here */
+// 	len += decode_si(eip + len);
+// 	return len;
+// }
 /* XX <- Ib 
  * eXX <- Iv 
  */
 make_helper(concat(decode_i2r_, SUFFIX)) {
 	decode_r_internal(eip, op_dest);
 	return decode_i(eip);
+}
+
+/* XX <- Ib 
+ * eXX <- Iv 
+ */
+make_helper(concat(decode_si2r_, SUFFIX)) {
+	decode_r_internal(eip, op_dest);
+	return decode_si(eip);
 }
 
 /* used by unary operations */
@@ -164,7 +181,7 @@ make_helper(concat(decode_r_, SUFFIX)) {
 	return decode_r_internal(eip, op_src);
 }
 
-#if DATA_BYTE == 2 || DATA_BYTE == 4
+// #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(decode_si2rm_, SUFFIX)) {
 	int len = decode_rm_internal(eip, op_dest, op_src2);	/* op_src2 not use here */
 	len += decode_si_b(eip + len);
@@ -176,7 +193,7 @@ make_helper(concat(decode_si_rm2r_, SUFFIX)) {
 	len += decode_si_b(eip + len);
 	return len;
 }
-#endif
+// #endif
 
 /* used by shift instructions */
 make_helper(concat(decode_rm_1_, SUFFIX)) {

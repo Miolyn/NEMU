@@ -68,6 +68,20 @@ uint32_t get_reg_by_str(bool *success, char *e){
     return 0;
 }
 
+
+
+int carry_flag(int dest, int src){
+	int res = dest + src;
+	if (dest < 0 && src < 0 && res > 0){
+		set_eflags(CF);
+	} else if(dest > 0 && src > 0 && res < 0){
+		set_eflags(CF);
+	} else{
+		reset_eflags(CF);
+	}
+	return res;
+}
+
 void parity_flag(int res){
 	int low = low8(res);
 	int tmp = (low >> 4) ^ (low & 0xF);
@@ -78,6 +92,16 @@ void parity_flag(int res){
 		reset_eflags(PF);
 	} else{
 		set_eflags(PF);
+	}
+}
+
+void adjust_flag(int dest, int src){
+	int low4dest = dest & 0xF;
+	int low4src = src & 0xF;
+	if (low4dest + low4src > 0xF){
+		set_eflags(AF);
+	} else{
+		reset_eflags(AF);
 	}
 }
 
@@ -95,4 +119,16 @@ void sign_flag(int res){
 	} else{
 		reset_eflags(SF);
 	}
+}
+
+int overflow_flag(int dest, int src){
+	int res = dest + src;
+	if (dest < 0 && src < 0 && res > 0){
+		set_eflags(OF);
+	} else if(dest > 0 && src > 0 && res < 0){
+		set_eflags(OF);
+	} else{
+		reset_eflags(OF);
+	}
+	return res;
 }

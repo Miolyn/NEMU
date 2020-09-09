@@ -46,11 +46,15 @@ static inline int check_reg_index(int index) {
 #define reg_eflags(pos) ((cpu.eflags >> pos) & 1)
 #define set_eflags(pos) (cpu.eflags |= (1 << pos) )
 #define reset_eflags(pos) (cpu.eflags ^= (1 << pos))
-
+#define sign_bit32(res) (res >> 31)
+#define sign_bit16(res) (res >> 15)
 #define low8(res) (res & 0xFF)
+extern int carry_flag(int dest, int src);
 extern void parity_flag(int res);
+extern void adjust_flag(int dest, int src);
 extern void zero_flag(int res);
 extern void sign_flag(int res);
+extern int overflow_flag(int dest, int stc);
 
 extern const char* regsl[];
 extern const char* regsw[];

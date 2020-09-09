@@ -1,0 +1,20 @@
+#include "cpu/exec/template-start.h"
+
+#define instr cmp
+
+static void do_execute(){
+    int res = carry_flag(op_dest->val, -op_src->val);
+    parity_flag(res);
+    adjust_flag(op_dest->val, -op_src->val);
+    zero_flag(res);
+    sign_flag(res);
+    overflow_flag(op_dest->val, -op_src->val);
+}
+
+make_instr_helper(i2a)
+make_instr_helper(i2rm)
+make_instr_helper(si2rm)
+make_instr_helper(r2rm)
+make_instr_helper(rm2r)
+
+#include "cpu/exec/template-end.h"
