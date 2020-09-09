@@ -244,3 +244,4 @@ static make_helper(_2byte_esc) {
 	ops_decoded.opcode = opcode | 0x100;
 	return _2byte_opcode_table[opcode](eip) + 1; 
 }
+

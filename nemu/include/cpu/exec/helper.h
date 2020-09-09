@@ -19,7 +19,13 @@
 #define write_reg(name) \
 	void_helper(concat(write_reg_, name)) { \
 		concat(reg_, name) = src; \
-	} 
+	}
+
+#define push_stack(val) \
+	void_helper(concat(push_stack_, SUFFIX)) { \
+		REG(R_SP) = REG(R_SP) - DATA_BYTE; \
+		swaddr_write(REG(R_SP), val, DATA_BYTE); \
+	}
 
 extern char assembly[];
 #ifdef DEBUG
