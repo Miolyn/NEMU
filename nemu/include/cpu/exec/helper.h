@@ -21,6 +21,16 @@
 		concat(reg_, name) = src; \
 	}
 
+#define setcc_helper(prefix, condition) \
+	make_helper(concat3(set, prefix, _rm_b)) { \
+		int len = decode_m_b(eip + 1); \
+		int res = 0; \
+		if (condition){ \
+			res = 1; \
+		} \
+		write_operand_b(op_src, res); \
+		return len + 1; \
+	}
 
 
 extern char assembly[];
