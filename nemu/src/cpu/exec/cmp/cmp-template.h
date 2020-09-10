@@ -6,6 +6,7 @@ static void do_execute(){
     printf("start to deal with cmp%d\n", DATA_BYTE);
     printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
     int res = carry_flag(op_dest->val, -op_src->val);
+    printf("res:%d\n", res);
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
