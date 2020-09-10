@@ -1,15 +1,15 @@
 #include "cpu/exec/template-start.h"
 
-#define instr add
+#define instr sbb
 
 static void do_execute(){
-    int res = carry_flag(op_dest->val, op_src->val);
+    int res = carry_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
     parity_flag(res);
-    adjust_flag(op_dest->val, op_src->val);
+    adjust_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
     zero_flag(res);
     // imm?
     sign_flag(res);
-    overflow_flag(op_dest->val, op_src->val);
+    overflow_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
     concat(write_operand_, SUFFIX)(op_dest, res);
 }
 
@@ -17,11 +17,8 @@ make_instr_helper(i2a)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
-#if DATA_BYTE != 1 
+#if DATA_BYTE != 1
 make_instr_helper(sib2rm)
-
 #endif
-
-
 
 #include "cpu/exec/template-end.h"

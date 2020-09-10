@@ -36,3 +36,4 @@
 #include "arith/add.h"
 #include "arith/adc.h"
 #include "arith/sub.h"
+#include "arith/sbb.h"
