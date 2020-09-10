@@ -242,7 +242,6 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 
 
 
-#if DATA_BYTE == 2 || DATA_BYTE == 4
 void_helper(concat(push_stack_, SUFFIX)){
 	REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	swaddr_write(REG(R_SP), DATA_BYTE, src);
@@ -254,6 +253,5 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 	REG(R_SP) = REG(R_SP) + DATA_BYTE;
 }
 
-#endif
 
 #include "cpu/exec/template-end.h"

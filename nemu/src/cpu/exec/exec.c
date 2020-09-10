@@ -22,17 +22,17 @@ static make_helper(_2byte_esc);
 	
 /* 0x80 */
 make_group(group1_b,
-	inv, inv, inv, inv, 
+	add_i2rm_b, inv, inv, inv, 
 	inv, inv, inv, cmp_i2rm_b)
 
 /* 0x81 */
 make_group(group1_v,
-	inv, inv, inv, inv, 
+	add_i2rm_v, inv, inv, inv, 
 	inv, inv, inv, cmp_i2rm_v)
 
 /* 0x83 */
 make_group(group1_sx_v,
-	inv, inv, inv, inv, 
+	add_si2rm_v, inv, inv, inv, 
 	inv, inv, inv, cmp_si2rm_v)
 
 /* 0xc0 */
@@ -78,7 +78,7 @@ make_group(group3_v,
 /* 0xfe */
 make_group(group4,
 	inv, inv, inv, inv, 
-	inv, inv, inv, inv)
+	inv, inv, push_m_v, inv)
 
 /* 0xff */
 make_group(group5,
@@ -97,9 +97,10 @@ make_group(group7,
 /* TODO: Add more instructions!!! */
 
 // 2^8 one byte
+
 helper_fun opcode_table [256] = {
-/* 0x00 */	inv, inv, inv, inv,
-/* 0x04 */	inv, inv, inv, inv,
+/* 0x00 */	add_r2rm_b, add_r2rm_v, add_rm2r_b, add_rm2r_v,
+/* 0x04 */	add_i2a_b, add_i2a_v, inv, inv,
 /* 0x08 */	inv, inv, inv, inv,
 /* 0x0c */	inv, inv, inv, _2byte_esc,
 /* 0x10 */	inv, inv, inv, inv,
@@ -124,7 +125,7 @@ helper_fun opcode_table [256] = {
 /* 0x5c */	pop_r_v, pop_r_v, pop_r_v, pop_r_v,
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, operand_size, inv,
-/* 0x68 */	inv, inv, inv, inv,
+/* 0x68 */	push_i_v, inv, push_i_b, inv,
 /* 0x6c */	inv, inv, inv, inv,
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	je_rel_b, inv, inv, inv,
