@@ -9,7 +9,8 @@ make_helper(concat(je_rel_, SUFFIX)){
     // opcode len
     eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
-    cpu.eip = eip + op_src->imm;
+    printf("je%d,simm:%x\n", DATA_BYTE, op_src->simm);
+    cpu.eip = eip + op_src->simm;
     return len;
 }
 
@@ -21,7 +22,8 @@ make_helper(concat(je_rel_, SUFFIX)){
     printf("start to deal with je%d\n", DATA_BYTE);
     eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
-    cpu.eip = (eip + op_src->imm) & 0xFFFF;
+    printf("je%d,simm:%x\n", DATA_BYTE, op_src->simm);
+    cpu.eip = (eip + op_src->simm) & 0xFFFF;
     return len;
 }
 
