@@ -4,7 +4,7 @@
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 static void do_execute(){
-    printf("pop start\n");
+    printf("start to deal with pop%d\n", DATA_BYTE);
     POP_STACK(op_src);
 }
 
