@@ -13,7 +13,7 @@ make_helper(call_rel_l){
     // eip += opcode len
     eip += 1;
     int len = decode_i_l(eip);
-    printf("len%d,src%d\n", len, op_src->imm);
+    printf("len:%d,src:%d,push_addr:%d\n", len, op_src->imm, eip + len);
     PUSH_STACK(eip + len);
     cpu.eip = eip + op_src->imm;
     // 1 means the len of the opcode
