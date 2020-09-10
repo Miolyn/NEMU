@@ -21,7 +21,7 @@
 //     return len;
 // }
 
-jcc_helper(e, r(ZF))
+jcc_helper(e0z, r(ZF))
 
 #undef r
 #include "cpu/exec/template-end.h"
