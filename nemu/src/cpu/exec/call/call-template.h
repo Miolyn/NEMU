@@ -9,7 +9,7 @@
 
 #if DATA_BYTE == 2
 make_helper(call_rel_l){
-    printf("start call_rel_l\n");
+    printf("start call_rel_l at %x\n", eip);
     int len = decode_i_l(eip);
     printf("len%d,src%d\n", len, op_src->imm);
     PUSH_STACK(eip + len);
