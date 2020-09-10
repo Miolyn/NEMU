@@ -8,6 +8,8 @@ make_helper(concat(ret_rel_, SUFFIX)){
     printf("ret%d read %x\n", DATA_BYTE, swaddr_read(REG(R_SP), DATA_BYTE) & 0xFFFF);
     cpu.eip = swaddr_read(REG(R_SP), DATA_BYTE) & 0xFFFF;
     REG(R_SP) = REG(R_SP) + DATA_BYTE;
+    // control the len 
+    // read one opcode before deal
     return -1;
 }
 #endif
