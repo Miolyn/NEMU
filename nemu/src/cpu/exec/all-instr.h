@@ -35,3 +35,4 @@
 #include "ret/ret.h"
 #include "arith/add.h"
 #include "arith/adc.h"
+#include "arith/sub.h"
