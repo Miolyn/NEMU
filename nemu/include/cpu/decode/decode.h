@@ -68,7 +68,6 @@ make_helper(decode_si2a_l);
 void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);
 void write_operand_l(Operand *, uint32_t);
-
 void_helper(push_stack_w);
 void_helper(push_stack_l);
 

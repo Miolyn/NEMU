@@ -4,6 +4,9 @@
 
 #undef REG
 #undef REG_NAME
+#undef W_REG
+#undef PUSH_STACK
+#undef POP_STACK
 
 #undef MEM_R
 #undef MEM_W
