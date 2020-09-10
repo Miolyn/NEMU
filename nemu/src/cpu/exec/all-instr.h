@@ -34,3 +34,4 @@
 #include "pop/pop.h"
 #include "ret/ret.h"
 #include "arith/add.h"
+#include "arith/adc.h"

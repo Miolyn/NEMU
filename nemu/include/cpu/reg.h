@@ -50,11 +50,14 @@ static inline int check_reg_index(int index) {
 #define sign_bit16(res) (res >> 15)
 #define low8(res) (res & 0xFF)
 extern int carry_flag(int dest, int src);
+extern int carry_flag3(int dest, int src);
 extern void parity_flag(int res);
 extern void adjust_flag(int dest, int src);
+extern void adjust_flag3(int dest, int src);
 extern void zero_flag(int res);
 extern void sign_flag(int res);
-extern int overflow_flag(int dest, int stc);
+extern int overflow_flag(int dest, int src);
+extern int overflow_flag3(int dest, int src);
 
 extern const char* regsl[];
 extern const char* regsw[];

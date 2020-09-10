@@ -82,13 +82,25 @@ int carry_flag(int dest, int src){
 	return res;
 }
 
+int carry_flag3(int dest, int src){
+	int res = dest + src + reg_eflags(CF);
+	if (dest < 0 && src < 0 && res > 0){
+		set_eflags(CF);
+	} else if(dest > 0 && src > 0 && res < 0){
+		set_eflags(CF);
+	} else{
+		reset_eflags(CF);
+	}
+	return res;
+}
+
 void parity_flag(int res){
 	int low = low8(res);
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
 	// odd
 	
-	if ((tmp1 >> 1) ^ (tmp1 &1)){
+	if ((tmp1 >> 1) ^ (tmp1 & 1)){
 		reset_eflags(PF);
 	} else{
 		set_eflags(PF);
@@ -97,6 +109,21 @@ void parity_flag(int res){
 
 void adjust_flag(int dest, int src){
 	int low4dest = dest & 0xF;
+	int low4src = src & 0xF;
+	if (low4dest + low4src > 0xF){
+		set_eflags(AF);
+	} else{
+		reset_eflags(AF);
+	}
+}
+
+void adjust_flag3(int dest, int src){
+	int low4dest = dest & 0xF;
+	if(low4dest + reg_eflags(CF) > 0xF){
+		set_eflags(AF);
+		return;
+	}
+	low4dest += reg_eflags(CF);
 	int low4src = src & 0xF;
 	if (low4dest + low4src > 0xF){
 		set_eflags(AF);
@@ -123,6 +150,18 @@ void sign_flag(int res){
 
 int overflow_flag(int dest, int src){
 	int res = dest + src;
+	if (dest < 0 && src < 0 && res > 0){
+		set_eflags(OF);
+	} else if(dest > 0 && src > 0 && res < 0){
+		set_eflags(OF);
+	} else{
+		reset_eflags(OF);
+	}
+	return res;
+}
+
+int overflow_flag3(int dest, int src){
+	int res = dest + src + reg_eflags(CF);
 	if (dest < 0 && src < 0 && res > 0){
 		set_eflags(OF);
 	} else if(dest > 0 && src > 0 && res < 0){
