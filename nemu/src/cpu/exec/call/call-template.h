@@ -12,10 +12,10 @@ make_helper(call_rel_l){
     printf("start call_rel_l at %x, %x\n", eip, instr_fetch(eip + 1, 4));
     // eip += opcode len
     eip += 1;
-    int len = decode_i_l(eip);
+    int len = concat(decode_i_, SUFFIX)(eip);
     printf("len:%d,src:%d,call_op-push_addr:%x\n", len, op_src->imm, eip + len);
-    PUSH_STACK(eip + len);
-    cpu.eip = eip + op_src->imm;
+    PUSH_STACK((eip + len) & 0xFFFF);
+    cpu.eip = (eip + op_src->imm) & 0xFFFF;
     return len;
 }
 #endif
@@ -24,9 +24,13 @@ make_helper(call_rel_l){
 make_helper(call_rel_w){
     printf("start call_rel_w\n");
     eip += 1;
-    int len = decode_i_w(eip);
-    PUSH_STACK(eip + len);
-    cpu.eip = (eip + op_src->imm) & 0xFFFF;
+    int len = concat(decode_i_, SUFFIX)(eip);
+    
+    if(ops_decoded.is_operand_size_16){
+        PUSH_STACK(eip + len);
+        cpu.eip = eip + op_src->imm;
+    }
+    
     // 0x66 prefix return length=1
     // 1 means the len of the opcode
     return len;
