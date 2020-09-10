@@ -10,7 +10,11 @@ make_helper(concat(je_rel_, SUFFIX)){
     eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
     printf("je%d,simm:%x\n", DATA_BYTE, op_src->simm);
-    cpu.eip = eip + op_src->simm;
+    if(reg_eflags(ZF)){
+        printf("je true, jump to addr:%x\n", eip + op_src->simm);
+        cpu.eip = eip + op_src->simm;
+    }
+    
     return len;
 }
 
@@ -23,7 +27,9 @@ make_helper(concat(je_rel_, SUFFIX)){
     eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
     printf("je%d,simm:%x\n", DATA_BYTE, op_src->simm);
-    cpu.eip = (eip + op_src->simm) & 0xFFFF;
+    if(reg_eflags(ZF)){
+        cpu.eip = (eip + op_src->simm) & 0xFFFF;
+    }
     return len;
 }
 
