@@ -106,7 +106,7 @@ void adjust_flag(int dest, int src){
 }
 
 void zero_flag(int res){
-	if (res){
+	if (res == 0){
 		set_eflags(ZF);
 	} else{
 		reset_eflags(ZF);
