@@ -11,6 +11,7 @@
 make_helper(call_rel_l){
     printf("start call_rel_l\n");
     int len = decode_i_l(eip);
+    printf("len%d,src%d\n", len, op_src->imm);
     PUSH_STACK(eip + len);
     cpu.eip = eip + op_src->imm;
     return len;
