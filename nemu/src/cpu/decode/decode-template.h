@@ -249,6 +249,7 @@ void_helper(concat(push_stack_, SUFFIX)){
 }
 
 void_op_helper(concat(pop_stack_, SUFFIX)) {
+	printf("pop stack op read %x\n", swaddr_read(REG(R_SP), DATA_BYTE));
 	concat(write_operand_, SUFFIX)(op, swaddr_read(REG(R_SP), DATA_BYTE));
 	REG(R_SP) = REG(R_SP) + DATA_BYTE;
 }
