@@ -12,8 +12,8 @@ make_helper(call_rel_l){
     printf("start call_rel_l\n");
     int len = decode_i_l(eip);
     PUSH_STACK(eip + len);
-    cpu.eip = eip + len + op_src->imm;
-    return -1;
+    cpu.eip = eip + op_src->imm;
+    return len;
 }
 #endif
 
@@ -22,9 +22,9 @@ make_helper(call_rel_w){
     printf("start call_rel_w\n");
     int len = decode_i_w(eip);
     PUSH_STACK(eip + len);
-    cpu.eip = (eip + len + op_src->imm) & 0xFFFF;
+    cpu.eip = (eip + op_src->imm) & 0xFFFF;
     // 0x66 prefix return length=1
-    return -1;
+    return len;
 }
 #endif
 
