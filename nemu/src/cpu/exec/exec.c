@@ -78,12 +78,12 @@ make_group(group3_v,
 /* 0xfe */
 make_group(group4,
 	inv, inv, inv, inv, 
-	jmp_rm_v, inv, push_m_v, inv)
+	inv, inv, push_m_v, inv)
 
 /* 0xff */
 make_group(group5,
-	inv, inv, inv, inv, 
-	inv, inv, inv, inv)
+	inv, inv, call_rm_v, inv, 
+	jmp_rm_v, inv, inv, inv)
 
 make_group(group6,
 	inv, inv, inv, inv, 

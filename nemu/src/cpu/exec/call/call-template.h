@@ -38,6 +38,20 @@ make_helper(concat(call_rel_, SUFFIX)){
     // 1 means the len of the opcode
     return len;
 }
+
+make_helper(concat(call_rm_, SUFFIX)){
+    printf("start call_rm_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, DATA_BYTE));
+    eip += 1;
+    int len = concat(decode_rm_, SUFFIX)(eip);
+    if(ops_decoded.is_operand_size_16){
+        PUSH_STACK((eip + len) & 0xFFFF);
+        cpu.eip = (eip + op_src->val) & 0xFFFF;
+    } else{
+        PUSH_STACK(eip + len);
+        cpu.eip = eip + op_src->val;
+    }
+    return len;
+}
 #endif
 
 #include "cpu/exec/template-end.h"
