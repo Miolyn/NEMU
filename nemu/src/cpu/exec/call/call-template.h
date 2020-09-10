@@ -16,8 +16,7 @@ make_helper(call_rel_l){
     printf("len:%d,src:%d,push_addr:%x\n", len, op_src->imm, eip + len);
     PUSH_STACK(eip + len);
     cpu.eip = eip + op_src->imm;
-    // 1 means the len of the opcode
-    return len + 1;
+    return len;
 }
 #endif
 
@@ -30,7 +29,7 @@ make_helper(call_rel_w){
     cpu.eip = (eip + op_src->imm) & 0xFFFF;
     // 0x66 prefix return length=1
     // 1 means the len of the opcode
-    return len + 1;
+    return len;
 }
 #endif
 
