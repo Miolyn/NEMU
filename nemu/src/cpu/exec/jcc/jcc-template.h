@@ -5,8 +5,11 @@
 #if DATA_BYTE == 1 || DATA_BYTE == 4
 
 make_helper(concat(je_rel_, SUFFIX)){
+    printf("start to deal with je%d\n", DATA_BYTE);
+    // opcode len
+    eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
-    cpu.eip = cpu.eip + op_src->imm;
+    cpu.eip = eip + op_src->imm;
     return len;
 }
 
@@ -15,8 +18,10 @@ make_helper(concat(je_rel_, SUFFIX)){
 #if DATA_BYTE == 2
 
 make_helper(concat(je_rel_, SUFFIX)){
+    printf("start to deal with je%d\n", DATA_BYTE);
+    eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
-    cpu.eip = (cpu.eip + op_src->imm) & 0xFFFF;
+    cpu.eip = (eip + op_src->imm) & 0xFFFF;
     return len;
 }
 
