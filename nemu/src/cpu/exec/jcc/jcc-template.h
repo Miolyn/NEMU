@@ -28,7 +28,7 @@ jcc_helper(be0na, (re(CF) || re(ZF)))
 // jcc_helper(c, (re(CF)))
 jcc_helper(e0z, (re(ZF)))
 // ? 
-jcc_helper(g0nle, (!re(ZF) && re(SF) == re(OF)) || (re(ZF) && re(SF) != re(OF)))
+jcc_helper(g0nle, (!re(ZF) || re(SF) == re(OF)) || (re(ZF) && re(SF) != re(OF)))
 jcc_helper(ge0nl, (re(SF) == re(OF)))
 jcc_helper(l0nge, (re(SF) != re(OF)))
 jcc_helper(le0ng, (re(ZF) && re(SF) != re(OF)))
