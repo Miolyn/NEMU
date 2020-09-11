@@ -43,7 +43,7 @@
 				cpu.eip = eip + op_src->simm; \
 			} \
 		} \
-		return len; \
+		return len + 1; \
 	}
 
 
