@@ -35,10 +35,11 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 */
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
 	printf("res %x\n", (op_src->simm >> (DATA_BYTE * 8 - 1)));
-	if ((op_src->simm >> (DATA_BYTE * 8 - 1)) & 1){
-		op_src->simm |= 0xFFFFFFFF ^ (1 << (DATA_BYTE * 8 - 1));
+	if (DATA_BYTE != 4 && (op_src->simm >> (DATA_BYTE * 8 - 1)) & 1){
+		int st = 0xFFFF0000;
+		if (DATA_BYTE == 1) st = 0xFFFFFF00;
+		op_src->simm |= st;
 		printf("src %x\n", op_src->simm);
-		printf("neg : %x\n", 0xFFFFFFFF ^ (1 << (DATA_BYTE * 8 - 1)));
 	}
 	// panic("please implement me");
 
