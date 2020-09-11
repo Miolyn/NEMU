@@ -32,7 +32,7 @@ make_helper(concat(ret_i_, SUFFIX)){
     REG(R_ESP) = REG(R_ESP) + op_src->val;
     // control the len 
     // read one opcode before deal
-    return -1;
+    return 0;
 }
 #endif
 
