@@ -14,11 +14,7 @@ make_helper(concat(lods_m_, SUFFIX)){
 #if DATA_BYTE == 1
 make_helper(concat(lods_m_, SUFFIX)){
     MEM_W(reg_w(R_ESI), REG(R_EAX));
-    int incDec = DATA_BYTE;
-    if (reg_eflags(DF)){
-        incDec = -DATA_BYTE;
-    }
-    // int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
+    int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     reg_w(R_ESI) = reg_w(R_ESI) + incDec;
     return 1;
 }
