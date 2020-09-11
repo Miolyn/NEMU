@@ -30,6 +30,16 @@ typedef struct {
     };
 	swaddr_t eip;
 	swaddr_t eflags : 18;
+	union {
+		struct {
+			uint32_t : 1;
+		}ef[18];
+		
+		struct {
+			uint32_t CF : 1, POS1 : 1, PF : 1, POS3 : 1, AF : 1, POS5 : 1, ZF : 1, SF : 1, TF : 1, IF : 1, DF : 1, OF : 1, OL : 1, IP : 1, NT : 1, POS15 : 1, RF : 1, VM : 1;
+		};
+	};
+	
 } CPU_state;
 
 extern CPU_state cpu;
