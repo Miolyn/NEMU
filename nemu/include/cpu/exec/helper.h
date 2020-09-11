@@ -45,6 +45,7 @@
 		} else { \
 			len += 1; \
 		} \
+		printf("eip:%x, src:%x\n", cpu.eip, op_src->simm); \
 		return len; \
 	}
 
