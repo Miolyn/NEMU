@@ -38,6 +38,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	if ((op_src->simm >> (DATA_BYTE * 8 - 1)) & 1){
 		op_src->simm |= 0xFFFFFFFF & (1 << (DATA_BYTE * 8 - 1));
 		printf("src %x\n", op_src->simm);
+		printf("neg : %x\n", 0xFFFFFFFF & (1 << (DATA_BYTE * 8 - 1)));
 	}
 	// panic("please implement me");
 
