@@ -33,7 +33,7 @@ make_group(group1_v,
 /* 0x83 */
 make_group(group1_sx_v,
 	add_sib2rm_v, inv, adc_sib2rm_v, sbb_sib2rm_v, 
-	inv, sub_sib2rm_v, inv, cmp_sib2rm_v)
+	and_si2rm_v, sub_sib2rm_v, inv, cmp_sib2rm_v)
 
 /* 0xc0 */
 make_group(group2_i_b,
