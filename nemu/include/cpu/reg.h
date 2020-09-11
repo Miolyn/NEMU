@@ -29,11 +29,12 @@ typedef struct {
         };
     };
 	swaddr_t eip;
-	swaddr_t eflags : 18;
+	// swaddr_t eflags : 18;
 	union {
+		uint32_t ef : 18;
 		struct {
-			uint32_t : 1;
-		}ef[18];
+			uint32_t _1: 1;
+		}eflags[18];
 		
 		struct {
 			uint32_t CF : 1, POS1 : 1, PF : 1, POS3 : 1, AF : 1, POS5 : 1, ZF : 1, SF : 1, TF : 1, IF : 1, DF : 1, OF : 1, OL : 1, IP : 1, NT : 1, POS15 : 1, RF : 1, VM : 1;
@@ -53,9 +54,12 @@ static inline int check_reg_index(int index) {
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
 #define reg_eip (cpu.eip)
-#define reg_eflags(pos) ((cpu.eflags >> pos) & 1)
-#define set_eflags(pos) (cpu.eflags |= (1 << pos) )
-#define reset_eflags(pos) (cpu.eflags ^= (1 << pos))
+// #define reg_eflags(pos) ((cpu.eflags >> pos) & 1)
+#define reg_eflags(pos) cpu.eflags[pos]._1
+// #define set_eflags(pos) (cpu.eflags |= (1 << pos) )
+#define set_eflags(pos) cpu.eflags[pos]._1 = 1
+// #define reset_eflags(pos) (cpu.eflags ^= (1 << pos))
+#define reset_eflags(pos) cpu.eflags[pos]._1 = 0
 #define sign_bit32(res) (res >> 31)
 #define sign_bit16(res) (res >> 15)
 #define low8(res) (res & 0xFF)

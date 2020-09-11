@@ -76,7 +76,8 @@ static void load_entry() {
 
 static void init_register(){
 	cpu.eip = ENTRY_START;
-	cpu.eflags = 0x2;
+	// cpu.eflags = 0x2;
+	cpu.ef = 0x2;
 }
 
 void restart() {
