@@ -43,6 +43,7 @@
 				cpu.eip = eip + op_src->simm; \
 			} \
 		} \
+		printf("len:%d\n", len); \
 		return len; \
 	}
 
