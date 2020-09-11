@@ -5,6 +5,7 @@
 static void do_execute(){
     printf("start to deal with test%d\n", DATA_BYTE);
     int res = op_src->val & op_dest->val;
+    printf("test src %x , dest %x\n", op_src->val, op_dest->val);
     reset_eflags(OF);
     reset_eflags(CF);
     // SF ZF PF
