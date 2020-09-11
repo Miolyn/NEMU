@@ -27,7 +27,7 @@ make_helper(concat(ret_i_, SUFFIX)){
     
     REG(R_ESP) = REG(R_ESP) + DATA_BYTE;
     decode_i_w(eip + 1);
-    printf("%x\n", op_src->val);
+    printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
     REG(R_ESP) = REG(R_ESP) + op_src->val;
     // control the len 
     // read one opcode before deal
