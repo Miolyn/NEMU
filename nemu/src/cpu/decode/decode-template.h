@@ -256,6 +256,7 @@ void_helper(concat(push_stack_, SUFFIX)){
 	printf("push stack at rsp:%x, data:%x\n", reg_l(R_ESP), src);
 	REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	swaddr_write(REG(R_SP), DATA_BYTE, src);
+	printf("after %x\n", reg_l(R_ESP));
 }
 
 void_op_helper(concat(pop_stack_, SUFFIX)) {
