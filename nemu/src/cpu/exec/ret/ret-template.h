@@ -12,7 +12,7 @@ make_helper(concat(ret_rel_, SUFFIX)){
         cpu.eip = swaddr_read(REG(R_SP), DATA_BYTE);
     }
     
-    REG(R_ESP) = REG(R_ESP) + DATA_BYTE;
+    REG(R_ESP) = REG(R_ESP) + 4;
     // control the len 
     // read one opcode before deal
     return -1;
@@ -26,7 +26,7 @@ make_helper(concat(ret_i_, SUFFIX)){
         cpu.eip = swaddr_read(REG(R_SP), DATA_BYTE);
     }
     
-    REG(R_ESP) = REG(R_ESP) + DATA_BYTE;
+    REG(R_ESP) = REG(R_ESP) + 4;
     decode_i_w(eip + 1);
     printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
     REG(R_ESP) = REG(R_ESP) + op_src->val;
