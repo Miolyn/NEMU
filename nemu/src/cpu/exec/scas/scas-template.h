@@ -16,6 +16,7 @@ make_helper(concat(scas_m_, SUFFIX)){
     zero_flag(res);
     sign_flag(res);
     overflow_flag(l, -r);
+    printf("zf%d\n", reg_eflags(ZF));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     if (DATA_BYTE == 1){
         reg_w(R_EDI) = reg_w(R_EDI) + incDec;
