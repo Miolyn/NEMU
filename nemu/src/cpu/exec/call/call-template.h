@@ -22,6 +22,7 @@
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(call_rel_, SUFFIX)){
+    printf("~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("start call_rel_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, 4));
     eip += 1;
     int len = concat(decode_i_, SUFFIX)(eip);
