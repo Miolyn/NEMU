@@ -41,3 +41,4 @@
 #include "jmp/jmp.h"
 #include "data-mov/movs.h"
 #include "stos/stos.h"
+#include "lods/lods.h"
