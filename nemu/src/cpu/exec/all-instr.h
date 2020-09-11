@@ -43,3 +43,4 @@
 #include "stos/stos.h"
 #include "lods/lods.h"
 #include "scas/scas.h"
+#include "lea/lea.h"

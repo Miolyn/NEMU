@@ -39,7 +39,6 @@ make_helper(concat(decode_si_, SUFFIX)) {
 		int st = 0xFFFF0000;
 		if (DATA_BYTE == 1) st = 0xFFFFFF00;
 		op_src->simm |= st;
-		printf("src %x\n", op_src->simm);
 	}
 	// panic("please implement me");
 
@@ -200,6 +199,7 @@ make_helper(concat(decode_m_, SUFFIX)) {
 	op_src->size = DATA_BYTE;
 	return DATA_BYTE;
 }
+
 
 // #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(decode_si2rm_, SUFFIX)) {
