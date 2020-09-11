@@ -22,7 +22,7 @@ make_helper(concat(scas_m_, SUFFIX)){
     } else{
         REG(R_EDI) = REG(R_EDI) + incDec;
     }
-    return 0;
+    return 1;
 }
 
 #include "cpu/exec/template-end.h"
