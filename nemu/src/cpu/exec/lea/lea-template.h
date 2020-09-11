@@ -5,6 +5,7 @@
 #if DATA_BYTE != 1
 static void do_execute(){
     printf("src:%x,dest:%x\n", op_src->addr, op_dest->reg);
+    assert(0);
     // if(ops_decoded.is_operand_size_16){
     //     reg_w(op_dest->reg) = op_src->addr & 0xFFFF;
     // } else{
