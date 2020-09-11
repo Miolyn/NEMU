@@ -4,11 +4,12 @@
 
 #if DATA_BYTE != 1
 static void do_execute(){
-    if(ops_decoded.is_operand_size_16){
-        reg_w(op_dest->reg) = op_src->addr & 0xFFFF;
-    } else{
-        reg_l(op_src->reg) = op_src->addr;
-    }
+    printf("src:%x,dest:%x\n", op_src->addr, op_dest->reg);
+    // if(ops_decoded.is_operand_size_16){
+    //     reg_w(op_dest->reg) = op_src->addr & 0xFFFF;
+    // } else{
+    //     reg_l(op_src->reg) = op_src->addr;
+    // }
 }
 make_instr_helper(rm2r)
 #endif
