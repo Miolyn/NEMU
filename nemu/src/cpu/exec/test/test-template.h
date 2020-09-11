@@ -12,6 +12,7 @@ static void do_execute(){
     sign_flag(res);
     zero_flag(res);
     parity_flag(res);
+    printf("zf :%d\n", reg_eflags(ZF));
 }
 
 // make_instr_helper(ai)
