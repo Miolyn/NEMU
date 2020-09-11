@@ -11,7 +11,9 @@ static void do_execute() {
 	// REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	// swaddr_write(REG(R_SP), op_src->val, DATA_BYTE);
 	//
+	printf("before %x push esp %x\n", DATA_BYTE, reg_l(R_ESP));
 	PUSH_STACK(op_src->val);
+	printf("after push esp %x\n", reg_l(R_ESP));
 	print_asm_template2();
 }
 
