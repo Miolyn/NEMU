@@ -34,7 +34,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	op_src->simm = ???
 	 */
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
-
+	printf("decode_op_src:%d\n", op_src->simm);
 	if (DATA_BYTE != 4 && ((op_src->simm >> (DATA_BYTE * 8 - 1)) & 1)){
 		op_src->simm |= 0xFFFFFFFF & (1 << (DATA_BYTE * 8 - 1));
 	}
