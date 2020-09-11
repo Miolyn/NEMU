@@ -36,7 +36,9 @@
 	make_helper(concat4(j, prefix, _rel_, SUFFIX)){ \
 		eip += 1; \
 		int len = concat(decode_si_, SUFFIX)(eip); \
+		printf("condition %d\n", condition); \
 		if(condition){ \
+			printf("%d\n", condition); \
 			if (ops_decoded.is_operand_size_16){ \
 				cpu.eip = (eip + op_src->simm) & 0xFFFF; \
 			} else{ \
