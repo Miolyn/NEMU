@@ -10,7 +10,7 @@ static void do_execute() {
 	// OPERAND_W(op_dest, op_src->val);
 	// REG(R_SP) = REG(R_SP) - DATA_BYTE;
 	// swaddr_write(REG(R_SP), op_src->val, DATA_BYTE);
-	printf("opcode %x", instr_fetch(cpu.eip, 1));
+	printf("opcode %x\n", instr_fetch(cpu.eip, 1));
 	printf("before %x push esp %x\n", DATA_BYTE, reg_l(R_ESP));
 	PUSH_STACK(op_src->val);
 	printf("after push esp %x\n", reg_l(R_ESP));
