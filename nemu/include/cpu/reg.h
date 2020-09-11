@@ -29,7 +29,7 @@ typedef struct {
         };
     };
 	swaddr_t eip;
-	// swaddr_t eflags : 18;
+
 	union {
 		uint32_t ef : 18;
 		struct {
@@ -54,11 +54,8 @@ static inline int check_reg_index(int index) {
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
 #define reg_eip (cpu.eip)
-// #define reg_eflags(pos) ((cpu.eflags >> pos) & 1)
 #define reg_eflags(pos) cpu.eflags[pos]._1
-// #define set_eflags(pos) (cpu.eflags |= (1 << pos) )
 #define set_eflags(pos) cpu.eflags[pos]._1 = 1
-// #define reset_eflags(pos) (cpu.eflags ^= (1 << pos))
 #define reset_eflags(pos) cpu.eflags[pos]._1 = 0
 #define sign_bit32(res) (res >> 31)
 #define sign_bit16(res) (res >> 15)
