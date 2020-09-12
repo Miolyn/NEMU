@@ -82,41 +82,6 @@ int carry_flag(int dest, int src){
 	return res;
 }
 
-int cf(int dest, int src, int data_byte){
-	int res = dest + src;
-	int st = f4;
-	if (data_byte == 4){
-		if (dest < 0 && src < 0 && res > 0){
-			set_eflags(CF);
-		} else if(dest > 0 && src > 0 && res < 0){
-			set_eflags(CF);
-		} else{
-			reset_eflags(CF);
-		}
-	} else if (data_byte == 2){
-		res &= f2;
-		st = f2;
-		if(sign_bit16(dest) && sign_bit16(src) && !sign_bit16(res)){
-			set_eflags(CF);
-		} else if(!sign_bit16(dest) && !sign_bit16(src) && sign_bit16(res)){
-			set_eflags(CF);
-		} else{
-			reset_eflags(CF);
-		}
-	} else if(data_byte == 1){
-		res &= f1;
-		st = f1;
-		if(sign_bit8(dest) && sign_bit8(src) && !sign_bit8(res)){
-			set_eflags(CF);
-		} else if(!sign_bit8(dest) && !sign_bit8(src) && sign_bit8(res)){
-			set_eflags(CF);
-		} else{
-			reset_eflags(CF);
-		}
-	}
-	return res;
-}
-
 
 int carry_flag3(int dest, int src){
 	int res = dest + src + reg_eflags(CF);
