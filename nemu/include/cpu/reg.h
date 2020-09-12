@@ -57,8 +57,12 @@ static inline int check_reg_index(int index) {
 #define reg_eflags(pos) cpu.eflags[pos]._1
 #define set_eflags(pos) cpu.eflags[pos]._1 = 1
 #define reset_eflags(pos) cpu.eflags[pos]._1 = 0
+#define f4 0xFFFFFFFF
+#define f2 0xFFFF
+#define f1 0xFF
 #define sign_bit32(res) (res >> 31)
 #define sign_bit16(res) (res >> 15)
+#define sign_bit8(res) (res >> 7)
 #define low8(res) (res & 0xFF)
 extern int carry_flag(int dest, int src);
 extern int carry_flag3(int dest, int src);
@@ -69,6 +73,7 @@ extern void zero_flag(int res);
 extern void sign_flag(int res);
 extern int overflow_flag(int dest, int src);
 extern int overflow_flag3(int dest, int src);
+
 
 extern const char* regsl[];
 extern const char* regsw[];
