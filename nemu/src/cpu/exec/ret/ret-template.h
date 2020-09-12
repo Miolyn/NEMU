@@ -16,7 +16,7 @@ make_helper(concat(ret_rel_, SUFFIX)){
     REG(R_ESP) = REG(R_ESP) + 4;
     // control the len 
     // read one opcode before deal
-    return -1;
+    return 0;
 }
 
 make_helper(concat(ret_i_, SUFFIX)){
