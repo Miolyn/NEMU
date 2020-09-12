@@ -51,6 +51,7 @@ make_helper(concat(call_rm_, SUFFIX)){
         PUSH_STACK(eip + len);
         cpu.eip = eip + op_src->val;
     }
+    print_asm_template1();
     return len;
 }
 #endif
