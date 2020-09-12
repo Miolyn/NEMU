@@ -13,6 +13,7 @@ static void do_execute(){
     printf("zflag %d\n", reg_eflags(ZF));
     sign_flag(res);
     overflow_flag(op_dest->val, -op_src->val);
+    print_asm_template2();
 }
 
 make_instr_helper(i2a)
