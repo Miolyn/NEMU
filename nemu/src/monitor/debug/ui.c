@@ -72,7 +72,7 @@ static int cmd_p(char *args){
         return 0;
     }
     printf("%d\n", res);
-    printf("hex:%x\n", res);
+    printf("hex:0x%x\n", res);
     return 0;
 }
 
