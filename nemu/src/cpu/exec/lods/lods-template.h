@@ -13,9 +13,9 @@ make_helper(concat(lods_m_, SUFFIX)){
 
 #if DATA_BYTE == 1
 make_helper(concat(lods_m_, SUFFIX)){
-    printf("lods\n");
     printf("esi:%x,edi:%x\n", MEM_R(reg_w(R_ESI)), MEM_R(reg_w(R_EDI)));
     MEM_W(reg_w(R_ESI), REG(R_EAX));
+    REG(R_EAX) = MEM_R(reg_w(R_ESI));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     printf("esi before %x\n", reg_w(R_ESI));
     reg_w(R_ESI) = reg_w(R_ESI) + incDec;
