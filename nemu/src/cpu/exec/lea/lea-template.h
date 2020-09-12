@@ -4,13 +4,14 @@
 
 #if DATA_BYTE != 1
 static void do_execute(){
+    printf("op reg name:%s, src val:%d,addr%x\n", REG_NAME(op_dest->reg), op_src->val, op_src->addr);
     if(ops_decoded.is_operand_size_16){
         reg_w(op_dest->reg) = op_src->addr & 0xFFFF;
     } else{
         if(op_src->size != 4){
-            reg_l(op_dest->reg) = op_src->addr & 0xFFFF;
+            reg_l(op_dest->reg) = op_src->val & 0xFFFF;
         } else{
-            reg_l(op_dest->reg) = op_src->addr;
+            reg_l(op_dest->reg) = op_src->val;
         }
         
     }

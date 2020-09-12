@@ -32,22 +32,7 @@
 		return len + 1; \
 	}
 
-#define jcc_helper(prefix, condition) \
-	make_helper(concat4(j, prefix, _rel_, SUFFIX)){ \
-		eip += 1; \
-		int len = concat(decode_si_, SUFFIX)(eip); \
-		if(condition){ \
-			if (ops_decoded.is_operand_size_16){ \
-				cpu.eip = (eip + op_src->simm) & 0xFFFF; \
-			} else{ \
-				cpu.eip = eip + op_src->simm; \
-			} \
-		} else { \
-			len += 1; \
-		} \
-		printf("eip:%x, src:%x\n", cpu.eip, op_src->simm); \
-		return len; \
-	}
+
 
 
 extern char assembly[];
@@ -70,3 +55,22 @@ extern char assembly[];
 	print_asm(str(instr) str(SUFFIX) " %s,%s", cpu.eip, op_src->str, )
 
 #endif
+
+
+#define jcc_helper(prefix, condition) \
+	make_helper(concat4(j, prefix, _rel_, SUFFIX)){ \
+		eip += 1; \
+		int len = concat(decode_si_, SUFFIX)(eip); \
+		if(condition){ \
+			if (ops_decoded.is_operand_size_16){ \
+				cpu.eip = (eip + op_src->simm) & 0xFFFF; \
+			} else{ \
+				cpu.eip = eip + op_src->simm; \
+			} \
+		} else { \
+			len += 1; \
+		} \
+		printf("eip:%x, src:%x\n", cpu.eip, op_src->simm); \
+		print_asm_template1(); \
+		return len; \
+	}
