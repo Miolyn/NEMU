@@ -27,10 +27,10 @@ make_helper(concat(call_rel_, SUFFIX)){
     // eip += 1;
     int len = concat(decode_i_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
-        PUSH_STACK((eip + len) & 0xFFFF);
+        PUSH_STACK((eip + len + 1) & 0xFFFF);
         cpu.eip = (eip + op_src->imm) & 0xFFFF;
     } else{
-        PUSH_STACK(eip + len);
+        PUSH_STACK(eip + len + 1);
         cpu.eip = eip + op_src->imm;
     }
     
@@ -42,17 +42,17 @@ make_helper(concat(call_rel_, SUFFIX)){
 
 make_helper(concat(call_rm_, SUFFIX)){
     printf("start call_rm_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, DATA_BYTE));
-    eip += 1;
-    int len = concat(decode_rm_, SUFFIX)(eip);
+    // eip += 1;
+    int len = concat(decode_rm_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
-        PUSH_STACK((eip + len) & 0xFFFF);
+        PUSH_STACK((eip + len + 1) & 0xFFFF);
         cpu.eip = (eip + op_src->val) & 0xFFFF;
     } else{
-        PUSH_STACK(eip + len);
+        PUSH_STACK(eip + len + 1);
         cpu.eip = eip + op_src->val;
     }
     print_asm_template1();
-    return len;
+    return len + 1;
 }
 #endif
 
