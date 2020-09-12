@@ -27,6 +27,11 @@ make_helper(concat(scas_m_, SUFFIX)){
     } else{
         REG(R_EDI) = REG(R_EDI) + incDec;
     }
+    #ifdef DEBUG
+	    snprintf(op_src->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EAX));
+        snprintf(op_dest->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EDI));
+    #endif
+    print_asm_template2();
     return 1;
 }
 

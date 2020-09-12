@@ -13,6 +13,7 @@ static void do_execute(){
     zero_flag(res);
     parity_flag(res);
     printf("zf :%d\n", reg_eflags(ZF));
+    print_asm_template2();
 }
 
 // make_instr_helper(ai)

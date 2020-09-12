@@ -20,6 +20,12 @@ make_helper(concat(lods_m_, SUFFIX)){
     printf("esi before %x\n", reg_w(R_ESI));
     reg_w(R_ESI) = reg_w(R_ESI) + incDec;
     printf("esi after %x\n", reg_w(R_ESI));
+    #ifdef DEBUG
+	    snprintf(op_src->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EAX));
+        snprintf(op_dest->str, OP_STR_SIZE, "%%%s", REG_NAME(R_ESI));
+    #endif
+    print_asm_template2();
+
     return 1;
 }
 #endif
