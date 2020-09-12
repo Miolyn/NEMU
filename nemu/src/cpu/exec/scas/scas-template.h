@@ -21,7 +21,9 @@ make_helper(concat(scas_m_, SUFFIX)){
     printf("zf%d\n", reg_eflags(ZF));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     if (DATA_BYTE == 1){
+        printf("edi before %x\n", reg_w(R_EDI));
         reg_w(R_EDI) = reg_w(R_EDI) + incDec;
+        printf("edi after %x\n", reg_w(R_EDI));
     } else{
         REG(R_EDI) = REG(R_EDI) + incDec;
     }
