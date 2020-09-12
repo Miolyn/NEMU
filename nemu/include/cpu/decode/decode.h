@@ -71,6 +71,10 @@ make_helper(decode_si2a_l);
 make_helper(decode_sib2rm_w);
 make_helper(decode_sib2rm_l);
 
+int decode_rm_b_internal(swaddr_t eip, Operand *rm, Operand *reg);
+int decode_rm_w_internal(swaddr_t eip, Operand *rm, Operand *reg);
+int decode_rm_l_internal(swaddr_t eip, Operand *rm, Operand *reg);
+
 void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);
 void write_operand_l(Operand *, uint32_t);

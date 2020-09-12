@@ -44,3 +44,5 @@
 #include "lods/lods.h"
 #include "scas/scas.h"
 #include "lea/lea.h"
+#include "data-mov/movzx.h"
+#include "data-mov/movsx.h"
