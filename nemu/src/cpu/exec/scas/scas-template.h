@@ -5,7 +5,7 @@
 make_helper(concat(scas_m_, SUFFIX)){
     int r = 0;
     if (DATA_BYTE == 1){
-        r = MEM_R(reg_w(R_EDI));
+        r = MEM_R(reg_w(R_EDI)) & 0xFF;
     } else{
         r = MEM_R(REG(R_EDI));
     }
