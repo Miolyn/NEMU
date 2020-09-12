@@ -24,9 +24,8 @@
 make_helper(concat(call_rel_, SUFFIX)){
     printf("~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("start call_rel_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, 4));
-    eip += 1;
-    int len = concat(decode_i_, SUFFIX)(eip);
-    printf("len:%d,src:%d,call_op-push_addr:%x\n", len, op_src->imm, eip + len);
+    // eip += 1;
+    int len = concat(decode_i_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
         PUSH_STACK((eip + len) & 0xFFFF);
         cpu.eip = (eip + op_src->imm) & 0xFFFF;
@@ -37,7 +36,7 @@ make_helper(concat(call_rel_, SUFFIX)){
     
     // 0x66 prefix return length=1
     // 1 means the len of the opcode
-    return len;
+    return len + 1;
 }
 
 make_helper(concat(call_rm_, SUFFIX)){
