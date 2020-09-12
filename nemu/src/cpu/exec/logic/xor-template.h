@@ -7,8 +7,12 @@ static void do_execute () {
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */
-	panic("please implement me");
-
+	// panic("please implement me");
+	reset_eflags(CF);
+	reset_eflags(OF);
+	sign_flag(result);
+	zero_flag(result);
+	parity_flag(result);
 	print_asm_template2();
 }
 
