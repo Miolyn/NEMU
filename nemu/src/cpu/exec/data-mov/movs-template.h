@@ -4,10 +4,12 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(movs_m_, SUFFIX)){
-    MEM_W(MEM_R(REG(R_EDI)), MEM_R(REG(R_ESI)));
+    printf("movsl\n");
+    MEM_W(REG(R_EDI), MEM_R(REG(R_ESI)));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     REG(R_ESI) = REG(R_ESI) + incDec;
     REG(R_EDI) = REG(R_EDI) + incDec;
+    
     return 0;
 }
 #endif
