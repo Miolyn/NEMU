@@ -14,6 +14,7 @@ make_helper(concat(ret_rel_, SUFFIX)){
     }
     
     REG(R_ESP) = REG(R_ESP) + 4;
+    print_asm(str(instr) str(SUFFIX));
     // control the len 
     // read one opcode before deal
     return 0;
@@ -30,7 +31,8 @@ make_helper(concat(ret_i_, SUFFIX)){
     REG(R_ESP) = REG(R_ESP) + 4;
     decode_i_w(eip + 1);
     printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
-    REG(R_ESP) = REG(R_ESP) + op_src->val;
+    reg_l(R_ESP) = reg_l(R_ESP) + op_src->val;
+    print_asm_template1();
     // control the len 
     // read one opcode before deal
     return 0;

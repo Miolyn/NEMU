@@ -8,6 +8,7 @@ static void do_execute(){
     printf("before pop %x\n", reg_l(R_ESP));
     POP_STACK(op_src);
     printf("after pop %x\n", reg_l(R_ESP));
+    print_asm(str(instr) str(SUFFIX));
 }
 
 make_instr_helper(m)
