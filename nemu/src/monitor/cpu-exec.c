@@ -59,9 +59,9 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
-		if (cpu.eip == 0x100199){
-			assert(0);
-		}
+		// if (cpu.eip == 0x100199){
+		// 	assert(0);
+		// }
 		
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
