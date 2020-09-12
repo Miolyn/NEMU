@@ -12,6 +12,7 @@ make_helper(concat(jmp_rel_, SUFFIX)){
     } else{
         cpu.eip = eip + op_src->imm;
     }
+    print_asm_template1();
     return len;
 }
 
@@ -24,6 +25,7 @@ make_helper(concat(jmp_rm_, SUFFIX)){
     } else{
         cpu.eip = eip + op_src->val;
     }
+    print_asm_template1();
     return len;
 }
 #endif
