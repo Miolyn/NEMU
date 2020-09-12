@@ -36,6 +36,7 @@ make_helper(concat(call_rel_, SUFFIX)){
     
     // 0x66 prefix return length=1
     // 1 means the len of the opcode
+    print_asm_template1();
     return len + 1;
 }
 
