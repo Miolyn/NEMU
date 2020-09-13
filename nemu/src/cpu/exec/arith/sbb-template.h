@@ -15,6 +15,7 @@ static void do_execute(){
     overflow_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
     print_temp1();
     concat(write_operand_, SUFFIX)(op_dest, res);
+    print_asm_template2();
 }
 
 make_instr_helper(i2a)
