@@ -83,7 +83,7 @@ static void init_register(){
 	// printf("%lu\n", sizeof(cpu.ef));
 	printf("%lu\n", sizeof(cpu.eflags));
 	// printf("0x%x\n", cpu.ef);
-	for(i = CF; i < 32; i++){
+	for(i = 0; i < 32; i++){
 		printf("%d ", reg_eflags(i));
 	}
 	printf("\n");
