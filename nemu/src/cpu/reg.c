@@ -74,23 +74,23 @@ uint32_t get_reg_by_str(bool *success, char *e){
 }
 
 
-
+// for unsigned int
 int carry_flag(int dest, int src){
 	int res = dest + src;
-	reg_eflags(CF) = res < dest;
-	// if (dest < 0 && src < 0 && res > 0){
-	// 	set_eflags(CF);
-	// } else if(dest > 0 && src > 0 && res < 0){
-	// 	set_eflags(CF);
-	// } else{
-	// 	reset_eflags(CF);
-	// }
+	// reg_eflags(CF) = res < dest;
+	if (dest < 0 && src < 0 && res > 0){
+		set_eflags(CF);
+	} else if(dest > 0 && src > 0 && res < 0){
+		set_eflags(CF);
+	} else{
+		reset_eflags(CF);
+	}
 	return res;
 }
 
 
 int carry_flag3(int dest, int src){
-	uint32_t res = dest + src;
+	uint32_t res = dest + src + reg_eflags(CF);
 	cpu.CF = res < dest;
 	// int res = dest + src + reg_eflags(CF);
 	// if (dest < 0 && src < 0 && res > 0){
