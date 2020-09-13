@@ -8,11 +8,9 @@ static void do_execute(){
     printf("test src %x , dest %x\n", op_src->val, op_dest->val);
     reset_eflags(OF);
     reset_eflags(CF);
-    // SF ZF PF
-    szp(res, DATA_BYTE);
-    // sign_flag(res);
-    // zero_flag(res);
-    // parity_flag(res);
+    sign_flag(res);
+    zero_flag(res);
+    parity_flag(res);
     printf("zf :%d\n", reg_eflags(ZF));
     print_asm_template2();
 }
