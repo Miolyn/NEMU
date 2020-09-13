@@ -83,7 +83,7 @@ static int cmd_x(char *args){
     }
     char *nStr = strtok(args, " ");
     if (nStr == NULL){
-        printf("n needed, please enter the cmd like [x 10 0x100000]\n");
+        printf("expr needed, please enter the cmd like [x 10 0x100000]\n");
         return 0;
     }
     int n = atoi(nStr);
