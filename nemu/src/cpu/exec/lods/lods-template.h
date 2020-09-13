@@ -6,7 +6,6 @@
 make_helper(concat(lods_m_, SUFFIX)){
     printf("addr:%x\n", reg_l(R_ESI));
     printf("esi:%x,edi:%x\n", MEM_R(reg_l(R_ESI)), MEM_R(reg_l(R_EDI)));
-    // MEM_W(reg_w(R_ESI), REG(R_EAX));
     REG(R_EAX) = MEM_R(reg_l(R_ESI));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     printf("esi before %x\n", reg_l(R_ESI));
