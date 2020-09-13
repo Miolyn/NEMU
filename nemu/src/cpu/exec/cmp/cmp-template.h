@@ -11,15 +11,15 @@ static void do_execute(){
 	}
     printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
 
-    // int res = carry_flag(op_dest->val, -op_src->val);
-    int res = oszapc(op_dest->val, -op_src->val, DATA_BYTE);
+    int res = carry_flag(op_dest->val, -op_src->val);
+    // int res = oszapc(op_dest->val, -op_src->val, DATA_BYTE);
     printf("res:%d\n", res);
-    // parity_flag(res);
-    // adjust_flag(op_dest->val, -op_src->val);
-    // zero_flag(res);
+    parity_flag(res);
+    adjust_flag(op_dest->val, -op_src->val);
+    zero_flag(res);
     printf("zflag %d\n", reg_eflags(ZF));
-    // sign_flag(res);
-    // overflow_flag(op_dest->val, -op_src->val);
+    sign_flag(res);
+    overflow_flag(op_dest->val, -op_src->val);
     print_asm_template2();
 }
 
