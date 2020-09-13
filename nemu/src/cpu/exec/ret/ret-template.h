@@ -4,9 +4,9 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(ret_rel_, SUFFIX)){
-    printf("``````````````````````````````````````````````````````````````````````````````\n");
-    printf("start to deal with ret%d\n", DATA_BYTE);
-    printf("ret%d read %x\n", DATA_BYTE, swaddr_read(reg_l(R_SP), 4) );
+    // printf("``````````````````````````````````````````````````````````````````````````````\n");
+    // printf("start to deal with ret%d\n", DATA_BYTE);
+    // printf("ret%d read %x\n", DATA_BYTE, swaddr_read(reg_l(R_SP), 4) );
     if (ops_decoded.is_operand_size_16){
         cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
     } else{
@@ -21,7 +21,7 @@ make_helper(concat(ret_rel_, SUFFIX)){
 }
 
 make_helper(concat(ret_i_, SUFFIX)){
-    printf("ret at rsp%x\n", reg_l(R_ESP));
+    // printf("ret at rsp%x\n", reg_l(R_ESP));
     if (ops_decoded.is_operand_size_16){
         cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
     } else{
@@ -30,7 +30,7 @@ make_helper(concat(ret_i_, SUFFIX)){
     
     reg_l(R_ESP) = reg_l(R_ESP) + 4;
     decode_i_w(eip + 1);
-    printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
+    // printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
     reg_l(R_ESP) = reg_l(R_ESP) + op_src->val;
     print_asm_template1();
     // control the len 
