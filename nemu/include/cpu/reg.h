@@ -91,7 +91,7 @@ extern void zero_flag(int res);
 extern void sign_flag(int res);
 extern int overflow_flag(int dest, int src);
 extern int overflow_flag3(int dest, int src);
-extern int oszapc(int dest, int src, int width);
+extern int sozapc(int dest, int src, int width);
 extern void szp(uint32_t result, uint32_t width);
 
 extern const char* regsl[];

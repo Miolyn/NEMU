@@ -188,7 +188,7 @@ int overflow_flag3(int dest, int src){
 	return res;
 }
 
-int oszapc(int dest, int src, int width){
+int sozapc(int dest, int src, int width){
 	int result = dest + src;
 
 	int len = (width << 3) - 1;
@@ -215,10 +215,10 @@ int oszapc(int dest, int src, int width){
 
 void szp(uint32_t result, uint32_t width){
 	int len = (width << 3) - 1;
-	cpu.SF = result >> len;
-	cpu.ZF = !result;
+	reg_eflags(SF) = result >> len;
+	reg_eflags(ZF) = !result;
 	result ^= result >> 4;
 	result ^= result >> 2;
 	result ^= result >> 1;
-	cpu.PF = !(result & 1);
+	reg_eflags(PF) = !(result & 1);
 }
