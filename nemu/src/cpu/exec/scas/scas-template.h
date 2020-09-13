@@ -7,6 +7,9 @@ make_helper(concat(scas_m_, SUFFIX)){
     int l = REG(R_EAX);
     // int res = oszapc(l, -r, DATA_BYTE);
     int res = carry_flag(l, -r);
+    int st = 0xffff;
+    if (DATA_BYTE == 1) st = 0xff;
+    if (DATA_BYTE != 4) res &= st;
     parity_flag(res);
     adjust_flag(l, -r);
     zero_flag(res);
