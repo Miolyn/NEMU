@@ -67,6 +67,13 @@ void cpu_exec(volatile uint32_t n) {
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
 		int instr_len = exec(cpu.eip);
 		printf("end exec\n");
+		int j;
+		for(j = R_EAX; j <= R_EDI; j++){
+			if (j != R_ESP)
+				printf("reg_%s:0x%x ;", regsl[j], reg_l(j));
+			else 
+				printf("reg %s:0x%x ,mem:l:0x%x,w0x%x,b0x%x ;", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
+		}
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 
