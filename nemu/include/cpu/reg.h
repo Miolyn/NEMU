@@ -79,6 +79,7 @@ extern void szp(uint32_t result, uint32_t width);
 extern const char* regsl[];
 extern const char* regsw[];
 extern const char* regsb[];
+extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
 #endif

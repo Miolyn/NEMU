@@ -7,7 +7,7 @@ CPU_state cpu;
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
-
+const char *regef[] = {"cf", "pos1", "pf", "pos3", "af", "pos5", "zf", "sf", "tf", "if", "df", "of", "ol", "ip", "nt", "pos15", "rf", "vm"};
 void reg_test() {
 	srand(time(0));
 	uint32_t sample[8];
@@ -61,6 +61,11 @@ uint32_t get_reg_by_str(bool *success, char *e){
                 return reg_b(i);
             }
         }
+		for(i = CF; i <= VM; i++){
+			if(strcmp(e, regef[i]) == 0){
+				return reg_eflags(i);
+			}
+		}
     } else{
         *success = false;
         return 0;
