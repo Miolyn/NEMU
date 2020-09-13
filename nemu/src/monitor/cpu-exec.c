@@ -79,10 +79,12 @@ void cpu_exec(volatile uint32_t n) {
 		printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
 		j = R_ESP;
 		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
-			printf("reg %s:0x%x ,mem:l:0x%x,w0x%x,b0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
+			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
 		} else{
 			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
 		}
+		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", reg_eflags(CF),
+			reg_eflags(PF), reg_eflags(AF), reg_eflags(ZF), reg_eflags(SF), reg_eflags(OF));
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 
