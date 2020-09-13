@@ -149,6 +149,9 @@ void sign_flag(int res){
 		reset_eflags(SF);
 	}
 }
+void sfm(int res, int width){
+	reg_eflags(SF) = (res & ~(0xffffffff << (8 * width - 1) << 1)) == 0;
+}
 
 int overflow_flag(int dest, int src){
 	int res = dest + src;
@@ -172,4 +175,28 @@ int overflow_flag3(int dest, int src){
 		reset_eflags(OF);
 	}
 	return res;
+}
+
+int oszapc(uint32_t dest, uint32_t src, uint32_t width){
+	uint32_t result = dest + src;
+	int len = (width << 3) - 1;
+	cpu.CF = result < dest;
+	cpu.SF = result >> len;
+	int s1, s2;
+	s1 = dest >> len;
+	s2 = src >> len;
+	cpu.OF = (s1 != s2 && s2 == cpu.SF) ;
+	cpu.ZF = !result;
+	result ^= result >> 4;
+	result ^= result >> 2;
+	result ^= result >> 1;
+	cpu.PF = !(result & 1);
+	int low4dest = dest & 0xF;
+	int low4src = src & 0xF;
+	if (low4dest + low4src > 0xF){
+		cpu.AF = 1;
+	} else{
+		cpu.AF = 0;
+	}
+	return result;
 }
