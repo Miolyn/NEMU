@@ -10,10 +10,10 @@ static void do_execute () {
 	// panic("please implement me");
 	reset_eflags(CF);
 	reset_eflags(OF);
-	szp(result, DATA_BYTE);
-	// sign_flag(result);
-	// zero_flag(result);
-	// parity_flag(result);
+	// szp(result, DATA_BYTE);
+	sign_flag(result);
+	zero_flag(result);
+	parity_flag(result);
 	print_asm_template2();
 }
 
