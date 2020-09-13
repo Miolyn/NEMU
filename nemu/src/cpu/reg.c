@@ -149,11 +149,7 @@ void adjust_flag3(int dest, int src){
 }
 
 void zero_flag(int res){
-	if (res == 0){
-		set_eflags(ZF);
-	} else{
-		reset_eflags(ZF);
-	}
+	reg_eflags(ZF) = (res == 0);
 }
 
 
@@ -195,7 +191,7 @@ int overflow_flag3(int dest, int src){
 int oszapc(uint32_t dest, uint32_t src, uint32_t width){
 	uint32_t result = dest + src;
 	int len = (width << 3) - 1;
-	cpu.CF = result < dest;
+	cpu.CF = (result < dest);
 	cpu.SF = result >> len;
 	int s1, s2;
 	s1 = dest >> len;

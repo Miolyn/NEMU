@@ -5,16 +5,16 @@
 make_helper(concat(scas_m_, SUFFIX)){
     int r = MEM_R(reg_l(R_EDI));
     int l = REG(R_EAX);
-    // int res = oszapc(l, -r, DATA_BYTE);
-    int res = carry_flag(l, -r);
+    int res = oszapc(l, -r, DATA_BYTE);
+    // int res = carry_flag(l, -r);
     int st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
     if (DATA_BYTE != 4) res &= st;
-    parity_flag(res);
-    adjust_flag(l, -r);
-    zero_flag(res);
-    sign_flag(res);
-    overflow_flag(l, -r);
+    // parity_flag(res);
+    // adjust_flag(l, -r);
+    // zero_flag(res);
+    // sign_flag(res);
+    // overflow_flag(l, -r);
     printf("l%x,r%x,res:%x\n", l, r, res);
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
