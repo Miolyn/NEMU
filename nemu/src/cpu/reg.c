@@ -77,7 +77,7 @@ uint32_t get_reg_by_str(bool *success, char *e){
 
 int carry_flag(int dest, int src){
 	int res = dest + src;
-	cpu.CF = res < dest;
+	reg_eflags(CF) = res < dest;
 	// if (dest < 0 && src < 0 && res > 0){
 	// 	set_eflags(CF);
 	// } else if(dest > 0 && src > 0 && res < 0){
