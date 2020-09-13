@@ -3,12 +3,7 @@
 #define instr scas
 
 make_helper(concat(scas_m_, SUFFIX)){
-    int r = 0;
-    if (DATA_BYTE == 1){
-        r = MEM_R(reg_w(R_EDI));
-    } else{
-        r = MEM_R(REG(R_EDI));
-    }
+    int r = MEM_R(reg_l(R_EDI));
     int l = REG(R_EAX);
     // int res = oszapc(l, -r, DATA_BYTE);
     int res = carry_flag(l, -r);
