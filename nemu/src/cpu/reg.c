@@ -84,16 +84,16 @@ uint32_t get_reg_by_str(bool *success, char *e){
 // for unsigned int
 int carry_flag(int dest, int src){
 	int res = dest + src;
-	if (sign_bit32(dest) & sign_bit32(src)){
-		reg_eflags(CF) = 1;
-	} else if (sign_bit32(dest) && !sign_bit32(src)){
-		reg_eflags(CF) = (res > 0);
-	}else if (sign_bit32(dest) && !sign_bit32(src)){
-		reg_eflags(CF) = (res > 0);
-	} else{
-		reg_eflags(CF) = 0;
-	}
-	// reg_eflags(CF) = res < dest;
+	// if (sign_bit32(dest) & sign_bit32(src)){
+	// 	reg_eflags(CF) = 1;
+	// } else if (sign_bit32(dest) && !sign_bit32(src)){
+	// 	reg_eflags(CF) = (res > 0);
+	// }else if (sign_bit32(dest) && !sign_bit32(src)){
+	// 	reg_eflags(CF) = (res > 0);
+	// } else{
+	// 	reg_eflags(CF) = 0;
+	// }
+	reg_eflags(CF) = res < dest;
 	// if (dest < 0 && src < 0 && res > 0){
 	// 	set_eflags(CF);
 	// } else if(dest > 0 && src > 0 && res < 0){
