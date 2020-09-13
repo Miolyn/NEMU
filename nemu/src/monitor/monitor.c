@@ -77,7 +77,6 @@ static void load_entry() {
 static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
-	printf("%x\n", cpu.POS1);
 }
 
 void restart() {
