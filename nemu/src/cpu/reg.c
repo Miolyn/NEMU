@@ -158,6 +158,7 @@ void adjust_flag3(int dest, int src){
 }
 
 void zero_flag(int res){
+	printf("%x,b:%d\n", res, (res==0));
 	reg_eflags(ZF) = (res == 0);
 }
 
