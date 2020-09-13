@@ -55,7 +55,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-		if(!reg_eflags(ZF)){
+		if(reg_eflags(ZF)){
 			break;
 		}
 	}
