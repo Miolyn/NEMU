@@ -69,12 +69,24 @@ void cpu_exec(volatile uint32_t n) {
 		printf("end exec\n");
 		int j;
 		for(j = R_EAX; j <= R_EDI; j++){
-			if (j != R_ESP && j != R_EBP){
+			if (j != R_ESP && j != R_EBP && j != R_ESI && j != R_EDI){
 				printf("reg_%s:0x%x ;", regsl[j], reg_l(j));
 			}
 				
 		}
 		printf("\n");
+		j = R_ESI;
+		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
+		} else{
+			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		}
+		j = R_EDI;
+		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
+		} else{
+			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		}
 		j = R_EBP;
 		printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
 		j = R_ESP;
