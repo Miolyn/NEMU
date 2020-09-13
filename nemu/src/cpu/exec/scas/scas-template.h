@@ -10,13 +10,13 @@ make_helper(concat(scas_m_, SUFFIX)){
         r = MEM_R(REG(R_EDI));
     }
     int l = REG(R_EAX);
-    int res = oszapc(l, -r, DATA_BYTE);
-    // int res = carry_flag(l, -r);
-    // parity_flag(res);
-    // adjust_flag(l, -r);
-    // zero_flag(res);
-    // sign_flag(res);
-    // overflow_flag(l, -r);
+    // int res = oszapc(l, -r, DATA_BYTE);
+    int res = carry_flag(l, -r);
+    parity_flag(res);
+    adjust_flag(l, -r);
+    zero_flag(res);
+    sign_flag(res);
+    overflow_flag(l, -r);
     printf("l%x,r%x\n", l, r);
     printf("res:%x\n", res);
     printf("zf%d\n", reg_eflags(ZF));
