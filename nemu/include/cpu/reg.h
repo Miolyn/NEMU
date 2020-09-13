@@ -33,29 +33,29 @@ typedef struct {
 	union {
 		uint32_t ef;
 		struct {
-			uint32_t _1: 1;
+			uint8_t _1: 1;
 		}eflags[32];
 		
 		struct {
-			uint32_t CF : 1;
-			uint32_t POS1 : 1;
-			uint32_t PF : 1;
-			uint32_t POS3 : 1;
-			uint32_t AF : 1;
-			uint32_t POS5 : 1;
-			uint32_t ZF : 1;
-			uint32_t SF : 1;
-			uint32_t TF : 1;
-			uint32_t IF : 1;
-			uint32_t DF : 1;
-			uint32_t OF : 1;
-			uint32_t OL : 1;
-			uint32_t IP : 1;
-			uint32_t NT : 1;
-			uint32_t POS15 : 1;
-			uint32_t RF : 1;
-			uint32_t VM : 1;
-			uint32_t no : 14;
+			uint8_t CF : 1;
+			uint8_t POS1 : 1;
+			uint8_t PF : 1;
+			uint8_t POS3 : 1;
+			uint8_t AF : 1;
+			uint8_t POS5 : 1;
+			uint8_t ZF : 1;
+			uint8_t SF : 1;
+			uint8_t TF : 1;
+			uint8_t IF : 1;
+			uint8_t DF : 1;
+			uint8_t OF : 1;
+			uint8_t OL : 1;
+			uint8_t IP : 1;
+			uint8_t NT : 1;
+			uint8_t POS15 : 1;
+			uint8_t RF : 1;
+			uint8_t VM : 1;
+			uint16_t no : 1;
 		};
 	};
 	
