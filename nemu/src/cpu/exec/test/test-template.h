@@ -9,10 +9,10 @@ static void do_execute(){
     reset_eflags(OF);
     reset_eflags(CF);
     // SF ZF PF
-    // szp(res, DATA_BYTE);
-    sign_flag(res);
-    zero_flag(res);
-    parity_flag(res);
+    szp(res, DATA_BYTE);
+    // sign_flag(res);
+    // zero_flag(res);
+    // parity_flag(res);
     printf("zf :%d\n", reg_eflags(ZF));
     print_asm_template2();
 }
