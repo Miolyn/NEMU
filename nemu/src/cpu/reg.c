@@ -77,14 +77,14 @@ uint32_t get_reg_by_str(bool *success, char *e){
 // for unsigned int
 int carry_flag(int dest, int src){
 	int res = dest + src;
-	// reg_eflags(CF) = res < dest;
-	if (dest < 0 && src < 0 && res > 0){
-		set_eflags(CF);
-	} else if(dest > 0 && src > 0 && res < 0){
-		set_eflags(CF);
-	} else{
-		reset_eflags(CF);
-	}
+	reg_eflags(CF) = res < dest;
+	// if (dest < 0 && src < 0 && res > 0){
+	// 	set_eflags(CF);
+	// } else if(dest > 0 && src > 0 && res < 0){
+	// 	set_eflags(CF);
+	// } else{
+	// 	reset_eflags(CF);
+	// }
 	return res;
 }
 
