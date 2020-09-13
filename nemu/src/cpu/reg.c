@@ -192,7 +192,8 @@ int sozapc(int dest, int src, int width){
 	int result = dest + src;
 
 	int len = (width << 3) - 1;
-	reg_eflags(CF) = result < dest;
+	carry_flag(dest, src);
+	// reg_eflags(CF) = result < dest;
 	reg_eflags(SF) = result >> len;
 	int s1, s2;
 	s1 = dest >> len;

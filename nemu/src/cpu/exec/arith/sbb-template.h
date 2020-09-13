@@ -3,8 +3,8 @@
 #define instr sbb
 
 static void do_execute(){
-    int res = carry_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
-    // int res = sozapc(op_dest->val, -(op_src->val + reg_eflags(CF)), DATA_BYTE);
+    // int res = carry_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
+    int res = sozapc(op_dest->val, -(op_src->val + reg_eflags(CF)), DATA_BYTE);
     int st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
     if (DATA_BYTE != 4) res &= st;
