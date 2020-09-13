@@ -69,12 +69,14 @@ void cpu_exec(volatile uint32_t n) {
 		printf("end exec\n");
 		int j;
 		for(j = R_EAX; j <= R_EDI; j++){
-			if (j != R_ESP){
+			if (j != R_ESP && j != R_EBP){
 				printf("reg_%s:0x%x ;", regsl[j], reg_l(j));
 			}
 				
 		}
 		printf("\n");
+		j = R_EBP;
+		printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
 		j = R_ESP;
 		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
 			printf("reg %s:0x%x ,mem:l:0x%x,w0x%x,b0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4), swaddr_read(reg_l(j), 2), swaddr_read(reg_l(j), 1));
