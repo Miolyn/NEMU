@@ -54,6 +54,9 @@ extern char assembly[];
 #define print_asm_template4() \
 	print_asm(str(instr) str(SUFFIX) " %s,%s", cpu.eip, op_src->str, )
 
+#define print_temp1() \
+	printf("dest:0x%x, src:0x%x, res:0x%x\n", op_dest->val, op_src->val, res);
+
 #define jcc_helper(prefix, condition) \
 	make_helper(concat4(j, prefix, _rel_, SUFFIX)){ \
 		eip += 1; \
