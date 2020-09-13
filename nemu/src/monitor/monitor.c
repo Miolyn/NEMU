@@ -80,6 +80,7 @@ static void init_register(){
 	cpu.DF = 1;
 	cpu.CF = 1;
 	int i;
+	printf("%x\n", cpu.ef);
 	for(i = CF; i < 32; i++){
 		printf("%d ", reg_eflags(i));
 	}
