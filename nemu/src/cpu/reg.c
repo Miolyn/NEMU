@@ -188,8 +188,8 @@ int overflow_flag3(int dest, int src){
 	return res;
 }
 
-int oszapc(uint32_t dest, uint32_t src, uint32_t width){
-	uint32_t result = dest + src;
+int oszapc(int dest, int src, int width){
+	int result = dest + src;
 
 	int len = (width << 3) - 1;
 	reg_eflags(CF) = (result < dest);
