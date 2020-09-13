@@ -45,6 +45,7 @@ void reg_test() {
 uint32_t get_reg_by_str(bool *success, char *e){
     int i;
     if (strlen(e) == 3){
+		printf("%s\n", e);
         for (i = R_EAX; i <= R_EDI; i++){
             if (strcmp(e, regsl[i]) == 0){
                 return reg_l(i);
