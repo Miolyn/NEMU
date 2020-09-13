@@ -193,16 +193,16 @@ int sozapc(int dest, int src, int width){
 
 	int len = (width << 3) - 1;
 	reg_eflags(CF) = result < dest;
-	// reg_eflags(SF) = result >> len;
+	reg_eflags(SF) = result >> len;
 	int s1, s2;
 	s1 = dest >> len;
 	s2 = src >> len;
-	// reg_eflags(OF) = (s1 != s2 && s2 == cpu.SF) ;
-	// reg_eflags(ZF) = !result;
+	reg_eflags(OF) = (s1 != s2 && s2 == cpu.SF) ;
+	reg_eflags(ZF) = !result;
 	result ^= result >> 4;
 	result ^= result >> 2;
 	result ^= result >> 1;
-	// reg_eflags(PF) = !(result & 1);
+	reg_eflags(PF) = !(result & 1);
 	int low4dest = dest & 0xF;
 	int low4src = src & 0xF;
 	if (low4dest + low4src > 0xF){
