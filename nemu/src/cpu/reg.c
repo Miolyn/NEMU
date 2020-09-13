@@ -50,6 +50,11 @@ uint32_t get_reg_by_str(bool *success, char *e){
                 return reg_l(i);
             }
         }
+		if (strcmp(e, "eip")){
+			return cpu.eip;
+		}
+		*success = false;
+        return 0;
     } else if(strlen(e) == 2){
         for(i = R_AX; i <= R_DI; i++){
             if(strcmp(e, regsw[i]) == 0){
@@ -66,6 +71,8 @@ uint32_t get_reg_by_str(bool *success, char *e){
 				return reg_eflags(i);
 			}
 		}
+		*success = false;
+        return 0;
     } else{
         *success = false;
         return 0;
