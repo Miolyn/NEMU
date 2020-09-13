@@ -72,9 +72,9 @@ static inline int check_reg_index(int index) {
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
 #define reg_eip (cpu.eip)
-#define reg_eflags(pos) cpu.eflags[pos]._1
-#define set_eflags(pos) cpu.eflags[pos]._1 = 1
-#define reset_eflags(pos) cpu.eflags[pos]._1 = 0
+#define reg_eflags(pos) cpu.eflags[31 - pos]._1
+#define set_eflags(pos) cpu.eflags[31 - pos]._1 = 1
+#define reset_eflags(pos) cpu.eflags[31 - pos]._1 = 0
 #define f4 0xFFFFFFFF
 #define f2 0xFFFF
 #define f1 0xFF
