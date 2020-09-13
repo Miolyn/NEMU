@@ -4,7 +4,7 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(lods_m_, SUFFIX)){
-    MEM_W(REG(R_ESI), REG(R_EAX));
+    REG(R_EAX) = MEM_R(REG(R_ESI));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     REG(R_ESI) = REG(R_ESI) + incDec;
     return 1;
