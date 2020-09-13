@@ -193,7 +193,7 @@ int sozapc(int dest, int src, int width){
 
 	int len = (width << 3) - 1;
 	reg_eflags(CF) = (result < dest);
-	reg_eflags(SF) = result >> len;
+	// reg_eflags(SF) = result >> len;
 	int s1, s2;
 	s1 = dest >> len;
 	s2 = src >> len;
