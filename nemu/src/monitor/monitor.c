@@ -77,17 +77,14 @@ static void load_entry() {
 static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
-	cpu.DF = 1;
-	cpu.CF = 1;
-	int i;
 	// printf("%lu\n", sizeof(cpu.ef));
-	printf("%lu\n", sizeof(cpu.eflags));
-	// printf("0x%x\n", cpu.ef);
-	for(i = 0; i < 32; i++){
-		printf("%d ", reg_eflags(i));
-	}
-	printf("\n");
-	printf("%d %d\n", cpu.AF, cpu.CF);
+	// printf("%lu\n", sizeof(cpu.eflags));
+	// // printf("0x%x\n", cpu.ef);
+	// for(i = 0; i < 32; i++){
+	// 	printf("%d ", reg_eflags(i));
+	// }
+	// printf("\n");
+	// printf("%d %d\n", cpu.AF, cpu.CF);
 }
 
 void restart() {
