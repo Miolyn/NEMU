@@ -13,6 +13,7 @@ static void do_execute(){
     zero_flag(res);
     sign_flag(res);
     overflow_flag(op_dest->val, -(op_src->val + reg_eflags(CF)));
+    printf("sbb result:%x\n", res);
     concat(write_operand_, SUFFIX)(op_dest, res);
 }
 
