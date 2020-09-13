@@ -9,6 +9,7 @@ static void do_execute() {
 	// if(op_dest->type == OP_TYPE_MEM){
 	// 	printf("mem: %x\n", MEM_R(op_dest->addr));
 	// }
+	
 	OPERAND_W(op_dest, op_src->val);
 	print_asm_template2();
 }
