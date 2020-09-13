@@ -74,7 +74,7 @@ extern void sign_flag(int res);
 extern int overflow_flag(int dest, int src);
 extern int overflow_flag3(int dest, int src);
 extern int oszapc(uint32_t dest, uint32_t src, uint32_t width);
-
+extern void szp(uint32_t result, uint32_t width);
 
 extern const char* regsl[];
 extern const char* regsw[];

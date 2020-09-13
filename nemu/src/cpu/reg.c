@@ -200,3 +200,13 @@ int oszapc(uint32_t dest, uint32_t src, uint32_t width){
 	}
 	return result;
 }
+
+void szp(uint32_t result, uint32_t width){
+	int len = (width << 3) - 1;
+	cpu.SF = result >> len;
+	cpu.ZF = !result;
+	result ^= result >> 4;
+	result ^= result >> 2;
+	result ^= result >> 1;
+	cpu.PF = !(result & 1);
+}
