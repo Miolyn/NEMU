@@ -7,7 +7,6 @@ static void do_execute(){
     parity_flag(res);
     adjust_flag3(op_dest->val, op_src->val);
     zero_flag(res);
-    // imm?
     sign_flag(res);
     overflow_flag3(op_dest->val, op_src->val);
     concat(write_operand_, SUFFIX)(op_dest, res);
