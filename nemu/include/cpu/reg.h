@@ -31,13 +31,31 @@ typedef struct {
 	swaddr_t eip;
 
 	union {
-		uint32_t ef : 18;
+		uint32_t ef;
 		struct {
 			uint32_t _1: 1;
-		}eflags[18];
+		}eflags[32];
 		
 		struct {
-			uint32_t CF : 1, POS1 : 1, PF : 1, POS3 : 1, AF : 1, POS5 : 1, ZF : 1, SF : 1, TF : 1, IF : 1, DF : 1, OF : 1, OL : 1, IP : 1, NT : 1, POS15 : 1, RF : 1, VM : 1;
+			uint8_t CF : 1;
+			uint8_t POS1 : 1;
+			uint8_t PF : 1;
+			uint8_t POS3 : 1;
+			uint8_t AF : 1;
+			uint8_t POS5 : 1;
+			uint8_t ZF : 1;
+			uint8_t SF : 1;
+			uint8_t TF : 1;
+			uint8_t IF : 1;
+			uint8_t DF : 1;
+			uint8_t OF : 1;
+			uint8_t OL : 1;
+			uint8_t IP : 1;
+			uint8_t NT : 1;
+			uint8_t POS15 : 1;
+			uint8_t RF : 1;
+			uint8_t VM : 1;
+			uint32_t no : 14;
 		};
 	};
 	
