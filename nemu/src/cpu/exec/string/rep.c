@@ -25,10 +25,10 @@ make_helper(rep) {
 				|| ops_decoded.opcode == 0xaf	// scasw
 				);
 
-			/* TODO: Jump out of the while loop if necessary. */
-			// if(!reg_eflags(ZF)){
-			// 	break;
-			// }
+			// /* TODO: Jump out of the while loop if necessary. */
+			if(!reg_eflags(ZF)){
+				break;
+			}
 		}
 		len = 1;
 	}
