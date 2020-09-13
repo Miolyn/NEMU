@@ -5,10 +5,10 @@
 // #define do_execute concat4(do_, instr, _, SUFFIX)
 static void do_execute() {
 	// #define OPERAND_W(op, src) concat(write_operand_, SUFFIX) (op, src)
-	printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
-	if(op_dest->type == OP_TYPE_MEM){
-		printf("mem: %x\n", MEM_R(op_dest->addr));
-	}
+	// printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
+	// if(op_dest->type == OP_TYPE_MEM){
+	// 	printf("mem: %x\n", MEM_R(op_dest->addr));
+	// }
 	OPERAND_W(op_dest, op_src->val);
 	print_asm_template2();
 }
