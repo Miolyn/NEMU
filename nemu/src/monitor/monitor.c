@@ -78,7 +78,13 @@ static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
 	cpu.DF = 1;
-	printf("%d %d\n", cpu.DF, reg_eflags(DF));
+	cpu.CF = 1;
+	int i;
+	for(i = CF; i < 32; i++){
+		printf("%d ", reg_eflags(i));
+	}
+	printf("\n");
+	printf("%d %d\n", cpu.AF, cpu.CF);
 }
 
 void restart() {
