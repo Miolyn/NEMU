@@ -81,6 +81,7 @@ void cpu_exec(volatile uint32_t n) {
 			} 
 				
 		}
+		printf("\n");
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 
