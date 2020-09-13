@@ -16,12 +16,8 @@ make_helper(concat(scas_m_, SUFFIX)){
     sign_flag(res);
     overflow_flag(l, -r);
     printf("l%x,r%x,res:%x\n", l, r, res);
-    // printf("res:%x\n", res);
-    // printf("zf%d\n", reg_eflags(ZF));
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
-    // printf("edi before %x\n", reg_w(R_EDI));
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
-    // printf("edi after %x\n", reg_w(R_EDI));
 
     #ifdef DEBUG
 	    snprintf(op_src->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EAX));

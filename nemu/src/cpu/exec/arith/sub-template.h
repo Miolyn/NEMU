@@ -4,6 +4,9 @@
 
 static void do_execute(){
     int res = carry_flag(op_dest->val, -op_src->val);
+    int st = 0xffff;
+    if (DATA_BYTE == 1) st = 0xff;
+    if (DATA_BYTE != 4) res &= st;
     // int res = oszapc(op_dest->val, -op_src->val, DATA_BYTE);
     // int st = 0xFFFF;
     // if (DATA_BYTE == 1) st = 0xFF;
