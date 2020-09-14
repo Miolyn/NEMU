@@ -15,6 +15,7 @@ static void do_execute () {
     zero_flag(res);
     sign_flag(res);
     overflow_flag(op_src->val, 1);
+	printf("dest type %d\n", op_dest->type);
 	if(op_dest->reg < 8){
 		printf("reg:%s\n", REG_NAME(op_dest->reg));
 	}
