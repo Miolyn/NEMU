@@ -33,6 +33,7 @@ make_helper(concat(call_rel_, SUFFIX)){
         PUSH_STACK(eip + len + 1);
         cpu.eip = eip + op_src->val;
     }
+    reset_all_eflags();
     print_asm_template1();
     return len + 1;
 }
@@ -48,6 +49,7 @@ make_helper(concat(call_rm_, SUFFIX)){
         PUSH_STACK(eip + len + 1);
         cpu.eip = eip + op_src->val;
     }
+    reset_all_eflags();
     print_asm_template1();
     return len + 1;
 }

@@ -79,7 +79,14 @@ uint32_t get_reg_by_str(bool *success, char *e){
     }
     return 0;
 }
-
+void reset_all_eflags(){
+	reset_eflags(CF);
+	reset_eflags(PF);
+	reset_eflags(AF);
+	reset_eflags(ZF);
+	reset_eflags(SF);
+	reset_eflags(OF);
+}
 
 // for unsigned int
 int carry_flag(int dest, int src){

@@ -82,6 +82,7 @@ static inline int check_reg_index(int index) {
 #define sign_bit16(res) (res >> 15)
 #define sign_bit8(res) (res >> 7)
 #define low8(res) (res & 0xFF)
+extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
 extern int carry_flag3(int dest, int src);
 extern void parity_flag(int res);
