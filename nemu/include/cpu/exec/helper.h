@@ -64,6 +64,7 @@ extern char assembly[];
 	make_helper(concat4(j, prefix, _rel_, SUFFIX)){ \
 		eip += 1; \
 		int len = concat(decode_si_, SUFFIX)(eip); \
+		printf("eip:%x, len:%x\n", eip, len); \
 		if(condition){ \
 			if (ops_decoded.is_operand_size_16){ \
 				cpu.eip = (eip + op_src->simm) & 0xFFFF; \
@@ -74,6 +75,7 @@ extern char assembly[];
 			len += 1; \
 		} \
 		printf("eip:%x, src:%x\n", cpu.eip, op_src->simm); \
+		printf("eip + len:%x\n", eip + len); \
 		print_asm_template1(); \
 		return len; \
 	}
