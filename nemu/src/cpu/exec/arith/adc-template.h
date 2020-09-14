@@ -3,15 +3,18 @@
 #define instr adc
 
 static void do_execute(){
-    int res = carry_flag3(op_dest->val, op_src->val);
+    // int res = carry_flag3(op_dest->val, op_src->val);
+    int res = carry_flag(op_dest->val, op_src->val + reg_eflags(CF));
     int st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
     if (DATA_BYTE != 4) res &= st;
     parity_flag(res);
-    adjust_flag3(op_dest->val, op_src->val);
+    // adjust_flag3(op_dest->val, op_src->val);
+    adjust_flag(op_dest->val, op_src->val + reg_eflags(CF));
     zero_flag(res);
     sign_flag(res);
-    overflow_flag3(op_dest->val, op_src->val);
+    // overflow_flag3(op_dest->val, op_src->val);
+    overflow_flag(op_dest->val, op_src->val + reg_eflags(CF));
     concat(write_operand_, SUFFIX)(op_dest, res);
 }
 
