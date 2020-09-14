@@ -3,6 +3,7 @@
 #define instr test
 
 static void do_execute(){
+    printf("src:0x%x,dest:0x%x\n", op_src->val, op_dest->val);
     int res = op_src->val & op_dest->val;
     reset_eflags(OF);
     reset_eflags(CF);
