@@ -8,6 +8,7 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)){
     uint32_t res = op_src->val;
     if(op_src->type == OP_TYPE_REG){
         res = reg_b(op_src->reg);
+        printf("src reg_name:%s, op_dest name%s, res %x\n", REG_NAME(op_src->reg), REG_NAME(op_dest->reg), res);
     } else{
         res = swaddr_read(op_src->addr, 1);
     }
