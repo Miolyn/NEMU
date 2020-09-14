@@ -13,7 +13,7 @@ static void do_execute() {
 	// printf("opcode %x\n", instr_fetch(cpu.eip, 1));
 	// printf("before %x push esp %x\n", DATA_BYTE, reg_l(R_ESP));
 	PUSH_STACK(op_src->val);
-	printf("after push esp %x\n", reg_l(R_ESP));
+	// printf("after push esp %x\n", reg_l(R_ESP));
 	print_asm_template2();
 }
 
@@ -22,7 +22,7 @@ static void do_execute() {
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 
 make_instr_helper(r)
-make_instr_helper(m)
+make_instr_helper(rm)
 
 #endif
 
