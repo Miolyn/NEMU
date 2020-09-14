@@ -10,7 +10,6 @@ make_helper(concat(scas_m_, SUFFIX)){
     int st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
     if (DATA_BYTE != 4) res &= st;
-    printf("res:%x\n", res);
     parity_flag(res);
     adjust_flag(l, -r);
     zero_flag(res);
