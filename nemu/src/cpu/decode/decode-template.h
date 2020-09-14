@@ -270,10 +270,10 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 	// printf("pop stack op read %x\n", swaddr_read(REG(R_SP), DATA_BYTE));
 	
 #if DATA_BYTE != 1
-concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
+	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
 	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 #endif
-#if DATA_BYTE != 1
+#if DATA_BYTE == 1
 	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), 4));
 	reg_l(R_ESP) = reg_l(R_ESP) + 4;
 #endif
