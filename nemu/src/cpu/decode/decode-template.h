@@ -258,7 +258,7 @@ void_helper(concat(push_stack_, SUFFIX)){
 	reg_l(R_ESP) = reg_l(R_ESP) - DATA_BYTE;
 #endif
 #if DATA_BYTE == 1
-	reg_l(R_ESP) = reg_l(R_ESP) - 2;
+	reg_l(R_ESP) = reg_l(R_ESP) - 4;
 #endif
 	swaddr_write(reg_l(R_ESP), DATA_BYTE, src);
 	// printf("after %x, data:%x \n", reg_l(R_ESP), swaddr_read(reg_l(R_ESP), 4));
@@ -270,7 +270,7 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
 #endif
 #if DATA_BYTE == 1
-	reg_l(R_ESP) = reg_l(R_ESP) + 2;
+	reg_l(R_ESP) = reg_l(R_ESP) + 4;
 #endif
 	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 }
