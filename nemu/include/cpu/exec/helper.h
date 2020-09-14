@@ -75,7 +75,7 @@ extern char assembly[];
 			len += 1; \
 		} \
 		printf("eip:%x, src:%x\n", cpu.eip, op_src->simm); \
-		printf("eip + len:%x\n", eip + len); \
+		printf("eip + len:%x\n", cpu.eip + len); \
 		print_asm_template1(); \
 		return len; \
 	}
