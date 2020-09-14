@@ -243,6 +243,9 @@ static make_helper(_2byte_esc) {
 	eip ++;
 	uint32_t opcode = instr_fetch(eip, 1);
 	ops_decoded.opcode = opcode | 0x100;
-	return _2byte_opcode_table[opcode](eip) + 1; 
+	ops_decoded.is_2byte = true;
+	int len = _2byte_opcode_table[opcode](eip) + 1; 
+	ops_decoded.is_2byte = false;
+	return len;
 }
 
