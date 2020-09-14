@@ -3,8 +3,8 @@
 #define instr test
 
 static void do_execute(){
-    printf("src:0x%x,dest:0x%x\n", op_src->val, op_dest->val);
     int res = op_src->val & op_dest->val;
+    printf("src:0x%x,dest:0x%x,res:0x%x\n", op_src->val, op_dest->val, res);
     reset_eflags(OF);
     reset_eflags(CF);
     sign_flag(res);
