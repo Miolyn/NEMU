@@ -146,7 +146,7 @@ static int cmd_pt(char *args){
     int n = atoi(args);
     int i = 0;
     for(i = 0; i < n; i++){
-        printf("+0x%x($esp)=%x", i * 4, swaddr_read(cpu.esp + i * 4, 4));
+        printf("+0x%x($esp)=0x%x\n", i * 4, swaddr_read(cpu.esp + i * 4, 4));
     }
     return 0;
 }
