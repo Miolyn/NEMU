@@ -39,7 +39,7 @@ make_helper(concat(call_rel_, SUFFIX)){
 }
 
 make_helper(concat(call_rm_, SUFFIX)){
-    printf("start call_rm_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, DATA_BYTE));
+    // printf("start call_rm_%d at %x, %x\n", DATA_BYTE, eip, instr_fetch(eip + 1, DATA_BYTE));
     // eip += 1;
     int len = concat(decode_rm_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
