@@ -3,7 +3,6 @@
 #define instr inc
 
 static void do_execute () {
-	printf("edx0x%x,\n", reg_l(R_EDX));
 	DATA_TYPE result = op_src->val + 1;
 	OPERAND_W(op_src, result);
 
