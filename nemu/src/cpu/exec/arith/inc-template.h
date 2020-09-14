@@ -15,6 +15,9 @@ static void do_execute () {
     zero_flag(res);
     sign_flag(res);
     overflow_flag(op_src->val, 1);
+	if(op_dest->reg < 8){
+		printf("reg:%s\n", REG_NAME(op_dest->reg));
+	}
     concat(write_operand_, SUFFIX)(op_dest, result);
 	printf("edx0x%x,\n", reg_l(R_EDX));
 	print_asm_template1();
