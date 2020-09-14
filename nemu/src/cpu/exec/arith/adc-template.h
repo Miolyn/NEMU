@@ -3,6 +3,7 @@
 #define instr adc
 
 static void do_execute(){
+    assert(0);
     int res = carry_flag3(op_dest->val, op_src->val);
     // int res = carry_flag(op_dest->val, op_src->val + reg_eflags(CF));
     int st = 0xffff;
