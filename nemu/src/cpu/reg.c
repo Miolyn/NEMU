@@ -93,7 +93,9 @@ int carry_flag(int dest, int src){
 	// } else{
 	// 	reg_eflags(CF) = 0;
 	// }
-	reg_eflags(CF) = res < dest;
+	uint32_t d = dest, r = res;
+
+	reg_eflags(CF) = r < d;
 	// if (dest < 0 && src < 0 && res > 0){
 	// 	set_eflags(CF);
 	// } else if(dest > 0 && src > 0 && res < 0){
