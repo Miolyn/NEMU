@@ -274,7 +274,7 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 #endif
 #if DATA_BYTE == 1
-	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), 4));
+	concat(write_operand_, l)(op, swaddr_read(reg_l(R_ESP), 4));
 	reg_l(R_ESP) = reg_l(R_ESP) + 4;
 #endif
 }
