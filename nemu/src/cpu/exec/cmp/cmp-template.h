@@ -9,7 +9,7 @@ static void do_execute(){
 	// 	if (DATA_BYTE == 1) st = 0xFFFFFF00;
 	// 	op_src->simm |= st;
 	// }
-    // printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
+    printf("dest:%x,src:%x\n", op_dest->val, op_src->val);
 
     int res = carry_flag(op_dest->val, -op_src->val);
     // int res = sozapc(op_dest->val, -op_src->val, DATA_BYTE);
