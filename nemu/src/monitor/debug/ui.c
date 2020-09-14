@@ -151,6 +151,7 @@ static struct {
 
 	/* TODO: Add more commands */
     {"si", "run by step, argument n needed", cmd_si },
+    {"s", "run by step, argument n needed", cmd_si },
     {"info", "print the info of register or watchpoint", cmd_info },
     {"x", "print n value of the memory addr", cmd_x },
     {"p", "calculate expression, support negative number and *addr, $register only support lowercase reg name", cmd_p },
