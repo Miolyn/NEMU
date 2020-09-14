@@ -4,6 +4,7 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(movsx_rmb2r_, SUFFIX)){
+    
     int len = decode_rm_b_internal(eip + 1, op_src, op_dest);
     uint32_t res = op_src->val;
     if (sign_bit8(res)){
