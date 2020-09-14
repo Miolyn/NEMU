@@ -3,6 +3,7 @@
 #define instr inc
 
 static void do_execute () {
+	printf("edx0x%x,\n", reg_l(R_EDX));
 	DATA_TYPE result = op_src->val + 1;
 	OPERAND_W(op_src, result);
 
@@ -14,8 +15,8 @@ static void do_execute () {
     zero_flag(res);
     sign_flag(res);
     overflow_flag(op_src->val, 1);
-    concat(write_operand_, SUFFIX)(op_dest, res);
-
+    concat(write_operand_, SUFFIX)(op_dest, result);
+	printf("edx0x%x,\n", reg_l(R_EDX));
 	print_asm_template1();
 }
 
