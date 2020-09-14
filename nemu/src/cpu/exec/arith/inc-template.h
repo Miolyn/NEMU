@@ -7,7 +7,14 @@ static void do_execute () {
 	OPERAND_W(op_src, result);
 
 	/* TODO: Update EFLAGS. */
-	panic("please implement me");
+	// panic("please implement me");
+	int res = carry_flag(op_src->val, 1);
+    parity_flag(res);
+    adjust_flag(op_src->val, 1);
+    zero_flag(res);
+    sign_flag(res);
+    overflow_flag(op_src->val, 1);
+    concat(write_operand_, SUFFIX)(op_dest, res);
 
 	print_asm_template1();
 }
