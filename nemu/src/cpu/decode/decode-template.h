@@ -256,23 +256,27 @@ void_helper(concat(push_stack_, SUFFIX)){
 	// printf("push stack at rsp:%x, data:%x\n", reg_l(R_ESP), src);
 #if DATA_BYTE != 1
 	reg_l(R_ESP) = reg_l(R_ESP) - DATA_BYTE;
+	swaddr_write(reg_l(R_ESP), DATA_BYTE, src);
 #endif
 #if DATA_BYTE == 1
 	reg_l(R_ESP) = reg_l(R_ESP) - 4;
+	swaddr_write(reg_l(R_ESP), 4, src);
 #endif
-	swaddr_write(reg_l(R_ESP), DATA_BYTE, src);
+	
 	// printf("after %x, data:%x \n", reg_l(R_ESP), swaddr_read(reg_l(R_ESP), 4));
 }
 
 void_op_helper(concat(pop_stack_, SUFFIX)) {
 	// printf("pop stack op read %x\n", swaddr_read(REG(R_SP), DATA_BYTE));
+	
 #if DATA_BYTE != 1
-	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
+concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
+	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 #endif
-#if DATA_BYTE == 1
+#if DATA_BYTE != 1
+	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), 4));
 	reg_l(R_ESP) = reg_l(R_ESP) + 4;
 #endif
-	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 }
 
 
