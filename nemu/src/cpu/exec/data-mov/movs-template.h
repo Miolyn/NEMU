@@ -9,7 +9,7 @@ make_helper(concat(movs_m_, SUFFIX)){
     REG(R_ESI) = REG(R_ESI) + incDec;
     REG(R_EDI) = REG(R_EDI) + incDec;
     
-    return 0;
+    return 1;
 }
 #endif
 
@@ -19,7 +19,7 @@ make_helper(concat(movs_m_, SUFFIX)){
     int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
     reg_w(R_ESI) = reg_w(R_ESI) + incDec;
     reg_w(R_EDI) = reg_w(R_EDI) + incDec;
-    return 0;
+    return 1;
 }
 #endif
 #include "cpu/exec/template-end.h"
