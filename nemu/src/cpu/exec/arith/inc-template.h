@@ -22,7 +22,8 @@ static void do_execute () {
 	if(op_dest->reg < 8){
 		printf("dest reg:%s, val%x\n", REG_NAME(op_dest->reg), reg_l(op_src->reg));
 	}
-    concat(write_operand_, SUFFIX)(op_dest, result);
+    // concat(write_operand_, SUFFIX)(op_dest, result);
+	concat(write_operand_, SUFFIX)(op_src, result);
 	printf("edx0x%x,\n", reg_l(R_EDX));
 	print_asm_template1();
 }
