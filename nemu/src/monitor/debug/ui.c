@@ -138,6 +138,18 @@ static int cmd_d(char *args){
     return 0;
 }
 
+static int cmd_pt(char *args){
+    if (args == NULL){
+        printf("n needed\n");
+        return 0;
+    }
+    int n = atoi(args);
+    int i = 0;
+    for(i = 0; i < n; i++){
+        printf("+0x%x($esp)=%x", i * 4, swaddr_read(cpu.esp + i * 4, 4));
+    }
+    return 0;
+}
 
 // function test2
 static struct {
@@ -157,6 +169,7 @@ static struct {
     {"p", "calculate expression, support negative number and *addr, $register only support lowercase reg name", cmd_p },
     {"w", "add watch point", cmd_w},
     {"d", "delete watch point", cmd_d},
+    {"pt", "print esp", cmd_pt},
 
 };
 
