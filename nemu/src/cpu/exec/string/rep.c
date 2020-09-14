@@ -26,9 +26,9 @@ make_helper(rep) {
 				);
 
 			// /* TODO: Jump out of the while loop if necessary. */
-			// if(!reg_eflags(ZF)){
-			// 	break;
-			// }
+			if(ops_decoded.opcode >= 0xa6 && !reg_eflags(ZF)){
+				break;
+			}
 		}
 		len = 1;
 	}
