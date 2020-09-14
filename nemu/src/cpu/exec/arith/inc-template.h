@@ -16,8 +16,11 @@ static void do_execute () {
     sign_flag(res);
     overflow_flag(op_src->val, 1);
 	printf("dest type %d\n", op_dest->type);
+	if(op_src->reg < 8){
+		printf("src reg:%s, val:%x\n", REG_NAME(op_src->reg), reg_l(op_src->reg));
+	}
 	if(op_dest->reg < 8){
-		printf("reg:%s\n", REG_NAME(op_dest->reg));
+		printf("dest reg:%s, val%x\n", REG_NAME(op_dest->reg), reg_l(op_src->reg));
 	}
     concat(write_operand_, SUFFIX)(op_dest, result);
 	printf("edx0x%x,\n", reg_l(R_EDX));
