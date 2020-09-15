@@ -4,7 +4,7 @@
 
 static void do_execute () {
 	DATA_TYPE result = op_src->val - 1;
-	OPERAND_W(op_src, result);
+	
 
 	/* TODO: Update EFLAGS. */
 	// panic("please implement me");
@@ -15,7 +15,7 @@ static void do_execute () {
     sign_flag(res);
     overflow_flag(op_src->val, -1);
 
-
+	OPERAND_W(op_src, result);
 	print_asm_template1();
 }
 

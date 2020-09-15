@@ -9,6 +9,9 @@ make_helper(concat(movsx_rmb2r_, SUFFIX)){
     if (sign_bit8(res)){
         res |= 0xFFFFFF00;
     }
+    int st = 0xFFFF;
+    if(DATA_BYTE == 1) st = 0xff;
+    if(DATA_BYTE != 4) res &= st;
     concat(write_operand_, SUFFIX)(op_dest, res);
     print_asm_template2();
     return len + 1;
