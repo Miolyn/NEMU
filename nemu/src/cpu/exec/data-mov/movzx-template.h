@@ -13,6 +13,7 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)){
     }
     concat(write_operand_, SUFFIX)(op_dest, res);
     print_asm_template2();
+    printf("%s\n", str(instr));
     return len + 1;
 }
 #endif
