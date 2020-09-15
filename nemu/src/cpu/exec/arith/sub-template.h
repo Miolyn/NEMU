@@ -4,9 +4,12 @@
 
 static void do_execute(){
     int res = carry_flag(op_dest->val, -op_src->val);
-    int st = 0xffff;
-    if (DATA_BYTE == 1) st = 0xff;
-    if (DATA_BYTE != 4) res &= st;
+#if DATA_BYTE == 1
+    res &= 0xff;
+#endif
+#if DATA_BYTE == 2
+    res &= 0xffff;
+#endif
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);

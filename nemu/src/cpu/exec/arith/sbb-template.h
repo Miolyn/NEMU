@@ -6,9 +6,12 @@ static void do_execute(){
     uint32_t cfv = reg_eflags(CF);
     int res = carry_flag(op_dest->val, -(op_src->val + cfv));
     // int res = sozapc(op_dest->val, -(op_src->val + reg_eflags(CF)), DATA_BYTE);
-    int st = 0xffff;
-    if (DATA_BYTE == 1) st = 0xff;
-    if (DATA_BYTE != 4) res &= st;
+#if DATA_BYTE == 1
+    res &= 0xff;
+#endif
+#if DATA_BYTE == 2
+    res &= 0xffff;
+#endif
     parity_flag(res);
     adjust_flag(op_dest->val, -(op_src->val + cfv));
     zero_flag(res);
