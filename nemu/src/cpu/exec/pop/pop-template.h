@@ -9,7 +9,7 @@ static void do_execute(){
     print_asm(str(instr) str(SUFFIX));
 }
 
-make_instr_helper(m)
+make_instr_helper(rm)
 make_instr_helper(r)
 
 #endif
