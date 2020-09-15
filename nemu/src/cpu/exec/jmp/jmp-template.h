@@ -7,6 +7,7 @@ make_helper(concat(jmp_rel_, SUFFIX)){
     // printf("start jmp_rel_%d at %x, rel8:0x%x\n", DATA_BYTE, eip, instr_fetch(eip + 1, DATA_BYTE));
     eip += 1;
     int len = concat(decode_i_, SUFFIX)(eip);
+    printf("op_src:0x%x\n", op_src->val);
     if(ops_decoded.is_operand_size_16){
         cpu.eip = (eip + op_src->val) & 0xFFFF;
     } else{

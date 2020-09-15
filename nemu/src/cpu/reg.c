@@ -96,7 +96,7 @@ int carry_flag(int dest, int src){
 	reg_eflags(CF) = (res >> 32) & 1;
 	// reg_eflags(CF) = res < dest;
 
-	return res;
+	return (int)res;
 }
 
 
