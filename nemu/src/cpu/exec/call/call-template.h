@@ -22,7 +22,7 @@
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(call_rel_, SUFFIX)){
-    int len = concat(decode_si_, SUFFIX)(eip + 1);
+    int len = concat(decode_i_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
         PUSH_STACK((eip + len + 1) & 0xFFFF);
         cpu.eip = (eip + op_src->val) & 0xFFFF;
