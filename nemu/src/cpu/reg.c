@@ -185,6 +185,12 @@ void sfm(int res, int width){
 
 int overflow_flag(int dest, int src){
 	int res = dest + src;
+	if(sign_bit32(dest) && sign_bit32(src) && res > 0){
+		set_eflags(OF);
+	} else{
+		reset_eflags(OF);
+	}
+	return res;
 	if (dest < 0 && src < 0 && res > 0){
 		set_eflags(OF);
 	} else if(dest > 0 && src > 0 && res < 0){
