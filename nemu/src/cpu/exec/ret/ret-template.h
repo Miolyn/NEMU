@@ -18,7 +18,6 @@ make_helper(concat(ret_rel_, SUFFIX)){
 
 make_helper(concat(ret_i_, SUFFIX)){
     // printf("ret at rsp%x\n", reg_l(R_ESP));
-    panic("s");
     if (ops_decoded.is_operand_size_16){
         cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
     } else{
