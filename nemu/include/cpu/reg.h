@@ -83,11 +83,11 @@ static inline int check_reg_index(int index) {
 #define low8(res) (res & 0xFF)
 extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
-extern void parity_flag(uint32_t res);
-extern void adjust_flag(uint32_t dest, uint32_t src);
-extern void zero_flag(uint32_t res);
-extern void sign_flag(uint32_t res);
-extern uint32_t overflow_flag(uint32_t dest, uint32_t src);
+extern void parity_flag(int res);
+extern void adjust_flag(int dest, int src);
+extern void zero_flag(int res);
+extern void sign_flag(int res);
+extern void overflow_flag(int dest, int src);
 
 extern const char* regsl[];
 extern const char* regsw[];

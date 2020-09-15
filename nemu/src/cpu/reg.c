@@ -107,7 +107,7 @@ int carry_flag(int dest, int src){
 
 
 
-void parity_flag(uint32_t res){
+void parity_flag(int res){
 	int low = low8(res);
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
@@ -120,7 +120,7 @@ void parity_flag(uint32_t res){
 	}
 }
 
-void adjust_flag(uint32_t dest, uint32_t src){
+void adjust_flag(int dest, int src){
 	int low4dest = dest & 0xF;
 	int low4src = src & 0xF;
 	if (low4dest + low4src > 0xF){
@@ -130,12 +130,12 @@ void adjust_flag(uint32_t dest, uint32_t src){
 	}
 }
 
-void zero_flag(uint32_t res){
+void zero_flag(int res){
 	// printf("%x,b:%d\n", res, (res==0));
 	reg_eflags(ZF) = (res == 0);
 }
 
-void sign_flag(uint32_t res){
+void sign_flag(int res){
 	reg_eflags(SF) = sign_bit32(res);
 	return;
 	if (res < 0){
@@ -145,7 +145,7 @@ void sign_flag(uint32_t res){
 	}
 }
 
-uint32_t overflow_flag(uint32_t dest, uint32_t src){
+void overflow_flag(int dest, int src){
 	uint32_t res = dest + src;
 	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
 		set_eflags(OF);
@@ -154,7 +154,7 @@ uint32_t overflow_flag(uint32_t dest, uint32_t src){
 	} else{
 		reset_eflags(OF);
 	}
-	return res;
+	return;
 	if (dest < 0 && src < 0 && res > 0){
 		set_eflags(OF);
 	} else if(dest > 0 && src > 0 && res < 0){
@@ -162,5 +162,5 @@ uint32_t overflow_flag(uint32_t dest, uint32_t src){
 	} else{
 		reset_eflags(OF);
 	}
-	return res;
+	// return res;
 }
