@@ -4,15 +4,11 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(ret_rel_, SUFFIX)){
-    // printf("``````````````````````````````````````````````````````````````````````````````\n");
-    // printf("start to deal with ret%d\n", DATA_BYTE);
-    // printf("ret%d read %x\n", DATA_BYTE, swaddr_read(reg_l(R_SP), 4) );
     if (ops_decoded.is_operand_size_16){
         cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
     } else{
         cpu.eip = swaddr_read(reg_l(R_SP), 4);
     }
-    
     reg_l(R_ESP) = reg_l(R_ESP) + 4;
     print_asm(str(instr) str(SUFFIX));
     // control the len 
