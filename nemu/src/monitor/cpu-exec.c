@@ -97,6 +97,7 @@ void cpu_exec(volatile uint32_t n) {
 		}
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", reg_eflags(CF),
 			reg_eflags(PF), reg_eflags(AF), reg_eflags(ZF), reg_eflags(SF), reg_eflags(OF));
+		printf("%s\n", asm_buf);
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 
