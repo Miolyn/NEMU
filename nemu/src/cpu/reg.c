@@ -101,22 +101,8 @@ uint32_t carry_flag(uint32_t dest, uint32_t src){
 }
 
 
-int carry_flag3(int dest, int src){
 
-	uint32_t res = dest + src + reg_eflags(CF);
-	reg_eflags(CF) = res < dest;
-	// int res = dest + src + reg_eflags(CF);
-	// if (dest < 0 && src < 0 && res > 0){
-	// 	set_eflags(CF);
-	// } else if(dest > 0 && src > 0 && res < 0){
-	// 	set_eflags(CF);
-	// } else{
-	// 	reset_eflags(CF);
-	// }
-	return res;
-}
-
-void parity_flag(int res){
+void parity_flag(uint32_t res){
 	int low = low8(res);
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
@@ -129,7 +115,7 @@ void parity_flag(int res){
 	}
 }
 
-void adjust_flag(int dest, int src){
+void adjust_flag(uint32_t dest, uint32_t src){
 	int low4dest = dest & 0xF;
 	int low4src = src & 0xF;
 	if (low4dest + low4src > 0xF){
@@ -139,40 +125,31 @@ void adjust_flag(int dest, int src){
 	}
 }
 
-void adjust_flag3(int dest, int src){
-	int low4dest = dest & 0xF;
-	if(low4dest + reg_eflags(CF) > 0xF){
-		set_eflags(AF);
-		return;
-	}
-	low4dest += reg_eflags(CF);
-	int low4src = src & 0xF;
-	if (low4dest + low4src > 0xF){
-		set_eflags(AF);
-	} else{
-		reset_eflags(AF);
-	}
-}
-
-void zero_flag(int res){
+void zero_flag(uint32_t res){
 	// printf("%x,b:%d\n", res, (res==0));
 	reg_eflags(ZF) = (res == 0);
 }
 
-
-void sign_flag(int res){
+void sign_flag(uint32_t res){
+	reg_eflags(SF) = sign_bit32(res);
+	return;
 	if (res < 0){
 		set_eflags(SF);
 	} else{
 		reset_eflags(SF);
 	}
 }
-void sfm(int res, int width){
-	reg_eflags(SF) = (res & ~(0xffffffff << (8 * width - 1) << 1)) == 0;
-}
 
-int overflow_flag(int dest, int src){
-	int res = dest + src;
+uint32_t overflow_flag(uint32_t dest, uint32_t src){
+	uint32_t res = dest + src;
+	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
+		set_eflags(OF);
+	} else if(!sign_bit32(dest) && sign_bit32(src) && sign_bit32(res)){
+		set_eflags(OF);
+	} else{
+		reset_eflags(OF);
+	}
+	return res;
 	if (dest < 0 && src < 0 && res > 0){
 		set_eflags(OF);
 	} else if(dest > 0 && src > 0 && res < 0){
@@ -182,18 +159,3 @@ int overflow_flag(int dest, int src){
 	}
 	return res;
 }
-
-int overflow_flag3(int dest, int src){
-	int res = dest + src + reg_eflags(CF);
-	if (dest < 0 && src < 0 && res > 0){
-		set_eflags(OF);
-	} else if(dest > 0 && src > 0 && res < 0){
-		set_eflags(OF);
-	} else{
-		reset_eflags(OF);
-	}
-	return res;
-}
-
-
-
