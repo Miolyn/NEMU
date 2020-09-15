@@ -91,24 +91,11 @@ void reset_all_eflags(){
 
 // for unsigned int
 int carry_flag(int dest, int src){
-	int res = dest + src;
-	// if (sign_bit32(dest) & sign_bit32(src)){
-	// 	reg_eflags(CF) = 1;
-	// } else if (sign_bit32(dest) && !sign_bit32(src)){
-	// 	reg_eflags(CF) = (res > 0);
-	// }else if (sign_bit32(dest) && !sign_bit32(src)){
-	// 	reg_eflags(CF) = (res > 0);
-	// } else{
-	// 	reg_eflags(CF) = 0;
-	// }
-	reg_eflags(CF) = res < dest;
-	// if (dest < 0 && src < 0 && res > 0){
-	// 	set_eflags(CF);
-	// } else if(dest > 0 && src > 0 && res < 0){
-	// 	set_eflags(CF);
-	// } else{
-	// 	reset_eflags(CF);
-	// }
+	// int res = dest + src;
+	uint64_t res = (uint64_t)dest + (uint64_t)src;
+	reg_eflags(CF) = (res >> 32) & 1;
+	// reg_eflags(CF) = res < dest;
+
 	return res;
 }
 
@@ -185,12 +172,6 @@ void sfm(int res, int width){
 
 int overflow_flag(int dest, int src){
 	int res = dest + src;
-	if(sign_bit32(dest) && sign_bit32(src) && res > 0){
-		set_eflags(OF);
-	} else{
-		reset_eflags(OF);
-	}
-	return res;
 	if (dest < 0 && src < 0 && res > 0){
 		set_eflags(OF);
 	} else if(dest > 0 && src > 0 && res < 0){
