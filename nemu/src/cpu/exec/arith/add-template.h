@@ -16,7 +16,6 @@ static void do_execute(){
     sign_flag(res);
     overflow_flag(op_dest->val, op_src->val);
     concat(write_operand_, SUFFIX)(op_dest, res);
-    print_temp1();
     print_asm_template2();
 }
 
