@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define ll long long
 CPU_state cpu;
 
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
@@ -90,7 +91,10 @@ void reset_all_eflags(){
 
 // for unsigned int
 int carry_flag(int dest, int src){
-	int res = dest + src;
+	ll res = (ll) dest + (ll) src;
+	// ll res = dest + src;
+	reg_eflags(CF) = (res >> 32) & 1;
+	return (int) res;
 	// if (sign_bit32(dest) & sign_bit32(src)){
 	// 	reg_eflags(CF) = 1;
 	// } else if (sign_bit32(dest) && !sign_bit32(src)){
