@@ -263,7 +263,6 @@ void_helper(concat(push_stack_, SUFFIX)){
 	swaddr_write(reg_l(R_ESP), 4, src);
 #endif
 	
-	// printf("after %x, data:%x \n", reg_l(R_ESP), swaddr_read(reg_l(R_ESP), 4));
 }
 
 void_op_helper(concat(pop_stack_, SUFFIX)) {
