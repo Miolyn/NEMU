@@ -3,6 +3,7 @@
 #define instr adc
 
 static void do_execute(){
+    panic("h");
     // int res = carry_flag3(op_dest->val, op_src->val);
     uint32_t cfv = reg_eflags(CF);
     int res = carry_flag(op_dest->val, op_src->val + cfv);
