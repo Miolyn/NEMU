@@ -91,6 +91,7 @@ void reset_all_eflags(){
 
 // for unsigned int
 int carry_flag(int dest, int src){
+	printf("d:0x%d ,s:0x%d\n", dest, src);
 	int res = dest + src;
 	uint64_t d = dest;
 	uint64_t s = src;
