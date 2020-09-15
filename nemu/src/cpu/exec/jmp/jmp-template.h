@@ -14,6 +14,7 @@ make_helper(concat(jmp_rel_, SUFFIX)){
         cpu.eip = eip + op_src->val;
     }
     print_asm_template1();
+    printf("len%d\n", len);
     return len;
 }
 
