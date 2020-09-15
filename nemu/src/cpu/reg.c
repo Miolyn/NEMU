@@ -144,7 +144,7 @@ uint32_t overflow_flag(uint32_t dest, uint32_t src){
 	uint32_t res = dest + src;
 	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
 		set_eflags(OF);
-	} else if(!sign_bit32(dest) && sign_bit32(src) && sign_bit32(res)){
+	} else if(!sign_bit32(dest) && !sign_bit32(src) && sign_bit32(res)){
 		set_eflags(OF);
 	} else{
 		reset_eflags(OF);
