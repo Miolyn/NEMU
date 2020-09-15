@@ -12,8 +12,6 @@ make_helper(concat(movsx_rmb2r_, SUFFIX)){
 #if DATA_BYTE == 2
     res &= 0xffff;
 #endif
-    // uint32_t st = 0xFFFF;
-    // if(DATA_BYTE != 4) res &= st;
     concat(write_operand_, SUFFIX)(op_dest, res);
     print_asm_template2();
     return len + 1;
