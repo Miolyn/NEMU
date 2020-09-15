@@ -92,7 +92,7 @@ void reset_all_eflags(){
 // for unsigned int
 int carry_flag(int dest, int src){
 	// int res = dest + src;
-	uint64_t res = (uint64_t)dest + (uint64_t)src;
+	uint64_t res = ((uint64_t)dest & 0xFFFF) + ((uint64_t)src & 0xFFFF);
 	reg_eflags(CF) = (res >> 32) & 1;
 	printf("res>>32:0x%x\n", (int)(res >> 32));
 	// reg_eflags(CF) = res < dest;
