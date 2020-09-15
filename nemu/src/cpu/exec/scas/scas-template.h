@@ -3,11 +3,11 @@
 #define instr scas
 
 make_helper(concat(scas_m_, SUFFIX)){
-    int r = MEM_R(reg_l(R_EDI));
-    int l = REG(R_EAX);
+    uint32_t r = MEM_R(reg_l(R_EDI));
+    uint32_t l = REG(R_EAX);
     // int res = sozapc(l, -r, DATA_BYTE);
-    int res = carry_flag(l, -r);
-    int st = 0xffff;
+    uint32_t res = carry_flag(l, -r);
+    uint32_t st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
     if (DATA_BYTE != 4) res &= st;
     parity_flag(res);

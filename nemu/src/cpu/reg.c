@@ -97,7 +97,7 @@ uint32_t carry_flag(uint32_t dest, uint32_t src){
 	printf("res>>32:0x%x\n", (int)(res >> 32));
 	// reg_eflags(CF) = res < dest;
 
-	return (int)res;
+	return (uint32_t)res;
 }
 
 
