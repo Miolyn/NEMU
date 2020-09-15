@@ -20,6 +20,6 @@ make_instr_helper(rm)
 
 #endif
 
-make_instr_helper(i)
+make_instr_helper(si)
 
 #include "cpu/exec/template-end.h"
