@@ -3,7 +3,7 @@
 #define instr sbb
 
 static void do_execute(){
-    int cfv = reg_eflags(CF);
+    uint32_t cfv = reg_eflags(CF);
     int res = carry_flag(op_dest->val, -(op_src->val + cfv));
     // int res = sozapc(op_dest->val, -(op_src->val + reg_eflags(CF)), DATA_BYTE);
     int st = 0xffff;

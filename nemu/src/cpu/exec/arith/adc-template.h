@@ -4,7 +4,7 @@
 
 static void do_execute(){
     // int res = carry_flag3(op_dest->val, op_src->val);
-    int cfv = reg_eflags(CF);
+    uint32_t cfv = reg_eflags(CF);
     int res = carry_flag(op_dest->val, op_src->val + cfv);
     int st = 0xffff;
     if (DATA_BYTE == 1) st = 0xff;
