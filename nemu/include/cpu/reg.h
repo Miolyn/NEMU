@@ -35,7 +35,6 @@ typedef struct {
 		struct {
 			uint32_t _1: 1;
 		}eflags[32];
-		
 		struct {
 			uint32_t CF : 1;
 			uint32_t POS1 : 1;
