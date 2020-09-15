@@ -76,7 +76,7 @@ extern char assembly[];
 		} else { \
 			len += 1; \
 		} \
-		print_asm(str(instr) str(SUFFIX) str(prefix) str(condition)); \
+		print_asm(str(instr) str(SUFFIX) str(prefix) " %d", condition); \
 		return len; \
 	}
 

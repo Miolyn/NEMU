@@ -31,7 +31,7 @@ make_helper(concat(call_rel_, SUFFIX)){
         cpu.eip = eip + op_src->val;
     }
     reset_all_eflags();
-    print_asm(str(instr) str(SUFFIX) " %d", cpu.eip + len + 1);
+    print_asm(str(instr) str(SUFFIX) " 0x%x", cpu.eip + len + 1);
     return len + 1;
 }
 
