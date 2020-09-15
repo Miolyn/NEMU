@@ -6,11 +6,7 @@
 make_helper(concat(movzx_rmb2r_, SUFFIX)){
     uint32_t len = decode_rm_b_internal(eip + 1, op_src, op_dest);
     uint32_t res = op_src->val;
-    // if(op_src->type == OP_TYPE_REG){
-    //     res = reg_b(op_src->reg);
-    // } else{
-    //     res = swaddr_read(op_src->addr, 1);
-    // }
+    res &= 0xff;
     concat(write_operand_, SUFFIX)(op_dest, res);
     print_asm_template2();
     return len + 1;

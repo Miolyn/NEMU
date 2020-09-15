@@ -8,7 +8,7 @@ make_helper(concat(jmp_rel_, SUFFIX)){
     eip += 1;
     int len = concat(decode_si_, SUFFIX)(eip);
     if(ops_decoded.is_operand_size_16){
-        op_src->val &= 0xFFFF;
+        // op_src->val &= 0xFFFF;
         cpu.eip = (eip + op_src->val) & 0xFFFF;
     } else{
         cpu.eip = eip + op_src->val;
