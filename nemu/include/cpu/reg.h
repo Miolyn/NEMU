@@ -100,4 +100,14 @@ extern uint32_t get_reg_by_str(bool *success, char *e);
 #define cf_sub cpu.CF = op_dest->val < op_src->val
 #define cf_add cpu.CF = ((op_dest->val + op_src->val) < op_dest->val)
 #define sf_add cpu.SF = ((op_dest->val + op_src->val) < 0)
+#define sf_sub cpu.SF = ((op_dest->val - op_src->val) < 0)
+#define of_add cpu.OF = (sign_bit32(op_dest->val) == sign_bit32(op_src->val) && sign_bit32(op_dest->val) != cpu.SF) ;
+#define of_sub cpu.OF= (sign_bit32(op_dest->val) != sign_bit32(op_src->val) && sign_bit32(op_src->val) == cpu.SF) ;
+#define zf_add cpu.ZF = ((op_dest->val + op_src->val) == 0)
+#define zf_sub cpu.ZF = ((op_dest->val - op_src->val) == 0)
+#define epf(result) result ^= result >>4; result ^= result >>2; result ^= result >>1; cpu.PF=!(result & 1);
+
+#define eadd cf_add; sf_add; of_add; zf_add; epf((op_dest->val + op_src->val));
+#define esub cf_sub; sf_sub; of_sub; zf_sub; epf((op_dest->val - op_src->val));
+
 #endif
