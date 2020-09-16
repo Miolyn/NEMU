@@ -5,7 +5,7 @@
 static void do_execute () {
 	DATA_TYPE result = op_src->val - 1;
 	OPERAND_W(op_src, result);
-
+    
 	uint32_t res = result;
     parity_flag(res);
     adjust_flag(op_src->val, -1);

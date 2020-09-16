@@ -97,17 +97,18 @@ extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
 
-#define cf_sub cpu.CF = op_dest->val < op_src->val
-#define cf_add cpu.CF = ((op_dest->val + op_src->val) < op_dest->val)
-#define sf_add cpu.SF = ((op_dest->val + op_src->val) < 0)
-#define sf_sub cpu.SF = ((op_dest->val - op_src->val) < 0)
-#define of_add cpu.OF = (sign_bit32(op_dest->val) == sign_bit32(op_src->val) && sign_bit32(op_dest->val) != cpu.SF) ;
-#define of_sub cpu.OF= (sign_bit32(op_dest->val) != sign_bit32(op_src->val) && sign_bit32(op_src->val) == cpu.SF) ;
-#define zf_add cpu.ZF = ((op_dest->val + op_src->val) == 0)
-#define zf_sub cpu.ZF = ((op_dest->val - op_src->val) == 0)
-#define epf(res) int NEVER_USE = res; NEVER_USE ^= NEVER_USE >>4; NEVER_USE ^= NEVER_USE >>2; NEVER_USE ^= NEVER_USE >>1; cpu.PF=!(NEVER_USE & 1);
+#define cf_sub(dest, src) cpu.CF = dest < src
+#define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
+#define sf_add(dest, src) cpu.SF = ((dest + src) < 0)
+#define sf_sub(dest, src) cpu.SF = ((dest - src) < 0)
+#define of_add(dest, src) cpu.OF = (sign_bit32(dest) == sign_bit32(src) && sign_bit32(dest) != cpu.SF) ;
+#define of_sub(dest, src) cpu.OF= (sign_bit32(dest) != sign_bit32(src) && sign_bit32(src) == cpu.SF) ;
+#define zf_add(dest, src) cpu.ZF = ((dest + src) == 0)
+#define zf_sub(dest, src) cpu.ZF = ((dest - src) == 0)
+#define pf_add(dest, src) int NEVER_USE = (dest + src); NEVER_USE ^= NEVER_USE >>4; NEVER_USE ^= NEVER_USE >>2; NEVER_USE ^= NEVER_USE >>1; cpu.PF=!(NEVER_USE & 1);
+#define pf_sub(dest, src) int NEVER_USE = (dest - src); NEVER_USE ^= NEVER_USE >>4; NEVER_USE ^= NEVER_USE >>2; NEVER_USE ^= NEVER_USE >>1; cpu.PF=!(NEVER_USE & 1);
 
-#define eadd cf_add; sf_add; of_add; zf_add; epf((op_dest->val + op_src->val));
-#define esub cf_sub; sf_sub; of_sub; zf_sub; epf((op_dest->val - op_src->val));
+#define eadd(dest, src) cf_add(dest, src); sf_add(dest, src); of_add(dest, src); zf_add(dest, src); pf_add(dest, src);
+#define esub(dest, src) cf_sub(dest, src); sf_sub(dest, src); of_sub(dest, src); zf_sub(dest, src); pf_sub(dest, src);
 
 #endif
