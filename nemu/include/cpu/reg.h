@@ -97,7 +97,7 @@ extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
 
-#define cf_sub(dest, src) if (dest != 0 && src != 0)cpu.CF = dest < src; else cpu.CF = 0;
+#define cf_sub(dest, src) if (dest != 0)cpu.CF = dest < src; else cpu.CF = 0;
 #define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
 #define sf_add(dest, src) cpu.SF = ((dest + src) < 0)
 #define sf_sub(dest, src) cpu.SF = ((dest - src) < 0)
