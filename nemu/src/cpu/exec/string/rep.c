@@ -26,7 +26,10 @@ make_helper(rep) {
 				);
 
 			// /* TODO: Jump out of the while loop if necessary. */
-			if(ops_decoded.opcode >= 0xa6 && !cpu.ZF){
+			// if(ops_decoded.opcode >= 0xa6 && !cpu.ZF){
+			// 	break;
+			// }
+			if(!cpu.ZF){
 				break;
 			}
 		}
