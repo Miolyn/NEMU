@@ -4,7 +4,7 @@
 
 static void do_execute(){
     concat(write_operand_, SUFFIX)(op_dest, op_dest->val -op_src->val);
-    sub_ef;
+    // sub_ef;
     // int res = carry_flag(op_dest->val, -op_src->val);
     // parity_flag(res);
     // adjust_flag(op_dest->val, -op_src->val);
