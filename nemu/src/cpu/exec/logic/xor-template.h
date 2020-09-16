@@ -11,12 +11,11 @@ static void do_execute () {
 
 	/* TODO: Update EFLAGS. */
 	// panic("please implement me");
-	logic_ef
-	// cpu.CF = 0;
-	// cpu.OF = 0;
-	// sign_flag(result);
-	// zero_flag(result);
-	// parity_flag(result);
+	cpu.CF = 0;
+	cpu.OF = 0;
+	sign_flag(result);
+	zero_flag(result);
+	parity_flag(result);
 	print_asm_template2();
 }
 

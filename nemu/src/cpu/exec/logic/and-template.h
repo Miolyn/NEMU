@@ -3,19 +3,15 @@
 #define instr and
 
 static void do_execute () {
-// #if DATA_BYTE == 2
-// 	op_src->val &= 0xffff;
-// #endif
 	DATA_TYPE result = op_dest->val & op_src->val;
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */
-	logic_ef;
-	// cpu.CF = 0;
-	// cpu.OF = 0;
-	// parity_flag(result);
-	// sign_flag(result);
-	// zero_flag(result);
+	cpu.CF = 0;
+	cpu.OF = 0;
+	parity_flag(result);
+	sign_flag(result);
+	zero_flag(result);
 	// panic("please implement me");
 
 	print_asm_template2();

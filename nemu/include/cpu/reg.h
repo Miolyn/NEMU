@@ -97,45 +97,7 @@ extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
 
-#define add_ef 	DATA_TYPE result = op_dest->val + op_src->val; \
-	int len = (DATA_BYTE << 3) - 1; \
-	int s1,s2; \
-	cpu.CF=(result < op_dest->val); \
-	cpu.SF=result >> len; \
-	s1=op_dest->val>>len; \
-	s2=op_src->val>>len; \
-	cpu.OF=(s1 == s2 && s1 != cpu.SF); \
-	cpu.ZF=!result; \
-	int r = result; \
-	r ^= r >>4; \
-	r ^= r >>2; \
-	r ^= r >>1; \
-	cpu.PF=!(r & 1);
-
-#define sub_ef DATA_TYPE result = op_dest->val - op_src->val; \
-	int len = (DATA_BYTE << 3) - 1; \
-	cpu.CF = op_dest->val < op_src->val; \
-	cpu.SF=result >> len; \
-	int s1,s2; \
-	s1=op_dest->val>>len; \
-	s2=op_src->val>>len; \
-	cpu.OF=(s1 != s2 && s2 == cpu.SF); \
-	cpu.ZF=!result; \
-	int r = result; \
-	r ^= r >>4; \
-	r ^= r >>2; \
-	r ^= r >>1; \
-	cpu.PF=!(r & 1);
-
-#define logic_ef int len = (DATA_BYTE << 3) - 1; \
-	cpu.CF=0; \
-	cpu.OF=0; \
-	cpu.SF=result >> len; \
-	cpu.ZF=!result; \
-	int r = result; \
-	r ^= r >>4; \
-	r ^= r >>2; \
-	r ^= r >>1; \
-	cpu.PF=!(r & 1);
-
+#define cf_sub cpu.CF = op_dest->val < op_src->val
+#define cf_add cpu.CF = ((op_dest->val + op_src->val) < op_dest->val)
+#define sf_add cpu.SF = ((op_dest->val + op_src->val) < 0)
 #endif
