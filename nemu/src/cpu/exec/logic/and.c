@@ -16,6 +16,7 @@
 
 make_helper_v(and_i2a)
 make_helper_v(and_i2rm)
-make_helper_v(and_si2rm)
+// make_helper_v(and_si2rm)
+make_helper_v(and_sib2rm)
 make_helper_v(and_r2rm)
 make_helper_v(and_rm2r)
