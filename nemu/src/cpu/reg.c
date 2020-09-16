@@ -80,6 +80,14 @@ uint32_t get_reg_by_str(bool *success, char *e){
     }
     return 0;
 }
+void reset_all_eflags(){
+	cpu.CF = 0;
+	cpu.PF = 0;
+	cpu.AF = 0;
+	cpu.ZF = 0;
+	cpu.SF = 0;
+	cpu.OF = 0;
+}
 
 // for unsigned int
 int carry_flag(int dest, int src){
