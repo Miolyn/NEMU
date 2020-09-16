@@ -4,9 +4,8 @@
 
 static void do_execute(){
     printf("l:0x%x,r0x%x\n", op_dest->val, op_src->val);
-    // uint32_t res = carry_flag(op_dest->val, -op_src->val);
-    // cpu.CF = op_dest->val < op_src->val;
-    cf_sub(op_dest->val, op_src->val);
+
+    cpu.CF = op_dest->val < op_src->val;
     DATA_TYPE res = op_dest->val - op_src->val;
     res ^= res >>4;
 	res ^= res >>2;
@@ -15,10 +14,11 @@ static void do_execute(){
     // parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     cpu.ZF = !res;
-    zero_flag(res);
+    // zero_flag(res);
     cpu.SF = sign_bit32(res);
     // sign_flag(res);
-    overflow_flag(op_dest->val, -op_src->val);
+    of_sub(op_dest->val, -op_src->val);
+    // overflow_flag(op_dest->val, -op_src->val);
     print_asm_template2();
 }
 
