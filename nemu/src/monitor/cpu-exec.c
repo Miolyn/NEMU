@@ -62,9 +62,13 @@ void cpu_exec(volatile uint32_t n) {
 		// if (cpu.eip == 0x100199){
 		// 	assert(0);
 		// }
-		uint32_t before = swaddr_read(0x7fffd98, 4);
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
+		int oc = instr_fetch(cpu.eip, 1);
+		if (oc == 0x81){
+			nemu_state = STOP;
+			return;
+		}
 		int instr_len = exec(cpu.eip);
 		printf("end exec\n");
 		int j;
@@ -100,13 +104,7 @@ void cpu_exec(volatile uint32_t n) {
 		
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
-		uint32_t now = swaddr_read(0x7fffd98, 4);
-		if (before != now){
-			printf("0x7fffd98 changed\n");
-			printf("before:0x%x, now value:0x%x\n", before, now);
-			// if(now == 0xffffffff) swaddr_write(0x7fffd98, 4, 0x8);
-			// nemu_state = STOP;
-		}
+
 // #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len);
 		strcat(asm_buf, assembly);
