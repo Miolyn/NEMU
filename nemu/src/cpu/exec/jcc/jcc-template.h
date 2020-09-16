@@ -52,7 +52,7 @@ jcc_helper(p0pe, (cpu.PF))
 jcc_helper(s, (cpu.SF))
 // jcc_helper(z, (cpu.ZF)))
 
-jcc_helper(ecxz, (!REG(R_ECX)))
+jcc_helper(ecxz, (!reg_l(R_ECX)))
 
 #undef r
 #include "cpu/exec/template-end.h"
