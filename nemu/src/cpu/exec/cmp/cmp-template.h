@@ -4,7 +4,7 @@
 
 static void do_execute(){
     printf("l:0x%x,r0x%x\n", op_dest->val, op_src->val);
-
+    cpu.tmp = true;
     cf_sub(op_dest->val, op_src->val);
     DATA_TYPE res = op_dest->val - op_src->val;
     res ^= res >>4;

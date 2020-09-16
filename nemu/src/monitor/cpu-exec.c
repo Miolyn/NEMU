@@ -100,11 +100,11 @@ void cpu_exec(volatile uint32_t n) {
 		
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
-		// int oc = instr_fetch(cpu.eip, 1);
-		// if (oc == 0x83){
-		// 	nemu_state = STOP;
-		// 	return;
-		// }
+		if(cpu.tmp){
+			cpu.tmp = false;
+			nemu_state = STOP;
+			return;
+		}
 // #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len);
 		strcat(asm_buf, assembly);
