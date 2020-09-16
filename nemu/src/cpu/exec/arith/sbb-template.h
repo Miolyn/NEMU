@@ -4,10 +4,11 @@
 
 static void do_execute(){
     op_src->val += cpu.CF;
+    printf("d:0x%x,s:0x%x\n", op_dest->val, op_src->val);
     concat(write_operand_, SUFFIX)(op_dest, op_dest->val - op_src->val);
     uint32_t res = op_dest->val - op_src->val;
     cf_sub(op_dest->val, op_src->val);
-    cpu.CF = op_dest->val < op_src->val;
+    // cpu.CF = op_dest->val < op_src->val;
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
