@@ -5,16 +5,14 @@
 static void do_execute(){
     uint32_t cfv = cpu.CF;
     op_src->val += cfv;
-    // int res = carry_flag(op_dest->val, op_src->val + cfv);
+    concat(write_operand_, SUFFIX)(op_dest, op_src->val + op_dest->val);
     int res = carry_flag(op_dest->val, op_src->val);
     parity_flag(res);
-    // adjust_flag(op_dest->val, op_src->val + cfv);
     adjust_flag(op_dest->val, op_src->val);
     zero_flag(res);
     sign_flag(res);
-    // overflow_flag(op_dest->val, op_src->val + cfv);
     overflow_flag(op_dest->val, op_src->val);
-    concat(write_operand_, SUFFIX)(op_dest, res);
+    
     print_asm_template2();
 }
 
