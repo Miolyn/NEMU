@@ -9,7 +9,6 @@ make_helper(concat(scas_m_, SUFFIX)){
     printf("l:0x%x,r:0x%x => 0x%x\n", l, r, l - r);
     // cpu.CF = dest < src
     cf_sub(l, r);
-    if(l == 0) cpu.CF = 0;
     uint32_t res = l - r;
     parity_flag(res);
     adjust_flag(l, -r);
