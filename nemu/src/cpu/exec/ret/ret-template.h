@@ -29,7 +29,7 @@ make_helper(concat(ret_i_, SUFFIX)){
         cpu.eip = swaddr_read(reg_l(R_SP), 4);
         reg_l(R_ESP) = reg_l(R_ESP) + 4;
     }
-    
+    // i before
     decode_si_w(eip + 1);
     // printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
     reg_l(R_ESP) = reg_l(R_ESP) + op_src->val;
