@@ -10,11 +10,12 @@ static void do_execute () {
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */
-	cpu.CF = 0;
-	cpu.OF = 0;
-	parity_flag(result);
-	sign_flag(result);
-	zero_flag(result);
+	logic_ef;
+	// cpu.CF = 0;
+	// cpu.OF = 0;
+	// parity_flag(result);
+	// sign_flag(result);
+	// zero_flag(result);
 	// panic("please implement me");
 
 	print_asm_template2();

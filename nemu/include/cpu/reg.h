@@ -105,10 +105,11 @@ extern uint32_t get_reg_by_str(bool *success, char *e);
 	s2=op_src->val>>len; \
 	cpu.OF=(s1 == s2 && s1 != cpu.SF); \
 	cpu.ZF=!result; \
-	result ^= result >>4; \
-	result ^= result >>2; \
-	result ^= result >>1; \
-	cpu.PF=!(result & 1);
+	int r = result; \
+	r ^= r >>4; \
+	r ^= r >>2; \
+	r ^= r >>1; \
+	cpu.PF=!(r & 1);
 
 #define sub_ef DATA_TYPE result = op_dest->val - op_src->val; \
 	int len = (DATA_BYTE << 3) - 1; \
@@ -119,8 +120,21 @@ extern uint32_t get_reg_by_str(bool *success, char *e);
 	s2=op_src->val>>len; \
 	cpu.OF=(s1 != s2 && s2 == cpu.SF); \
 	cpu.ZF=!result; \
-	result ^= result >>4; \
-	result ^= result >>2; \
-	result ^= result >>1; \
-	cpu.PF=!(result & 1);
+	int r = result; \
+	r ^= r >>4; \
+	r ^= r >>2; \
+	r ^= r >>1; \
+	cpu.PF=!(r & 1);
+
+#define logic_ef int len = (DATA_BYTE << 3) - 1; \
+	cpu.CF=0; \
+	cpu.OF=0; \
+	cpu.SF=result >> len; \
+	cpu.ZF=!result; \
+	int r = result; \
+	r ^= r >>4; \
+	r ^= r >>2; \
+	r ^= r >>1; \
+	cpu.PF=!(r & 1);
+
 #endif
