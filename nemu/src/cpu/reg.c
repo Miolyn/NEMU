@@ -91,7 +91,7 @@ void reset_all_eflags(){
 
 // for unsigned int
 int carry_flag(int dest, int src){
-	int res = dest + src;
+	uint64_t res = (uint64_t)dest + src;
 	// uint64_t d = dest;
 	// uint64_t s = src;
 	// uint64_t r = d + s;
