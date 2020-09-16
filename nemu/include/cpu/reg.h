@@ -105,7 +105,7 @@ extern uint32_t get_reg_by_str(bool *success, char *e);
 #define of_sub cpu.OF= (sign_bit32(op_dest->val) != sign_bit32(op_src->val) && sign_bit32(op_src->val) == cpu.SF) ;
 #define zf_add cpu.ZF = ((op_dest->val + op_src->val) == 0)
 #define zf_sub cpu.ZF = ((op_dest->val - op_src->val) == 0)
-#define epf(result) result ^= result >>4; result ^= result >>2; result ^= result >>1; cpu.PF=!(result & 1);
+#define epf(res) int NEVER_USE = res; NEVER_USE ^= NEVER_USE >>4; NEVER_USE ^= NEVER_USE >>2; NEVER_USE ^= NEVER_USE >>1; cpu.PF=!(NEVER_USE & 1);
 
 #define eadd cf_add; sf_add; of_add; zf_add; epf((op_dest->val + op_src->val));
 #define esub cf_sub; sf_sub; of_sub; zf_sub; epf((op_dest->val - op_src->val));
