@@ -6,13 +6,15 @@ make_helper(concat(scas_m_, SUFFIX)){
     uint32_t r = MEM_R(reg_l(R_EDI));
     uint32_t l = REG(R_EAX);
     op_dest->val = l; op_src->val = r;
-    esub(l, r);
-    // uint32_t res = l - r;
-    // parity_flag(res);
-    // adjust_flag(l, -r);
-    // zero_flag(res);
-    // sign_flag(res);
-    // overflow_flag(l, -r);
+    printf("l:0x%x,r:0x%x => 0x%x\n", l, r, l - r);
+    // cpu.CF = dest < src
+    cf_sub(l, r);
+    uint32_t res = l - r;
+    parity_flag(res);
+    adjust_flag(l, -r);
+    zero_flag(res);
+    sign_flag(res);
+    overflow_flag(l, -r);
     int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
 
