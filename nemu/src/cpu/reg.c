@@ -92,10 +92,14 @@ void reset_all_eflags(){
 // for unsigned int
 int carry_flag(int dest, int src){
 	int res = dest + src;
-
 	cpu.CF = res < dest;
-
 	return (uint32_t)res;
+}
+
+int carry_flag_sub(int dest, int src){
+	int res = dest - src;
+	cpu.CF = dest < src;
+	return res;
 }
 
 
