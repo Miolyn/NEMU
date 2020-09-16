@@ -105,6 +105,11 @@ int carry_flag_sub(int dest, int src){
 
 
 void parity_flag(int res){
+	res ^= res >>4;
+	res ^= res >>2;
+	res ^= res >>1;
+	cpu.PF=!(res & 1);
+	return;
 	int low = low8(res);
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
