@@ -104,7 +104,6 @@ void cpu_exec(volatile uint32_t n) {
 		if (before != now){
 			printf("0x7fffd98 changed\n");
 			printf("before:0x%x, now value:0x%x\n", before, now);
-			if(now == 0xffffffff) swaddr_write(0x7fffd98, 4, 0xb);
 			nemu_state = STOP;
 		}
 // #ifdef DEBUG
