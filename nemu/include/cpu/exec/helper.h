@@ -32,7 +32,19 @@
 		return len + 1; \
 	}
 
-
+#define add_ef 	DATA_TYPE result = op_dest->val + op_src->val; \
+	int len = (DATA_BYTE << 3) - 1; \
+	int s1, s2; \
+	reg_eflags(CF) = (result < op_dest->val); \
+	reg_eflags(SF) = result >> len; \
+	s1 = op_dest->val>>len; \
+	s2 = op_src->val>>len; \
+	reg_eflags(OF) = (s1 == s2 && s1 != reg_eflags(SF)) ; \
+	reg_eflags(ZF) = !result; \
+	result ^= result >>4; \
+	result ^= result >>2; \
+	result ^= result >>1; \
+	reg_eflags(PF) = !(result & 1);
 
 
 extern char assembly[];
