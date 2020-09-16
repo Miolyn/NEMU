@@ -116,7 +116,7 @@ void parity_flag(int res){
 		low >>= 1;
 	}
 	cnt += low & 1;
-	reg_eflags(PF) = (cnt & 1);
+	reg_eflags(PF) = !(cnt & 1);
 	return;
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
