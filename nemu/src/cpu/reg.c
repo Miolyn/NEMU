@@ -137,14 +137,6 @@ void sign_flag(int res){
 
 void overflow_flag(int dest, int src){
 	int res = dest + src;
-	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
-		cpu.OF = 1;
-	} else if(!sign_bit32(dest) && !sign_bit32(src) && sign_bit32(res)){
-		cpu.OF = 1;
-	} else{
-		cpu.OF = 0;
-	}
-	return;
 	if (dest < 0 && src < 0 && res > 0){
 		cpu.OF = 1;
 	} else if(dest > 0 && src > 0 && res < 0){
