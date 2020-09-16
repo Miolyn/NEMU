@@ -3,12 +3,11 @@
 #define instr adc
 
 static void do_execute(){
-    panic("hello");
     uint32_t cfv = reg_eflags(CF);
     int res = carry_flag(op_dest->val, op_src->val + cfv);
-    int st = 0xffff;
-    if (DATA_BYTE == 1) st = 0xff;
-    if (DATA_BYTE != 4) res &= st;
+    // int st = 0xffff;
+    // if (DATA_BYTE == 1) st = 0xff;
+    // if (DATA_BYTE != 4) res &= st;
     parity_flag(res);
     adjust_flag(op_dest->val, op_src->val + cfv);
     zero_flag(res);
