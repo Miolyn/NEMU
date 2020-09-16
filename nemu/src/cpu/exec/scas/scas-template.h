@@ -11,7 +11,7 @@ make_helper(concat(scas_m_, SUFFIX)){
     zero_flag(res);
     sign_flag(res);
     overflow_flag(l, -r);
-    int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
+    int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
 
     #ifdef DEBUG

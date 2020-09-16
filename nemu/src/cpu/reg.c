@@ -67,11 +67,11 @@ uint32_t get_reg_by_str(bool *success, char *e){
                 return reg_b(i);
             }
         }
-		for(i = CF; i <= VM; i++){
-			if(strcmp(e, regef[i]) == 0){
-				return reg_eflags(i);
-			}
-		}
+		// for(i = CF; i <= VM; i++){
+		// 	if(strcmp(e, regef[i]) == 0){
+		// 		return reg_eflags(i);
+		// 	}
+		// }
 		*success = false;
         return 0;
     } else{
@@ -79,14 +79,6 @@ uint32_t get_reg_by_str(bool *success, char *e){
         return 0;
     }
     return 0;
-}
-void reset_all_eflags(){
-	reset_eflags(CF);
-	reset_eflags(PF);
-	reset_eflags(AF);
-	reset_eflags(ZF);
-	reset_eflags(SF);
-	reset_eflags(OF);
 }
 
 // for unsigned int
@@ -100,7 +92,7 @@ int carry_flag(int dest, int src){
 	// uint64_t res = ((uint64_t)dest & 0xFFFFFFFF) + ((uint64_t)src & 0xFFFFFFFF);
 	// reg_eflags(CF) = (res >> 32) & 1;
 	// printf("res>>32:0x%x\n", (int)(res >> 32));
-	reg_eflags(CF) = res < dest;
+	cpu.CF = res < dest;
 
 	return (uint32_t)res;
 }
@@ -116,16 +108,16 @@ void parity_flag(int res){
 		low >>= 1;
 	}
 	cnt += low & 1;
-	reg_eflags(PF) = !(cnt & 1);
+	cpu.PF = !(cnt & 1);
 	return;
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
 	// odd
 	
 	if ((tmp1 >> 1) ^ (tmp1 & 1)){
-		reset_eflags(PF);
+		cpu.PF = 0;
 	} else{
-		set_eflags(PF);
+		cpu.PF = 1;
 	}
 }
 
@@ -133,43 +125,43 @@ void adjust_flag(int dest, int src){
 	int low4dest = dest & 0xF;
 	int low4src = src & 0xF;
 	if (low4dest + low4src > 0xF){
-		set_eflags(AF);
+		cpu.AF = 1;
 	} else{
-		reset_eflags(AF);
+		cpu.AF = 0;
 	}
 }
 
 void zero_flag(int res){
 	// printf("%x,b:%d\n", res, (res==0));
-	reg_eflags(ZF) = (res == 0);
+	cpu.ZF = (res == 0);
 }
 
 void sign_flag(int res){
-	reg_eflags(SF) = sign_bit32(res);
+	cpu.SF = sign_bit32(res);
 	return;
 	if (res < 0){
-		set_eflags(SF);
+		cpu.SF = 1;
 	} else{
-		reset_eflags(SF);
+		cpu.SF = 0;
 	}
 }
 
 void overflow_flag(int dest, int src){
 	uint32_t res = dest + src;
 	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
-		set_eflags(OF);
+		cpu.OF = 1;
 	} else if(!sign_bit32(dest) && !sign_bit32(src) && sign_bit32(res)){
-		set_eflags(OF);
+		cpu.OF = 1;
 	} else{
-		reset_eflags(OF);
+		cpu.OF = 0;
 	}
 	return;
 	if (dest < 0 && src < 0 && res > 0){
-		set_eflags(OF);
+		cpu.OF = 1;
 	} else if(dest > 0 && src > 0 && res < 0){
-		set_eflags(OF);
+		cpu.OF = 1;
 	} else{
-		reset_eflags(OF);
+		cpu.OF = 0;
 	}
 	// return res;
 }

@@ -32,30 +32,30 @@ typedef struct {
 
 	union {
 		uint32_t ef;
-		struct {
-			uint32_t _1: 1;
-		}eflags[32];
 		// struct {
-			// uint32_t CF : 1;
-			// uint32_t POS1 : 1;
-		// 	uint32_t PF : 1;
-		// 	uint32_t POS3 : 1;
-		// 	uint32_t AF : 1;
-		// 	uint32_t POS5 : 1;
-		// 	uint32_t ZF : 1;
-		// 	uint32_t SF : 1;
-		// 	uint32_t TF : 1;
-		// 	uint32_t IF : 1;
-		// 	uint32_t DF : 1;
-		// 	uint32_t OF : 1;
-		// 	uint32_t OL : 1;
-		// 	uint32_t IP : 1;
-		// 	uint32_t NT : 1;
-		// 	uint32_t POS15 : 1;
-		// 	uint32_t RF : 1;
-		// 	uint32_t VM : 1;
-		// 	uint32_t no : 14;
-		// };
+		// 	uint32_t _1: 1;
+		// }eflags[32];
+		struct {
+			uint32_t CF : 1;
+			uint32_t POS1 : 1;
+			uint32_t PF : 1;
+			uint32_t POS3 : 1;
+			uint32_t AF : 1;
+			uint32_t POS5 : 1;
+			uint32_t ZF : 1;
+			uint32_t SF : 1;
+			uint32_t TF : 1;
+			uint32_t IF : 1;
+			uint32_t DF : 1;
+			uint32_t OF : 1;
+			uint32_t OL : 1;
+			uint32_t IP : 1;
+			uint32_t NT : 1;
+			uint32_t POS15 : 1;
+			uint32_t RF : 1;
+			uint32_t VM : 1;
+			uint32_t no : 14;
+		};
 	};
 	
 } CPU_state;
@@ -70,10 +70,10 @@ static inline int check_reg_index(int index) {
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32)
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
-#define reg_eip (cpu.eip)
-#define reg_eflags(pos) cpu.eflags[pos]._1
-#define set_eflags(pos) cpu.eflags[pos]._1 = 1
-#define reset_eflags(pos) cpu.eflags[pos]._1 = 0
+#define reg_eip cpu.eip
+// #define reg_eflags(pos) cpu.eflags[pos]._1
+// #define set_eflags(pos) cpu.eflags[pos]._1 = 1
+// #define reset_eflags(pos) cpu.eflags[pos]._1 = 0
 #define f4 0xFFFFFFFF
 #define f2 0xFFFF
 #define f1 0xFF
@@ -81,7 +81,6 @@ static inline int check_reg_index(int index) {
 #define sign_bit16(res) (res >> 15)
 #define sign_bit8(res) (res >> 7)
 #define low8(res) (res & 0xFF)
-extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
 extern void parity_flag(int res);
 extern void adjust_flag(int dest, int src);
@@ -95,4 +94,18 @@ extern const char* regsb[];
 extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
+
+#define add_ef DATA_TYPE result = op_dest->val - op_src->val; \
+	int len = (DATA_BYTE << 3) - 1; \
+	cpu.CF = op_dest->val < op_src->val; \
+	cpu.SF=result >> len; \
+	int s1,s2; \
+	s1=op_dest->val>>len; \
+	s2=op_src->val>>len; \
+	cpu.OF=(s1 != s2 && s2 == cpu.SF); \
+	cpu.ZF=!result; \
+	result ^= result >>4; \
+	result ^= result >>2; \
+	result ^= result >>1; \
+	cpu.PF=!(result & 1);
 #endif

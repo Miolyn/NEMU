@@ -8,8 +8,8 @@ static void do_execute () {
 
 	/* TODO: Update EFLAGS. */
 	// panic("please implement me");
-	reset_eflags(CF);
-	reset_eflags(OF);
+	cpu.CF = 0;
+	cpu.OF = 0;
 	sign_flag(result);
 	zero_flag(result);
 	parity_flag(result);

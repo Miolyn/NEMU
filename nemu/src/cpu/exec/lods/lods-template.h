@@ -5,7 +5,7 @@
 
 make_helper(concat(lods_m_, SUFFIX)){
     REG(R_EAX) = MEM_R(reg_l(R_ESI));
-    int incDec = reg_eflags(DF) ? -DATA_BYTE : DATA_BYTE;
+    int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_ESI) = reg_l(R_ESI) + incDec;
     #ifdef DEBUG
 	    snprintf(op_src->str, OP_STR_SIZE, "%%%s", REG_NAME(R_EAX));

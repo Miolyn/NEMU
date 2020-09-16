@@ -3,7 +3,7 @@
 #define instr adc
 
 static void do_execute(){
-    uint32_t cfv = reg_eflags(CF);
+    uint32_t cfv = cpu.CF;
     op_src->val += cfv;
     // int res = carry_flag(op_dest->val, op_src->val + cfv);
     int res = carry_flag(op_dest->val, op_src->val);

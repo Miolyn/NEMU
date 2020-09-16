@@ -10,8 +10,8 @@ static void do_execute () {
 	OPERAND_W(op_dest, result);
 
 	/* TODO: Update EFLAGS. */
-	reset_eflags(CF);
-	reset_eflags(OF);
+	cpu.CF = 0;
+	cpu.OF = 0;
 	parity_flag(result);
 	sign_flag(result);
 	zero_flag(result);

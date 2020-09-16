@@ -5,8 +5,8 @@
 static void do_execute(){
     printf("src:0x%x,dest:%x\n", op_src->val, op_dest->val);
     uint32_t res = op_src->val & op_dest->val;
-    reset_eflags(OF);
-    reset_eflags(CF);
+    cpu.OF = 0;
+    cpu.CF = 0;
     sign_flag(res);
     zero_flag(res);
     parity_flag(res);

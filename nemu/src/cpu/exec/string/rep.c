@@ -26,7 +26,7 @@ make_helper(rep) {
 				);
 
 			// /* TODO: Jump out of the while loop if necessary. */
-			if(ops_decoded.opcode >= 0xa6 && !reg_eflags(ZF)){
+			if(ops_decoded.opcode >= 0xa6 && !cpu.ZF){
 				break;
 			}
 		}
@@ -55,7 +55,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-		if(reg_eflags(ZF)){
+		if(cpu.ZF){
 			break;
 		}
 	}

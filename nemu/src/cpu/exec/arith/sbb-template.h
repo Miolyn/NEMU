@@ -5,7 +5,7 @@
 static void do_execute(){
     // uint32_t cfv = reg_eflags(CF);
     // int res = carry_flag(op_dest->val, -(op_src->val + cfv));
-    op_src->val += reg_eflags(CF);
+    op_src->val += cpu.CF;
     int res = carry_flag(op_dest->val, -op_src->val);
     parity_flag(res);
     // adjust_flag(op_dest->val, -(op_src->val + cfv));
