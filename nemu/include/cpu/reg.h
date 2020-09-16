@@ -96,7 +96,21 @@ extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
 
-#define add_ef DATA_TYPE result = op_dest->val - op_src->val; \
+#define add_ef 	DATA_TYPE result = op_dest->val + op_src->val; \
+	int len = (DATA_BYTE << 3) - 1; \
+	int s1,s2; \
+	cpu.CF=(result < op_dest->val); \
+	cpu.SF=result >> len; \
+	s1=op_dest->val>>len; \
+	s2=op_src->val>>len; \
+	cpu.OF=(s1 == s2 && s1 != cpu.SF); \
+	cpu.ZF=!result; \
+	result ^= result >>4; \
+	result ^= result >>2; \
+	result ^= result >>1; \
+	cpu.PF=!(result & 1);
+
+#define sub_ef DATA_TYPE result = op_dest->val - op_src->val; \
 	int len = (DATA_BYTE << 3) - 1; \
 	cpu.CF = op_dest->val < op_src->val; \
 	cpu.SF=result >> len; \
