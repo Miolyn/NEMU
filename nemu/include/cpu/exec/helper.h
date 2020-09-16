@@ -66,9 +66,9 @@ extern char assembly[];
 		int len = concat(decode_si_, SUFFIX)(eip); \
 		if(condition){ \
 			if (ops_decoded.is_operand_size_16){ \
-				cpu.eip = (eip + op_src->simm) & 0xFFFF; \
+				cpu.eip = (eip + op_src->val) & 0xFFFF; \
 			} else{ \
-				cpu.eip = eip + op_src->simm; \
+				cpu.eip = eip + op_src->val; \
 			} \
 			if(ops_decoded.is_2byte){ \
 				cpu.eip -= 1; \
