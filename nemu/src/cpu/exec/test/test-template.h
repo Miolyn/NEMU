@@ -5,13 +5,12 @@
 static void do_execute(){
     printf("src:0x%x,dest:%x\n", op_src->val, op_dest->val);
     
-    uint32_t result = op_src->val & op_dest->val;
-    logic_ef
-    // cpu.OF = 0;
-    // cpu.CF = 0;
-    // sign_flag(res);
-    // zero_flag(res);
-    // parity_flag(res);
+    uint32_t res = op_src->val & op_dest->val;
+    cpu.OF = 0;
+    cpu.CF = 0;
+    sign_flag(res);
+    zero_flag(res);
+    parity_flag(res);
     print_asm_template2();
 }
 
