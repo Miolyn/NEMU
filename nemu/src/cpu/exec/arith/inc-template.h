@@ -8,7 +8,7 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	// panic("please implement me");
 	// int res = carry_flag(op_src->val, 1);
-	int res = result;
+	uint32_t res = result;
     parity_flag(res);
     adjust_flag(op_src->val, 1);
     zero_flag(res);
