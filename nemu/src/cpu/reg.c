@@ -92,14 +92,7 @@ void reset_all_eflags(){
 // for unsigned int
 int carry_flag(int dest, int src){
 	int res = dest + src;
-	// uint64_t d = dest;
-	// uint64_t s = src;
-	// uint64_t r = d + s;
-	// reg_eflags(CF) = r >> 32;
-	// return (uint32_t)r; 
-	// uint64_t res = ((uint64_t)dest & 0xFFFFFFFF) + ((uint64_t)src & 0xFFFFFFFF);
-	// reg_eflags(CF) = (res >> 32) & 1;
-	// printf("res>>32:0x%x\n", (int)(res >> 32));
+
 	cpu.CF = res < dest;
 
 	return (uint32_t)res;
@@ -109,19 +102,8 @@ int carry_flag(int dest, int src){
 
 void parity_flag(int res){
 	int low = low8(res);
-	int cnt = 0;
-	int i = 0;
-	for(i = 0; i < 7; i++){
-		cnt += low & 1;
-		low >>= 1;
-	}
-	cnt += low & 1;
-	cpu.PF = !(cnt & 1);
-	return;
 	int tmp = (low >> 4) ^ (low & 0xF);
 	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
-	// odd
-	
 	if ((tmp1 >> 1) ^ (tmp1 & 1)){
 		cpu.PF = 0;
 	} else{
@@ -140,7 +122,6 @@ void adjust_flag(int dest, int src){
 }
 
 void zero_flag(int res){
-	// printf("%x,b:%d\n", res, (res==0));
 	cpu.ZF = (res == 0);
 }
 
@@ -155,7 +136,7 @@ void sign_flag(int res){
 }
 
 void overflow_flag(int dest, int src){
-	uint32_t res = dest + src;
+	int res = dest + src;
 	if(sign_bit32(dest) && sign_bit32(src) && !sign_bit32(res)){
 		cpu.OF = 1;
 	} else if(!sign_bit32(dest) && !sign_bit32(src) && sign_bit32(res)){
