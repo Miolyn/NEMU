@@ -5,7 +5,7 @@
 static void do_execute(){
     printf("l:0x%x,r0x%x\n", op_dest->val, op_src->val);
 
-    cpu.CF = op_dest->val < op_src->val;
+    cf_sub(op_dest->val, op_src->val);
     DATA_TYPE res = op_dest->val - op_src->val;
     res ^= res >>4;
 	res ^= res >>2;
