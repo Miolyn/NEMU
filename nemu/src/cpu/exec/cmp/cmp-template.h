@@ -21,4 +21,5 @@ make_instr_helper(rm2r)
 #if DATA_BYTE != 1
 make_instr_helper(sib2rm)
 #endif
+
 #include "cpu/exec/template-end.h"
