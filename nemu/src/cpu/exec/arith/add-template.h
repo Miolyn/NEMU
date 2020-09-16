@@ -7,7 +7,7 @@ static void do_execute(){
 
 
     cf_add(op_dest->val, op_src->val);
-    uint32_t res = op_dest->val + op_src->val;
+    DATA_TYPE res = op_dest->val + op_src->val;
     parity_flag(res);
     adjust_flag(op_dest->val, op_src->val);
     zero_flag(res);
