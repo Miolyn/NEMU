@@ -5,11 +5,13 @@
 #if DATA_BYTE != 1
 make_helper(concat(ret_rel_, SUFFIX)){
     if (ops_decoded.is_operand_size_16){
-        cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
+        // cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
+        cpu.eip = swaddr_read(reg_l(R_ESP), 2) & 0xFFFF;
+        reg_l(R_ESP) = reg_l(R_ESP) + 2;
     } else{
         cpu.eip = swaddr_read(reg_l(R_SP), 4);
+        reg_l(R_ESP) = reg_l(R_ESP) + 4;
     }
-    reg_l(R_ESP) = reg_l(R_ESP) + 4;
     print_asm(str(instr) str(SUFFIX));
     // control the len 
     // read one opcode before deal
