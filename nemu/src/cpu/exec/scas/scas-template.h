@@ -3,15 +3,16 @@
 #define instr scas
 
 make_helper(concat(scas_m_, SUFFIX)){
-    panic("s");
-    uint32_t r = MEM_R(reg_l(R_EDI));
-    uint32_t l = REG(R_EAX);
-    uint32_t res = carry_flag(l, -r);
-    parity_flag(res);
-    adjust_flag(l, -r);
-    zero_flag(res);
-    sign_flag(res);
-    overflow_flag(l, -r);
+    uint32_t rr = MEM_R(reg_l(R_EDI));
+    uint32_t ll = REG(R_EAX);
+    op_dest->val = ll; op_src->val = rr;
+    sub_ef
+    // uint32_t res = carry_flag(l, -r);
+    // parity_flag(res);
+    // adjust_flag(l, -r);
+    // zero_flag(res);
+    // sign_flag(res);
+    // overflow_flag(l, -r);
     int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
 
