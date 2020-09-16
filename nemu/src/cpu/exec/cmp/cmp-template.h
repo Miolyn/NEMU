@@ -14,11 +14,10 @@ static void do_execute(){
     // parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     cpu.ZF = !res;
-    // zero_flag(res);
+    zero_flag(res);
     cpu.SF = sign_bit32(res);
     // sign_flag(res);
-    of_sub(op_dest->val, -op_src->val);
-    // overflow_flag(op_dest->val, -op_src->val);
+    overflow_flag(op_dest->val, -op_src->val);
     print_asm_template2();
 }
 
