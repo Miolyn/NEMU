@@ -65,7 +65,7 @@ void cpu_exec(volatile uint32_t n) {
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
 		int oc = instr_fetch(cpu.eip, 1);
-		if (oc == 0x81){
+		if (oc == 0x83){
 			nemu_state = STOP;
 			return;
 		}
