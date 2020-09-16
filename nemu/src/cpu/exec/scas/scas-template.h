@@ -3,6 +3,7 @@
 #define instr scas
 
 make_helper(concat(scas_m_, SUFFIX)){
+    panic("s");
     uint32_t r = MEM_R(reg_l(R_EDI));
     uint32_t l = REG(R_EAX);
     uint32_t res = carry_flag(l, -r);
