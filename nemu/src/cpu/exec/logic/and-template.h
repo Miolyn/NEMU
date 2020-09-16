@@ -12,7 +12,6 @@ static void do_execute () {
 	/* TODO: Update EFLAGS. */
 	reset_eflags(CF);
 	reset_eflags(OF);
-	// szp(result, DATA_BYTE);
 	parity_flag(result);
 	sign_flag(result);
 	zero_flag(result);

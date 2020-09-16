@@ -23,9 +23,6 @@ static void do_execute () {
 
 make_helper(concat(shrdi_, SUFFIX)) {
 	int len = concat(decode_si_rm2r_, SUFFIX) (eip + 1);  /* use decode_si_rm2r to read 1 byte immediate */
-#if DATA_BYTE == 2
-	op_src-> val &= 0xffff;
-#endif
 	op_dest->val = REG(op_dest->reg);
 	do_execute();
 	return len + 1;

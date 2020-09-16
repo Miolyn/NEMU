@@ -20,14 +20,18 @@ make_helper(concat(jmp_rel_, SUFFIX)){
 #if DATA_BYTE != 1
 make_helper(concat(jmp_rm_, SUFFIX)){
     eip += 1;
-    int len = concat(decode_rm_, SUFFIX)(eip);
+    // int len = concat(decode_rm_, SUFFIX)(eip);
+    concat(decode_rm_, SUFFIX)(eip);
     if(ops_decoded.is_operand_size_16){
-        cpu.eip = (eip + op_src->val) & 0xFFFF;
+        // cpu.eip = (eip + op_src->val) & 0xFFFF;
+        cpu.eip = op_src->val & 0xffff;
     } else{
-        cpu.eip = eip + op_src->val;
+        // cpu.eip = eip + op_src->val;
+        cpu.eip = op_src->val;
     }
     print_asm_template1();
-    return len;
+    // return len;
+    return 0;
 }
 #endif
 
