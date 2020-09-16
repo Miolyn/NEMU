@@ -32,7 +32,7 @@ make_group(group1_v,
 
 /* 0x83 */
 make_group(group1_sx_v,
-	add_sib2rm_v, or_sib2rm_v, adc_sib2rm_v, sbb_sib2rm_v, 
+	add_si2rm_v, or_sib2rm_v, adc_sib2rm_v, sbb_sib2rm_v, 
 	and_sib2rm_v, sub_sib2rm_v, xor_sib2rm_v, cmp_sib2rm_v)
 
 
