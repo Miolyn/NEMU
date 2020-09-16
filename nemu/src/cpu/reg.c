@@ -91,6 +91,10 @@ void reset_all_eflags(){
 
 // for unsigned int
 int carry_flag(int dest, int src){
+	uint64_t d = dest & 0xffffffff;
+	uint64_t s = src & 0xffffffff;
+	cpu.CF = (d + s) >> 32;
+	return (uint32_t)(d + s);
 	int res = dest + src;
 
 	cpu.CF = res < dest;
