@@ -5,7 +5,6 @@
 make_helper(concat(scas_m_, SUFFIX)){
     uint32_t r = MEM_R(reg_l(R_EDI));
     uint32_t l = REG(R_EAX);
-    // int res = sozapc(l, -r, DATA_BYTE);
     uint32_t res = carry_flag(l, -r);
     parity_flag(res);
     adjust_flag(l, -r);
