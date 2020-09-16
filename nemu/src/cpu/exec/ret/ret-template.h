@@ -30,7 +30,7 @@ make_helper(concat(ret_i_, SUFFIX)){
         reg_l(R_ESP) = reg_l(R_ESP) + 4;
     }
     
-    decode_i_w(eip + 1);
+    decode_si_w(eip + 1);
     // printf("eip:%x,val:%x\n", cpu.eip, op_src->val);
     reg_l(R_ESP) = reg_l(R_ESP) + op_src->val;
     print_asm_template1();
