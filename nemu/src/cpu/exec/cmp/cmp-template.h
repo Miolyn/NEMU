@@ -7,6 +7,7 @@ static void do_execute(){
     // uint32_t res = carry_flag(op_dest->val, -op_src->val);
     // cpu.CF = op_dest->val < op_src->val;
     cf_sub(op_dest->val, op_src->val);
+    if(op_dest->val == 0) cpu.CF = 0;
     uint32_t res = op_dest->val - op_src->val;
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
