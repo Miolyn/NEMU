@@ -12,6 +12,7 @@ make_helper(leave){
         reg_w(R_EBP) = swaddr_read(reg_l(R_ESP), 2);
         reg_l(R_ESP) += 2;
     } else{
+        panic(" h");
         reg_l(R_EBP) = swaddr_read(reg_l(R_ESP), 4);
         reg_l(R_ESP) += 2;
     }
