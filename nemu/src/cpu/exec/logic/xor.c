@@ -16,6 +16,7 @@
 
 make_helper_v(xor_i2a)
 make_helper_v(xor_i2rm)
-make_helper_v(xor_si2rm)
+// make_helper_v(xor_si2rm)
+make_helper_v(xor_sib2rm)
 make_helper_v(xor_r2rm)
 make_helper_v(xor_rm2r)
