@@ -164,7 +164,6 @@ static int cmd_bt(char *args){
     while(ebp){
         int res = find_func(eip, name);
         if(res){
-            printf("find func error\n");
             return 0;
         }
         printf("-----------------------------\n");
