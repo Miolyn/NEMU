@@ -14,7 +14,12 @@ static void do_execute(){
     
     print_asm_template2();
 }
-
+/*
+#define make_instr_helper(type) \
+	make_helper(concat5(instr, _, type, _, SUFFIX)) { \
+		return idex(eip, concat4(decode_, type, _, SUFFIX), do_execute); \
+	}
+*/
 make_instr_helper(i2a)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
