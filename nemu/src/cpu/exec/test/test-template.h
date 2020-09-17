@@ -2,9 +2,7 @@
 
 #define instr test
 
-static void do_execute(){
-    printf("src:0x%x,dest:%x => 0x%x\n", op_src->val, op_dest->val, op_src->val & op_dest->val);
-    
+static void do_execute(){    
 
     DATA_TYPE res = op_src->val & op_dest->val;
     cpu.OF = 0;
