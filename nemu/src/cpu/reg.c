@@ -67,11 +67,17 @@ uint32_t get_reg_by_str(bool *success, char *e){
                 return reg_b(i);
             }
         }
-		// for(i = CF; i <= VM; i++){
-		// 	if(strcmp(e, regef[i]) == 0){
-		// 		return reg_eflags(i);
-		// 	}
-		// }
+		if(strcmp(e, "cf") == 0){
+			return cpu.CF;
+		} else if(strcmp(e, "pf") == 0){
+			return cpu.PF;
+		} else if(strcmp(e, "af") == 0){
+			return  cpu.AF;
+		} else if(strcmp(e, "zf") == 0){
+			return cpu.ZF;
+		} else if(strcmp(e, "sf") == 0){
+			return cpu.SF;
+		}
 		*success = false;
         return 0;
     } else{

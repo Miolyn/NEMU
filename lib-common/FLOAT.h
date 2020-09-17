@@ -9,6 +9,7 @@ typedef int FLOAT;
 #define to_sign(res) res << 31
 #define int_no_sign(sign) (sign ? -1 : 1)
 #define int_sign(sign) int_no_sign(sign)
+#define t16 (1 << (1 << 4))
 static inline int F2int(FLOAT a) {
 	// nemu_assert(0);
 	int noSa = no_sign(a);
