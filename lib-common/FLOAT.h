@@ -4,10 +4,11 @@
 #include "trap.h"
 
 typedef int FLOAT;
-#define sign_bit(res) res >> 31
+#define sign_bit(res) (res >> 31) & 1
 #define no_sign(res) (res << 1) >> 1
 #define to_sign(res) res << 31
 #define int_no_sign(sign) (sign ? -1 : 1)
+#define int_sign(sign) int_no_sign(sign)
 static inline int F2int(FLOAT a) {
 	// nemu_assert(0);
 	int noSa = no_sign(a);
@@ -18,25 +19,28 @@ static inline FLOAT int2F(int a) {
 	// nemu_assert(0);
 	int sa = sign_bit(a);
 	int noSa = a * int_no_sign(sa);
-	return (noSa << 16) | to_sign(sa);
+	// return (noSa << 16) | to_sign(sa);
+	return (noSa << 16) * int_sign(sa);
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
 	// nemu_assert(0);
-	int sa = sign_bit(a);
-	int noSa = no_sign(a);
-	int sb = sign_bit(b);
-	int noSb = a * int_no_sign(sb);
-	return (a * b) | to_sign(sa * sb);
+	// int sa = sign_bit(a);
+	// int noSa = no_sign(a);
+	// int sb = sign_bit(b);
+	// int noSb = a * int_no_sign(sb);
+	// return (a * b) | to_sign(sa * sb);
+	return (a * b);
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
 	// nemu_assert(0);
-	int sa = sign_bit(a);
-	int noSa = no_sign(a);
-	int sb = sign_bit(b);
-	int noSb = a * int_no_sign(sb);
-	return (a / b) | to_sign(sa * sb);
+	// int sa = sign_bit(a);
+	// int noSa = no_sign(a);
+	// int sb = sign_bit(b);
+	// int noSb = a * int_no_sign(sb);
+	// return (a / b) | to_sign(sa * sb);
+	return (a / b);
 }
 
 FLOAT f2F(float);

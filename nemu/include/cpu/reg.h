@@ -77,9 +77,9 @@ static inline int check_reg_index(int index) {
 #define f4 0xFFFFFFFF
 #define f2 0xFFFF
 #define f1 0xFF
-#define sign_bit32(res) (res >> 31)
-#define sign_bit16(res) (res >> 15)
-#define sign_bit8(res) (res >> 7)
+#define sign_bit32(res) ((res >> 31) & 1)
+#define sign_bit16(res) ((res >> 15) & 1)
+#define sign_bit8(res) ((res >> 7) & 1)
 #define low8(res) (res & 0xFF)
 extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
