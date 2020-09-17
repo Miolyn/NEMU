@@ -92,6 +92,7 @@ void load_elf_tables(int argc, char *argv[]) {
 
 int find_variable(char *e, bool *success){
 	int i, offSet;
+	printf("nr:%d\n", nr_symtab_entry);
 	for(i = 0; i < nr_symtab_entry; i++){
 		if(symtab[i].st_info == STT_OBJECT){
 			offSet = symtab[i].st_name;
