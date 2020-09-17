@@ -7,27 +7,36 @@ typedef int FLOAT;
 #define sign_bit(res) res >> 31
 #define no_sign(res) (res << 1) >> 1
 #define to_sign(res) res << 31
+#define int_no_sign(sign) (sign ? -1 : 1)
 static inline int F2int(FLOAT a) {
-	nemu_assert(0);
+	// nemu_assert(0);
 	int noSa = no_sign(a);
 	return (noSa >> 16) * (sign_bit(a) ? -1 : 1);
 }
 
 static inline FLOAT int2F(int a) {
-	nemu_assert(0);
+	// nemu_assert(0);
 	int sa = sign_bit(a);
-	int noSa = a * (sa ?  -1 : 1);
+	int noSa = a * int_no_sign(sa);
 	return (noSa << 16) | to_sign(sa);
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
-	nemu_assert(0);
-	return 0;
+	// nemu_assert(0);
+	int sa = sign_bit(a);
+	int noSa = no_sign(a);
+	int sb = sign_bit(b);
+	int noSb = a * int_no_sign(sb);
+	return (a * b) | to_sign(sa * sb);
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
-	nemu_assert(0);
-	return 0;
+	// nemu_assert(0);
+	int sa = sign_bit(a);
+	int noSa = no_sign(a);
+	int sb = sign_bit(b);
+	int noSb = a * int_no_sign(sb);
+	return (a / b) | to_sign(sa * sb);
 }
 
 FLOAT f2F(float);

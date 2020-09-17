@@ -22,11 +22,9 @@ make_helper(concat(call_rm_, SUFFIX)){
     int len = concat(decode_rm_, SUFFIX)(eip + 1);
     if(ops_decoded.is_operand_size_16){
         PUSH_STACK((eip + len + 1) & 0xFFFF);
-        // cpu.eip = (eip + op_src->val) & 0xFFFF;
         cpu.eip = op_src->val & 0xFFFF;
     } else{
         PUSH_STACK(eip + len + 1);
-        // cpu.eip = eip + op_src->val;
         cpu.eip = op_src->val;
     }
     reset_all_eflags();

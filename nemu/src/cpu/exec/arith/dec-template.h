@@ -4,7 +4,6 @@
 
 static void do_execute () {
 	OPERAND_W(op_src, op_src->val - 1);
-    
 
 	DATA_TYPE res = op_src->val - 1;
     parity_flag(res);

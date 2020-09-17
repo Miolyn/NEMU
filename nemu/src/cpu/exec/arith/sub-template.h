@@ -5,7 +5,6 @@
 static void do_execute(){
     concat(write_operand_, SUFFIX)(op_dest, op_dest->val -op_src->val);
 
-
     cf_sub(op_dest->val, op_src->val);
     DATA_TYPE res = carry_flag_sub(op_dest->val, op_src->val);
     parity_flag(res);

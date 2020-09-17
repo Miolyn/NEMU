@@ -12,7 +12,6 @@ static void do_execute () {
     sign_flag(res);
     overflow_flag(op_src->val, 1);
 	
-
 	print_asm_template1();
 }
 
