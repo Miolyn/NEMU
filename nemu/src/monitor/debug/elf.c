@@ -16,7 +16,7 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	FILE *fp = fopen(exec_file, "rb");
 	Assert(fp, "Can not open '%s'", exec_file);
-
+	printf("open exec file:%s\n", exec_file);
 	uint8_t buf[sizeof(Elf32_Ehdr)];
 	ret = fread(buf, sizeof(Elf32_Ehdr), 1, fp);
 	assert(ret == 1);
@@ -77,7 +77,6 @@ void load_elf_tables(int argc, char *argv[]) {
 			strtab = malloc(sh[i].sh_size);
 			fseek(fp, sh[i].sh_offset, SEEK_SET);
 			ret = fread(strtab, sh[i].sh_size, 1, fp);
-			printf("find the str table: %s\n", strtab);
 			assert(ret == 1);
 		}
 	}
