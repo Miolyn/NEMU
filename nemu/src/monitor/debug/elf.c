@@ -94,7 +94,7 @@ int find_variable(char *e, bool *success){
 	int i, offSet;
 	printf("nr:%d\n", nr_symtab_entry);
 	for(i = 0; i < nr_symtab_entry; i++){
-		if(symtab[i].st_info == STT_OBJECT){
+		if((symtab[i].st_info & 0xf) == STT_OBJECT){
 			offSet = symtab[i].st_name;
 			printf("find object at %d\n", offSet);
 			if(strncmp(e, strtab + offSet, strlen(e)) == 0){
