@@ -1,4 +1,5 @@
 #include "common.h"
+#include "monitor/elfv.h"
 #include <stdlib.h>
 #include <elf.h>
 
@@ -41,8 +42,14 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	/* Load section header table */
 	uint32_t sh_size = elf->e_shentsize * elf->e_shnum;
+	// Elf32_Shdr  节描述符。 ELF文件节表
 	Elf32_Shdr *sh = malloc(sh_size);
+	// 设置流 stream 的文件位置为给定的偏移 offset，参数 offset 意味着从给定的 whence 位置查找的字节数。
+	// stream -- 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+	// offset -- 这是相对 whence 的偏移量，以字节为单位。
+	// SEEK_SET	文件的开头
 	fseek(fp, elf->e_shoff, SEEK_SET);
+	// 从给定流 stream 读取数据到 ptr 所指向的数组中。
 	ret = fread(sh, sh_size, 1, fp);
 	assert(ret == 1);
 
@@ -54,6 +61,7 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	int i;
 	for(i = 0; i < elf->e_shnum; i ++) {
+		// symbol table
 		if(sh[i].sh_type == SHT_SYMTAB && 
 				strcmp(shstrtab + sh[i].sh_name, ".symtab") == 0) {
 			/* Load symbol table from exec_file */
@@ -81,3 +89,17 @@ void load_elf_tables(int argc, char *argv[]) {
 	fclose(fp);
 }
 
+int find_variable(char *e, bool *success){
+	int i;
+	int offSet;
+	for(i = 0; i < nr_symtab_entry; i++){
+		if(symtab[i].st_info == STT_OBJECT){
+			offSet = symtab[i].st_name;
+			if(strncmp(e, strtab + offSet, strlen(e)) == 0){
+				return symtab[i].st_value;
+			}
+		}
+	}
+	*success = 0;
+	return 0;
+}

@@ -7,7 +7,7 @@
 #include <regex.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "monitor/elfv.h"
 enum {
 	NOTYPE = 256,   // ' '
     NUMBER,         // number
@@ -20,7 +20,7 @@ enum {
     LNOT,           // !
     DEREF,          // *addr
     NEG,            // neg - negative is fu hao
-
+    VAR,
 	/* TODO: Add more token types */
 
 };
@@ -47,9 +47,10 @@ static struct rule {
     {"\\|\\|", LOR},                                                            // ||
     {"!=", NEQ},                                                                // !=
     {"!", LNOT},                                                                // !
-    {"\\$([eE]?(ax|cx|dx|bx|sp|bp|si|di))|\\$([a-d][hl])|\\$([cpazstido]f)|\\$eip", REG},                   // reg
+    {"\\$([eE]?(ax|cx|dx|bx|sp|bp|si|di))|\\$([a-d][hl])|\\$([cpazso]f)|\\$eip", REG},                   // reg
     {"0[xX][a-fA-F0-9]{1,8}", HEXADECIMAL},                                            // hex
     {"([1-9][0-9]{1,31})|[0-9]", NUMBER},                                       // number
+    {"\\w+", VAR},                                                              // variable
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -178,6 +179,7 @@ const int NO_PARENTHESES = 1;
 
 int eval(bool *success, uint32_t p, uint32_t q){
     // printf("p:%d,q:%d\n", p, q);
+    if(!*success) return -1;
     int info;
     if (p > q || p == -1 || q == -1){
         return 0;
@@ -193,6 +195,8 @@ int eval(bool *success, uint32_t p, uint32_t q){
         } else if(tokens[p].type == REG){
             // printf("reg\n");
             res = get_reg_by_str(success, tokens[p].str + 1);
+        } else if(tokens[p].type == VAR){
+            res = find_variable(tokens[p].str, success);
         } else{
             *success = false;
         }
