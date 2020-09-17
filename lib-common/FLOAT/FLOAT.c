@@ -2,7 +2,9 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	nemu_assert(0);
-	return 0;
+	int noSa = no_sign(a);
+	int noSb = no_sign(b);
+	return ((noSa * noSb) >> 16) | to_sign(sign_bit(a) ^ sign_bit(b));
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
@@ -23,9 +25,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * It is OK not to use the template above, but you should figure
 	 * out another way to perform the division.
 	 */
-
+	int noSa = no_sign(a);
+	int noSb = no_sign(b);
 	nemu_assert(0);
-	return 0;
+	return ((noSa / noSb) << 16) | to_sign(noSa ^ noSb);
 }
 
 FLOAT f2F(float a) {
@@ -38,14 +41,14 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-
+	int sb = (a < 0);
 	nemu_assert(0);
-	return 0;
+	return (FLOAT)(a << 16) | to_sign(sb);
 }
 
 FLOAT Fabs(FLOAT a) {
 	nemu_assert(0);
-	return 0;
+	return (a << 1) >> 1;
 }
 
 /* Functions below are already implemented */

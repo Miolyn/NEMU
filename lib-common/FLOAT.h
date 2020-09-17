@@ -4,15 +4,20 @@
 #include "trap.h"
 
 typedef int FLOAT;
-
+#define sign_bit(res) res >> 31
+#define no_sign(res) (res << 1) >> 1
+#define to_sign(res) res << 31
 static inline int F2int(FLOAT a) {
 	nemu_assert(0);
-	return 0;
+	int noSa = no_sign(a);
+	return (noSa >> 16) * (sign_bit(a) ? -1 : 1);
 }
 
 static inline FLOAT int2F(int a) {
 	nemu_assert(0);
-	return 0;
+	int sa = sign_bit(a);
+	int noSa = a * (sa ?  -1 : 1);
+	return (noSa << 16) | to_sign(sa);
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
