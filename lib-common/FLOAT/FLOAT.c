@@ -2,7 +2,7 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 
-	return (a * b) >> 16;
+	return ((ll)a * (ll)b) >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {

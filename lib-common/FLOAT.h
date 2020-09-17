@@ -4,6 +4,7 @@
 #include "trap.h"
 
 typedef int FLOAT;
+#define ll long long
 #define sign_bit(res) (res >> 31) & 1
 #define no_sign(res) (res << 1) >> 1
 #define to_sign(res) res << 31
