@@ -90,8 +90,8 @@ void load_elf_tables(int argc, char *argv[]) {
 }
 
 int find_variable(char *e, bool *success){
-	int i;
-	int offSet;
+	int i, offSet;
+	printf("enter the find");
 	for(i = 0; i < nr_symtab_entry; i++){
 		if(symtab[i].st_info == STT_OBJECT){
 			offSet = symtab[i].st_name;

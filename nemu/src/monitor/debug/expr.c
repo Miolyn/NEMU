@@ -110,9 +110,6 @@ static bool make_token(char *e) {
                     return false;
                 }
                 
-                if(rules[i].token_type == VAR){
-                    printf("var\n");
-                }
 				switch(rules[i].token_type) {
                     case '+':
                     case '-':
