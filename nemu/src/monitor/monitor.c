@@ -31,6 +31,7 @@ void init_monitor(int argc, char *argv[]) {
 
 	/* Load the string table and symbol table from the ELF file for future use. */
 	load_elf_tables(argc, argv);
+	printf("argv:%s\n", argv[1]);
 
 	/* Compile the regular expressions. */
 	init_regex();
