@@ -156,7 +156,7 @@ static int cmd_bt(char *args){
     int esp = cpu.esp, ebp = cpu.ebp, eip = cpu.eip, i;
     while(ebp){
         int res = find_func(eip, name);
-        if(!res){
+        if(res){
             printf("find func error\n");
             return 0;
         }
