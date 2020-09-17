@@ -3,7 +3,7 @@
 make_helper(leave){
 
     int bt = ops_decoded.is_operand_size_16 ? 2 : 4;
-    int i;
+    swaddr_t i;
     for(i = reg_l(R_ESP); i <= reg_l(R_EBP); i += bt){
         swaddr_write(i, bt, 0);
     }
