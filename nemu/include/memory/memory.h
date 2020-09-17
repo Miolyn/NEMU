@@ -23,5 +23,6 @@ uint32_t hwaddr_read(hwaddr_t, size_t);
 void swaddr_write(swaddr_t, size_t, uint32_t);
 void lnaddr_write(lnaddr_t, size_t, uint32_t);
 void hwaddr_write(hwaddr_t, size_t, uint32_t);
+#define swr4(addr) swaddr_read(addr, 4)
 
 #endif

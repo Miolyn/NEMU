@@ -101,3 +101,21 @@ int find_variable(char *e, bool *success){
 	*success = 0;
 	return 0;
 }
+
+int find_func(int eip, char *name){
+	int i, baseAddr, size, offSet;
+	for(i = 0; i < nr_symtab_entry; i++){
+		if((symtab[i].st_info & 0xf) == STT_FUNC){
+			baseAddr = symtab[i].st_value;
+			size = symtab[i].st_size;
+			offSet = symtab[i].st_name;
+			if(eip >= baseAddr && eip <= baseAddr + size){
+				int len = symtab[i + 1].st_name - symtab[i].st_name - 1;
+				strncpy(name, strtab + offSet, len);
+				name[len] = '\0';
+				return 0;
+			}
+		}
+	}
+	return -1;
+}

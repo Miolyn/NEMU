@@ -2,7 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
+#include "monitor/elfv.h"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -151,6 +151,30 @@ static int cmd_pt(char *args){
     return 0;
 }
 
+static int cmd_bt(char *args){
+    char name[255];
+    int esp = cpu.esp, ebp = cpu.ebp, eip = cpu.eip, i;
+    while(ebp){
+        int res = find_func(eip, name);
+        if(!res){
+            printf("find func error");
+            return 0;
+        }
+        printf("-----------------------------\n");
+        printf("in function [%s]\n", name);
+        int addr = ebp + 4;
+        for(i = 0; i < 4 && ebp + i * 4 <= esp; i++){
+            printf("arg%d: addr:0x%x, val:0x%x\n", i + 1, addr + i * 4,swr4(addr + i * 4));
+        }
+        printf("-----------------------------\n");
+        esp = esp - 4;
+        ebp = swr4(ebp);
+        eip = swr4(esp);
+        esp -= 4;
+    }
+    return 0;
+}
+
 // function test2
 static struct {
 	char *name;
@@ -170,6 +194,7 @@ static struct {
     {"w", "add watch point", cmd_w},
     {"d", "delete watch point", cmd_d},
     {"pt", "print esp", cmd_pt},
+    {"bt", "print the stack link", cmd_bt},
 
 };
 
