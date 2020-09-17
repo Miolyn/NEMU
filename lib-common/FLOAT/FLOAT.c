@@ -57,9 +57,16 @@ FLOAT f2F(float a) {
 	int t = *addr;
 	int s = sign_bit(t);
 	int noSa = (s << 1) >> 1;
-	int e = ((noSa >> 23) - 0x7f) & 0xff;
+	int E = ((noSa >> 23)) & 0xff;
 	int m = noSa & 0x7ffff;
-	FLOAT res = (m | 0x80000);
+	FLOAT res = m;
+	int e = E - 0x7f;
+	if(!E){
+		if(!m) return 0;
+		else e = 1 - E;
+	} else if(!(E ^0xff)){
+		return (-1) ^ (!s << 31);
+	}else res |= 0x80000;
 	// now point is at l:23
 	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
 	// now 
