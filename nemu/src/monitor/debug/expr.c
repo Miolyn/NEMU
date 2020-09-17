@@ -125,12 +125,15 @@ static bool make_token(char *e) {
                     case LOR:
                     case HEXADECIMAL:
                     case REG:
+                    case VAR:
                     case NUMBER: {
                         tokens[nr_token].type = rules[i].token_type;
                         strncpy(tokens[nr_token].str, substr_start, substr_len);
                         tokens[nr_token++].str[substr_len] = '\0';
                         break;
                     }
+                    default: 
+                        assert(0);
 				}
 
 				break;
