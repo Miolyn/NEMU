@@ -131,8 +131,6 @@ static bool make_token(char *e) {
                         tokens[nr_token++].str[substr_len] = '\0';
                         break;
                     }
-                    default: 
-                        assert(0);
 				}
 
 				break;
