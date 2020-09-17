@@ -3,7 +3,6 @@
 #define instr stos
 make_helper(concat(stos_m_, SUFFIX)){
     MEM_W(reg_l(R_EDI), REG(R_EAX));
-    // swaddr_write(reg_l(R_EDI), 4, reg_l(R_EAX));
     int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_EDI) = reg_l(R_EDI) + incDec;
     print_asm_template5();
