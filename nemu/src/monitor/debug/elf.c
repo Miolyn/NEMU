@@ -75,8 +75,6 @@ void load_elf_tables(int argc, char *argv[]) {
 			/* Load string table from exec_file */
 			strtab = malloc(sh[i].sh_size);
 			fseek(fp, sh[i].sh_offset, SEEK_SET);
-			printf("size : %d\n", sh[i].sh_offset);
-			printf("%c\n", strtab[4]);
 			ret = fread(strtab, sh[i].sh_size, 1, fp);
 			assert(ret == 1);
 		}
@@ -92,11 +90,9 @@ void load_elf_tables(int argc, char *argv[]) {
 
 int find_variable(char *e, bool *success){
 	int i, offSet;
-	printf("nr:%d\n", nr_symtab_entry);
 	for(i = 0; i < nr_symtab_entry; i++){
 		if((symtab[i].st_info & 0xf) == STT_OBJECT){
 			offSet = symtab[i].st_name;
-			printf("find object at %d\n", offSet);
 			if(strncmp(e, strtab + offSet, strlen(e)) == 0){
 				return symtab[i].st_value;
 			}
