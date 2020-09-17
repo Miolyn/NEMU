@@ -1,4 +1,5 @@
-#include "FLOAT.h"
+// #include "FLOAT.h"
+#include "lib-common/FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 
@@ -23,8 +24,23 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * It is OK not to use the template above, but you should figure
 	 * out another way to perform the division.
 	 */
-
-	return (a / b) * t16;
+	int sa = sign_bit(a);
+	int sb = sign_bit(b);
+	int s = sa * sb;
+	int noSa = a * int_no_sign(sa);
+	int noSb = b * int_no_sign(sb);
+	int res = noSa / noSb;
+	int mod = noSa % noSb;
+	int i;
+	for(i = 0; i < 16; i++){
+		res <<= 1;
+		mod <<= 1;
+		if(mod > noSb){
+			mod -= noSb;
+			res |= 1;
+		}
+	}
+	return res * s;
 }
 
 FLOAT f2F(float a) {
@@ -37,7 +53,27 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-	return (FLOAT) (a * t16);
+	int *addr = &a;
+	int t = *addr;
+	int s = sign_bit(t);
+	int noSa = (s << 1) >> 1;
+	int e = ((noSa >> 23) - 0x7f) & 0xff;
+	int m = noSa & 0x7ffff;
+	FLOAT res = (m | 0x80000);
+	// now point is at l:23
+	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
+	// now 
+	if(e >= 32){
+		res = 0;
+	} else if(e > 0){
+		res <<= e;
+	} else{
+		e *= -1;
+		res >>= e;
+	}
+	res >>= 7;
+
+	return (FLOAT) (res * int_sign(s));
 }
 
 FLOAT Fabs(FLOAT a) {

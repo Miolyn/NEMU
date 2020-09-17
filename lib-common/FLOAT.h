@@ -6,15 +6,14 @@
 typedef int FLOAT;
 #define ll long long
 #define sign_bit(res) (res >> 31) & 1
-#define no_sign(res) (res << 1) >> 1
-#define to_sign(res) res << 31
 #define int_no_sign(sign) (sign ? -1 : 1)
 #define int_sign(sign) int_no_sign(sign)
 #define t16 (1 << (1 << 4))
 static inline int F2int(FLOAT a) {
 	// nemu_assert(0);
-	int noSa = no_sign(a);
-	return (noSa >> 16) * (sign_bit(a) ? -1 : 1);
+	int sa = sign_bit(a);
+	int noSa = a * int_no_sign(sa);
+	return (noSa >> 16) * (sign_bit(sa) ? -1 : 1);
 }
 
 static inline FLOAT int2F(int a) {
