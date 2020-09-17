@@ -9,6 +9,13 @@
 
 void cpu_exec(uint32_t);
 
+typedef struct {
+    swaddr_t prev_ebp;
+    swaddr_t ret_addr;
+    uint32_t args[4];
+} PartOfStackFrame;
+
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -162,8 +169,8 @@ static int cmd_bt(char *args){
         }
         printf("-----------------------------\n");
         printf("in function [%s]\n", name);
-        int addr = ebp + 4;
-        for(i = 0; i < 4 && ebp + i * 4 <= esp; i++){
+        int addr = ebp + 8;
+        for(i = 0; i < 4; i++){
             printf("arg%d: addr:0x%x, val:0x%x\n", i + 1, addr + i * 4,swr4(addr + i * 4));
         }
         printf("-----------------------------\n");
