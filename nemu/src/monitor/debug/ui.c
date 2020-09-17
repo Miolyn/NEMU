@@ -174,10 +174,8 @@ static int cmd_bt(char *args){
         }
         printf("-----------------------------\n");
         esp = ebp - 8;
-        printf("ebp%x\n", ebp);
         eip = swr4(ebp + 4);
         ebp = swr4(ebp);
-        printf("eip:%x\n", eip);
     }
     return 0;
 }
