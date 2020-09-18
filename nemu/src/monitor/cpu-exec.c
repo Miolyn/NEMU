@@ -109,7 +109,7 @@ void cpu_exec(volatile uint32_t n) {
 			
 		}
 		j = R_EBP;
-		if (reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
 			int k;
 			printf("EBP\n");
 			for(k = -4; k <= 4; k++){
