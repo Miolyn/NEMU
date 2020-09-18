@@ -3,7 +3,7 @@
 #define instr cmp
 
 static void do_execute(){
-    printf("l:0x%x,r:0x%x\n", op_dest->val, op_src->val);
+    // printf("l:0x%x,r:0x%x\n", op_dest->val, op_src->val);
     cf_sub(op_dest->val, op_src->val);
     DATA_TYPE res = op_dest->val - op_src->val;
     parity_flag(res);
