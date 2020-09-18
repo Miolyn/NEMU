@@ -100,10 +100,12 @@ void cpu_exec(volatile uint32_t n) {
 		j = R_ESP;
 		if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << 27)){
 			int k;
+			printf("ESP\n");
 			for(k = -4; k <= 4; k++){
 				int addr = reg_l(j) + 4 * k;
-				printf("addr:(+%d)0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", 4 * k, addr, swaddr_read(addr, 4), swaddr_read(addr, 2), swaddr_read(addr, 1));
+				printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
 			}
+			printf("\n");
 			
 		}
 		j = R_EBP;
@@ -112,8 +114,9 @@ void cpu_exec(volatile uint32_t n) {
 			printf("EBP\n");
 			for(k = -4; k <= 4; k++){
 				int addr = reg_l(j) + 4 * k;
-				printf("addr:(+%d)0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", 4 * k, addr, swaddr_read(addr, 4), swaddr_read(addr, 2), swaddr_read(addr, 1));
+				printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
 			}
+			printf("\n");
 			
 		}
 		printf("----------------------------------------------------------------------------\n");
