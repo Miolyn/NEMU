@@ -16,7 +16,7 @@ static void do_execute(){
 
     int s1 = sign_bit32(op_dest->val);
     int s2 = sign_bit32(op_src->val);
-    cpu.OF=(s1 != s2 && s2 == cpu.SF) ;    
+    cpu.OF=(s1 != s2 && s2 == cpu.SF);
     print_asm_template2();
 }
 
