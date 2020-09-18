@@ -114,7 +114,10 @@ int find_func(int eip, char *name){
 				int len = symtab[i + 1].st_name - symtab[i].st_name - 1;
 				printf("i:%d, i+1l:%x, il:%x\n", i,symtab[i + 1].st_name, symtab[i].st_name);
 				printf("len:%d\n", len);
-				strncpy(name, strtab + offSet, len);
+				for(i = 0; strtab[offSet + i]; i++){
+					printf("%c\n", strtab[offSet + i]);
+				}
+				// strncpy(name, strtab + offSet, len);
 				name[len] = '\0';
 				return 0;
 			}
