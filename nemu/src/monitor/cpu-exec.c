@@ -98,7 +98,7 @@ void cpu_exec(volatile uint32_t n) {
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", cpu.CF,
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
 		j = R_ESP;
-		if (reg_l(j) - 16 >= 0 && reg_l(j) + 16 <= (1 << 27)){
+		if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 <= (1 << 27)){
 			int k;
 			printf("ESP\n");
 			for(k = -4; k <= 4; k++){
