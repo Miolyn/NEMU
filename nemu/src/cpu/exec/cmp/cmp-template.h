@@ -12,7 +12,7 @@ static void do_execute(){
     zero_flag(res);
     printf("%d, s:%d\n", res, ((int)res) < 0);
     sign_flag(res);
-    overflow_flag(op_dest->val, -op_src->val);
+    // overflow_flag(op_dest->val, -op_src->val);
     int s1 = sign_bit32(op_dest->val);
     int s2 = sign_bit32(op_src->val);
     cpu.OF=(s1 != s2 && s2 == cpu.SF) ;
