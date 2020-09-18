@@ -62,12 +62,12 @@ void cpu_exec(volatile uint32_t n) {
 		// if (cpu.eip == 0x100199){
 		// 	assert(0);
 		// }
-		if(false){
+		if(true){
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
 		}
 		int instr_len = exec(cpu.eip);
-		if(false){
+		if(true){
 		printf("end exec\n");
 		int j;
 		for(j = R_EAX; j <= R_EDI; j++){
