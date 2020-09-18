@@ -6,11 +6,11 @@ static void do_execute(){
 
     cf_sub(op_dest->val, op_src->val);
     printf("l:0x%x,r:0x%x\n", op_dest->val, ~op_src->val + 1);
-    DATA_TYPE res = op_dest->val - op_src->val;
+    uint64_t res = op_dest->val - op_src->val;
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
-    printf("%d, s:%d\n", res, ((int)res) < 0);
+    printf("%lu, s:%d\n", res, ((int)res) < 0);
     sign_flag(res);
     overflow_flag(op_dest->val, -op_src->val);
     
