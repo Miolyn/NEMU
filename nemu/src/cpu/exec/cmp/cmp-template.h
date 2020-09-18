@@ -9,6 +9,7 @@ static void do_execute(){
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
+    printf("%d, s:%d\n", res, ((int)res) < 0);
     sign_flag(res);
     overflow_flag(op_dest->val, -op_src->val);
     
