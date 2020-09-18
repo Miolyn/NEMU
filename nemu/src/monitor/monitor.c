@@ -48,12 +48,15 @@ static void init_ramdisk() {
 	const int ramdisk_max_size = 0xa0000;
 	FILE *fp = fopen(exec_file, "rb");
 	Assert(fp, "Can not open '%s'", exec_file);
-
+	// set fp to the end of the file stream
 	fseek(fp, 0, SEEK_END);
+	// get the len of the file
 	size_t file_size = ftell(fp);
 	Assert(file_size < ramdisk_max_size, "file size(%zd) too large", file_size);
-
+	// set fp to the start of the file stream
 	fseek(fp, 0, SEEK_SET);
+	// hwa_to_va(p) ((void *)(hw_mem + (unsigned)p))
+	// read the exec file to the hardware mem
 	ret = fread(hwa_to_va(0), file_size, 1, fp);
 	assert(ret == 1);
 	fclose(fp);
@@ -69,6 +72,7 @@ static void load_entry() {
 	size_t file_size = ftell(fp);
 
 	fseek(fp, 0, SEEK_SET);
+	// load the entry file at 0x100000
 	ret = fread(hwa_to_va(ENTRY_START), file_size, 1, fp);
 	assert(ret == 1);
 	fclose(fp);
@@ -77,14 +81,6 @@ static void load_entry() {
 static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
-	// printf("%lu\n", sizeof(cpu.ef));
-	// printf("%lu\n", sizeof(cpu.eflags));
-	// // printf("0x%x\n", cpu.ef);
-	// for(i = 0; i < 32; i++){
-	// 	printf("%d ", reg_eflags(i));
-	// }
-	// printf("\n");
-	// printf("%d %d\n", cpu.AF, cpu.CF);
 }
 
 void restart() {

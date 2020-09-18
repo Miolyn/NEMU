@@ -15,6 +15,9 @@ void ramdisk_read(uint8_t *buf, uint32_t offset, uint32_t len) {
 	memcpy(buf, RAMDISK_START + offset, len);
 }
 
+int a[100000];
+
+
 /* write `len' bytes starting from `buf' into the `offset' of ramdisk */
 void ramdisk_write(uint8_t *buf, uint32_t offset, uint32_t len) {
 	nemu_assert(offset + len < RAMDISK_SIZE);

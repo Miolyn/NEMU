@@ -29,16 +29,18 @@ uint32_t loader() {
 #endif
 
 	elf = (void*)buf;
-
 	/* TODO: fix the magic number with the correct one */
-	const uint32_t elf_magic = 0xBadC0de;
+	// const uint32_t elf_magic = 0xBadC0de;
+	const uint32_t elf_magic = 0x7f454c46;
 	uint32_t *p_magic = (void *)buf;
 	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
 	panic("please implement me");
-	for(; true; ) {
+	int i;
+	for(i = 0; i < elf->e_shnum; i++) {
 		/* Scan the program header table, load each segment into memory */
+		ph = elf + elf->e_shoff + i * elf->e_shentsize;
 		if(ph->p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
