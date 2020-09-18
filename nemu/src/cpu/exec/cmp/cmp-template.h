@@ -6,6 +6,7 @@ static void do_execute(){
     printf("l:0x%x,r:0x%x\n", op_dest->val, op_src->val);
     cf_sub(op_dest->val, op_src->val);
     DATA_TYPE res = op_dest->val - op_src->val;
+    printf("%d\n", res);
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
