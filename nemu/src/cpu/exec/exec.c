@@ -35,8 +35,6 @@ make_group(group1_sx_v,
 	add_sib2rm_v, or_sib2rm_v, adc_sib2rm_v, sbb_sib2rm_v, 
 	and_sib2rm_v, sub_sib2rm_v, xor_sib2rm_v, cmp_sib2rm_v)
 
-
-
 /* 0xc0 */
 make_group(group2_i_b,
 	inv, inv, inv, inv, 
