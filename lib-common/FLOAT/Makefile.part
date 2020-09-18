@@ -10,6 +10,9 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
+CFLAGS := -c -m32 -fno-builtin
+LDFLAGS = -L
+
 $(FLOAT_O):
 
 $(FLOAT_VFPRINTF_O):
