@@ -103,6 +103,7 @@ void cpu_exec(volatile uint32_t n) {
 			printf("ESP\n");
 			for(k = -4; k <= 4; k++){
 				int addr = reg_l(j) + 4 * k;
+				printf("%x,%x\n", reg_l(j), addr);
 				printf("addr:(+0x%x)0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", 4 * k, addr, swaddr_read(addr, 4), swaddr_read(addr, 2), swaddr_read(addr, 1));
 			}
 			
