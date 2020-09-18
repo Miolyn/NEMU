@@ -53,7 +53,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/bubble-sort
+USERPROG := obj/testcase/if-else
 ENTRY := $(USERPROG)
 # ENTRY := $(kernel_BIN)
 entry: $(ENTRY)
