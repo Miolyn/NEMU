@@ -97,28 +97,28 @@ void cpu_exec(volatile uint32_t n) {
 		}
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", cpu.CF,
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
-		j = R_ESP;
-		if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << 27)){
-			int k;
-			printf("ESP\n");
-			for(k = -4; k <= 4; k++){
-				int addr = reg_l(j) + 4 * k;
-				printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
-			}
-			printf("\n");
+		// j = R_ESP;
+		// if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << 27)){
+		// 	int k;
+		// 	printf("ESP\n");
+		// 	for(k = -4; k <= 4; k++){
+		// 		int addr = reg_l(j) + 4 * k;
+		// 		printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
+		// 	}
+		// 	printf("\n");
 			
-		}
-		j = R_EBP;
-		if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << 27)){
-			int k;
-			printf("EBP\n");
-			for(k = -4; k <= 4; k++){
-				int addr = reg_l(j) + 4 * k;
-				printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
-			}
-			printf("\n");
+		// }
+		// j = R_EBP;
+		// if ((int)reg_l(j) - 16 >= 0 && reg_l(j) + 16 < (1 << 27)){
+		// 	int k;
+		// 	printf("EBP\n");
+		// 	for(k = -4; k <= 4; k++){
+		// 		int addr = reg_l(j) + 4 * k;
+		// 		printf("addr:(+%d)0x%x ,mem:l:0x%x; ", 4 * k, addr, swaddr_read(addr, 4));
+		// 	}
+		// 	printf("\n");
 			
-		}
+		// }
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 		if(cpu.tmp){
