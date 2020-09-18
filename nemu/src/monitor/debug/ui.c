@@ -162,10 +162,7 @@ static int cmd_bt(char *args){
     char name[255];
     int esp = cpu.esp, ebp = cpu.ebp, eip = cpu.eip, i;
     while(ebp){
-        printf("eip:%x, ebp:%x\n", eip, ebp);
         int res = find_func(eip, name);
-
-        printf("res:%d,name:%s\n", res, name);
         if(res){
             return 0;
         }
