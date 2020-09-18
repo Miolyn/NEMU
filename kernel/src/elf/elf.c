@@ -2,7 +2,7 @@
 #include "memory.h"
 #include <string.h>
 #include <elf.h>
-
+#include "stdio.h"
 #define ELF_OFFSET_IN_DISK 0
 
 #ifdef HAS_DEVICE
@@ -48,15 +48,15 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			
-			// ramdisk_write(buf + ph->p_offset, ph->p_vaddr, ph->p_filesz);
-			ramdisk_read((void*)ph->p_vaddr, ph->p_offset, ph->p_filesz);
+			ramdisk_write(buf + ph->p_offset, ph->p_vaddr, ph->p_filesz);
+			// ramdisk_read((void*)ph->p_vaddr, ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 			uint8_t zero = 0;
 			int j;
 			for(j = ph->p_filesz; j < ph->p_memsz; j++){
-				ramdisk_read(&zero, ph->p_vaddr + j, 1);
+				ramdisk_write(&zero, ph->p_vaddr + j, 1);
 			}
 			
 
@@ -80,5 +80,6 @@ uint32_t loader() {
 
 	write_cr3(get_ucr3());
 #endif
+	printf("entry:%d\n", entry);
 	return entry;
 }
