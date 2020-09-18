@@ -112,6 +112,7 @@ int find_func(int eip, char *name){
 			offSet = symtab[i].st_name;
 			if(eip >= baseAddr && eip <= baseAddr + size){
 				int len = symtab[i + 1].st_name - symtab[i].st_name - 1;
+				printf("i:%d, i+1l:%x, il:%x\n", i,symtab[i + 1].st_name, symtab[i].st_name);
 				printf("len:%d\n", len);
 				strncpy(name, strtab + offSet, len);
 				name[len] = '\0';
