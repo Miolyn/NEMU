@@ -9,6 +9,7 @@
 void ide_read(uint8_t *, uint32_t, uint32_t);
 #else
 void ramdisk_read(uint8_t *, uint32_t, uint32_t);
+void ramdisk_write(uint8_t *, uint32_t, uint32_t);
 #endif
 
 #define STACK_SIZE (1 << 20)
@@ -27,7 +28,7 @@ uint32_t loader() {
 #else
 	ramdisk_read(buf, ELF_OFFSET_IN_DISK, 4096);
 #endif
-
+	/* +The first several bytes contain the ELF header. */
 	elf = (void*)buf;
 	/* TODO: fix the magic number with the correct one */
 	// const uint32_t elf_magic = 0xBadC0de;
@@ -36,22 +37,27 @@ uint32_t loader() {
 	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
-	panic("please implement me");
+	// panic("please implement me");
 	int i;
-	for(i = 0; i < elf->e_shnum; i++) {
+	for(i = 0; i < elf->e_phnum; i++) {
 		/* Scan the program header table, load each segment into memory */
-		ph = elf + elf->e_shoff + i * elf->e_shentsize;
+		ph = (void*)(elf + elf->e_phoff + i * elf->e_phentsize);
 		if(ph->p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			 
-			 
+			ramdisk_write(buf + ph->p_offset, ph->p_vaddr, ph->p_memsz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-
+			uint8_t zero = 0;
+			int j;
+			for(j = ph->p_filesz; j < ph->p_memsz; j++){
+				ramdisk_write(&zero, ph->p_vaddr + j, 1);
+			}
+			
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
