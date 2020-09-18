@@ -48,7 +48,7 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int cnt = 0;
-	bool de = true;
+	bool de = false;
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
@@ -102,6 +102,8 @@ void cpu_exec(volatile uint32_t n) {
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
 		
 		printf("----------------------------------------------------------------------------\n");
+		++cnt;
+		// printf("cnt:%d\n", cnt);
 		}
 		cpu.eip += instr_len;
 
@@ -121,8 +123,7 @@ void cpu_exec(volatile uint32_t n) {
 		extern void device_update();
 		device_update();
 #endif
-		++cnt;
-		printf("cnt:%d\n", cnt);
+
 		if(nemu_state != RUNNING) { return; }
 	}
 
