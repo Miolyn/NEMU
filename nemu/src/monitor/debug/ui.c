@@ -164,6 +164,8 @@ static int cmd_bt(char *args){
     while(ebp){
         printf("eip:%x, ebp:%x\n", eip, ebp);
         int res = find_func(eip, name);
+
+        printf("res:%d,name:%s\n", res, name);
         if(res){
             return 0;
         }
