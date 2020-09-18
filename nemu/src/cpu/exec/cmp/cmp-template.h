@@ -6,14 +6,16 @@ static void do_execute(){
 
     cf_sub(op_dest->val, op_src->val);
     printf("l:0x%x,r:0x%x\n", op_dest->val, ~op_src->val + 1);
-    uint64_t res = op_dest->val - op_src->val;
+    DATA_TYPE res = op_dest->val - op_src->val;
     parity_flag(res);
     adjust_flag(op_dest->val, -op_src->val);
     zero_flag(res);
-    printf("%lu, s:%d\n", res, ((int)res) < 0);
+    printf("%d, s:%d\n", res, ((int)res) < 0);
     sign_flag(res);
     overflow_flag(op_dest->val, -op_src->val);
-    
+    int s1 = sign_bit32(op_dest->val);
+    int s2 = sign_bit32(op_src->val);
+    cpu.OF=(s1 != s2 && s2 == cpu.SF) ;
     print_asm_template2();
 }
 /*
