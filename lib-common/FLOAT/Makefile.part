@@ -10,10 +10,13 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
-CFLAGS := -c -m32 -fno-builtin
-LDFLAGS = -L
+FLOAT_CFLAGS := -c -m32 -fno-builtin -O2
+FLOAT_LDFLAGS := -lreadline
 
-$(FLOAT_O):
+$(FLOAT_O): % : $(FLOAT_OBJ)
+	$(call make_command, @ar r, , ar $<, $^)
 
-$(FLOAT_VFPRINTF_O):
+$(FLOAT_VFPRINTF_O): % : $(LIB_COMMON_DIR)/FLOAT.c
+	@mkdir -p obj/$(LIB_COMMON_DIR)
+	$(call make_command, $(CC), $(FLOAT_CFLAGS), cc $<, $^)
 
