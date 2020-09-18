@@ -43,7 +43,7 @@ uint32_t loader() {
 		/* Scan the program header table, load each segment into memory */
 		ph = (void*)(elf + elf->e_phoff + i * elf->e_phentsize);
 		if(ph->p_type == PT_LOAD) {
-
+			
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
@@ -80,6 +80,6 @@ uint32_t loader() {
 
 	write_cr3(get_ucr3());
 #endif
-	printf("entry:%d\n", entry);
+	
 	return entry;
 }
