@@ -121,7 +121,7 @@ void cpu_exec(volatile uint32_t n) {
 		device_update();
 #endif
 		++cnt;
-		// printf("cnt:%d\n", cnt);
+		printf("cnt:%d\n", cnt);
 		if(nemu_state != RUNNING) { return; }
 	}
 
