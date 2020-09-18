@@ -97,7 +97,26 @@ void cpu_exec(volatile uint32_t n) {
 		}
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", cpu.CF,
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
-		
+		j = R_ESP;
+		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+			int k;
+			printf("ESP\n");
+			for(k = -4; k <= 4; k++){
+				int addr = reg_l(j) + 4 * k;
+				printf("addr:(+0x%x)0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", 4 * k, addr, swaddr_read(addr, 4), swaddr_read(addr, 2), swaddr_read(addr, 1));
+			}
+			
+		}
+		j = R_EBP;
+		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+			int k;
+			printf("EBP\n");
+			for(k = -4; k <= 4; k++){
+				int addr = reg_l(j) + 4 * k;
+				printf("addr:(+0x%x)0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", 4 * k, addr, swaddr_read(addr, 4), swaddr_read(addr, 2), swaddr_read(addr, 1));
+			}
+			
+		}
 		printf("----------------------------------------------------------------------------\n");
 		cpu.eip += instr_len;
 		if(cpu.tmp){
