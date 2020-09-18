@@ -104,6 +104,7 @@ int find_variable(char *e, bool *success){
 
 int find_func(int eip, char *name){
 	int i, baseAddr, size, offSet;
+	printf("nr%d\n", nr_symtab_entry);
 	for(i = 0; i < nr_symtab_entry; i++){
 		if((symtab[i].st_info & 0xf) == STT_FUNC){
 			baseAddr = symtab[i].st_value;
@@ -111,6 +112,7 @@ int find_func(int eip, char *name){
 			offSet = symtab[i].st_name;
 			if(eip >= baseAddr && eip <= baseAddr + size){
 				int len = symtab[i + 1].st_name - symtab[i].st_name - 1;
+				printf("len:%d\n", len);
 				strncpy(name, strtab + offSet, len);
 				name[len] = '\0';
 				return 0;
