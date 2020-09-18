@@ -11,8 +11,12 @@ static void do_execute(){
     zero_flag(res);
     sign_flag(res);
     // overflow_flag(op_dest->val, -op_src->val);
-    int s1 = sign_bit32(op_dest->val);
-    int s2 = sign_bit32(op_src->val);
+    // int s1 = sign_bit32(op_dest->val);
+    // int s2 = sign_bit32(op_src->val);
+    int len = (DATA_BYTE << 3) - 1;
+	int s1,s2;
+	s1=op_dest->val>>len;
+	s2=op_src->val>>len;
     cpu.OF=(s1 != s2 && s2 == cpu.SF) ;
     print_asm_template2();
 }
