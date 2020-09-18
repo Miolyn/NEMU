@@ -48,6 +48,7 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int cnt = 0;
+	bool de = false;
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
@@ -62,12 +63,12 @@ void cpu_exec(volatile uint32_t n) {
 		// if (cpu.eip == 0x100199){
 		// 	assert(0);
 		// }
-		if(true){
+		if(de){
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
 		}
 		int instr_len = exec(cpu.eip);
-		if(true){
+		if(de){
 		printf("end exec\n");
 		int j;
 		for(j = R_EAX; j <= R_EDI; j++){
@@ -121,7 +122,7 @@ void cpu_exec(volatile uint32_t n) {
 		device_update();
 #endif
 		++cnt;
-		printf("cnt:%d\n", cnt);
+		// printf("cnt:%d\n", cnt);
 		if(nemu_state != RUNNING) { return; }
 	}
 
