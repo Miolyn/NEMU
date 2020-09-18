@@ -98,7 +98,7 @@ void cpu_exec(volatile uint32_t n) {
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", cpu.CF,
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
 		j = R_ESP;
-		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		if (reg_l(j) >= 16 && reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
 			int k;
 			printf("ESP\n");
 			for(k = -4; k <= 4; k++){
@@ -108,7 +108,7 @@ void cpu_exec(volatile uint32_t n) {
 			
 		}
 		j = R_EBP;
-		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		if (reg_l(j) >= 16 && reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
 			int k;
 			printf("EBP\n");
 			for(k = -4; k <= 4; k++){
