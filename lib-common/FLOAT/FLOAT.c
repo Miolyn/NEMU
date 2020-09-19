@@ -78,8 +78,7 @@ FLOAT f2F(float a) {
 		else e = 1 - Ex;
 	} else if(!(Ex ^ 0xff)){
 		return (-1) ^ ((!s) << 31);
-		printf("\n");
-	}else res |= (1 << 23);
+	}else {res |= (1 << 23); printf("\n");}
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
 	if(e > 7){
