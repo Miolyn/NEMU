@@ -42,46 +42,59 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	}
 	return res * s;
 }
-
 FLOAT f2F(float a) {
-	/* You should figure out how to convert `a' into FLOAT without
-	 * introducing x87 floating point instructions. Else you can
-	 * not run this code in NEMU before implementing x87 floating
-	 * point instructions, which is contrary to our expectation.
-	 *
-	 * Hint: The bit representation of `a' is already on the
-	 * stack. How do you retrieve it to another variable without
-	 * performing arithmetic operations on it directly?
-	 */
-	// int *addr = &a;
-	int t = *((int*)&a);
-	int s = sign_bit(t);
-	int noSa = (s << 1) >> 1;
-	int E = ((noSa >> 23)) & 0xff;
-	int m = noSa & 0x7ffff;
-	FLOAT res = m;
-	int e = E - 0x7f;
-	if(!E){
-		if(!m) return 0;
-		else e = 1 - E;
-	} else if(!(E ^0xff)){
-		return (-1) ^ (!s << 31);
-	}else res |= 0x80000;
-	// now point is at l:23
-	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
-	// now 
-	if(e >= 32 || e <= -32){
-		res = 0;
-	} else if(e > 0){
-		res <<= e;
-	} else{
-		e *= -1;
-		res >>= e;
-	}
-	res >>= 7;
-
-	return (FLOAT) (res * int_sign(s));
+	int b = *(int *)&a;
+	int sign = b >> 31;
+	int exp = (b >> 23) & 0xff;
+	FLOAT k = b & 0x7fffff;
+	if (exp != 0) k += 1 << 23;
+	exp -= 150;
+	if (exp < -16) k >>= -16 - exp;
+	if (exp > -16) k <<= exp + 16;
+	return sign == 0 ? k : -k;
 }
+
+
+// FLOAT f2F(float a) {
+// 	/* You should figure out how to convert `a' into FLOAT without
+// 	 * introducing x87 floating point instructions. Else you can
+// 	 * not run this code in NEMU before implementing x87 floating
+// 	 * point instructions, which is contrary to our expectation.
+// 	 *
+// 	 * Hint: The bit representation of `a' is already on the
+// 	 * stack. How do you retrieve it to another variable without
+// 	 * performing arithmetic operations on it directly?
+// 	 */
+// 	// int *addr = &a;
+// 	int t = *((int*)&a);
+// 	int s = sign_bit(t);
+// 	int noSa = (s << 1) >> 1;
+// 	int E = ((noSa >> 23)) & 0xff;
+// 	int m = noSa & 0x7ffff;
+// 	FLOAT res = m;
+// 	int e = E - 0x7f;
+// 	if(!E){
+// 		if(!m) return 0;
+// 		else e = 1 - E;
+// 	} else if(!(E ^0xff)){
+// 		return (-1) ^ (!s << 31);
+// 	}else res |= 0x80000;
+// 	// now point is at l:23
+// 	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
+// 	// now 
+// 	if(e >= 32 || e <= -32){
+// 		res = 0;
+// 	} else if(e > 0){
+// 		res <<= e;
+// 	} else{
+// 		e *= -1;
+// 		res >>= e;
+// 	}
+// 	res >>= 7;
+
+// 	return (FLOAT) (res * int_sign(s));
+// }
+
 
 FLOAT Fabs(FLOAT a) {
 	// nemu_assert(0);
