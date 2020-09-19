@@ -8,7 +8,7 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)){
     DATA_TYPE res = (uint8_t)op_src->val &0xff;
     // res &= 0xff;
     concat(write_operand_, SUFFIX)(op_dest, res);
-    print_asm_template2();
+    print_asm(str(instr) " %s,%s", op_src->str, op_dest->str);
     return len + 1;
 }
 #endif
