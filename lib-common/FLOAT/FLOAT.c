@@ -73,7 +73,7 @@ FLOAT f2F(float a) {
 	FLOAT res = t & 0x7ffff;
 	int e = Ex - 0x7f;
 	if(!Ex){
-		// if(!res) return 0;
+		if(!res) return 0;
 		// else e = 1 - Ex;
 	} else if(!(Ex ^ 0xff)){
 		res |= (1 << 23);
