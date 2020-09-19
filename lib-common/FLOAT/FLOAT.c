@@ -43,11 +43,11 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	return res * s;
 }
 
-FLOAT fF2F(float a) {
-	int b = *(int *)&a;
-	int sign = b >> 31;
-	int exp = (b >> 23) & 0xff;
-	FLOAT k = b & 0x7fffff;
+FLOAT f2F(float a) {
+	int t = *(int *)&a;
+	int sign = int_sign(t);
+	int exp = (t >> 23) & 0xff;
+	FLOAT k = t & 0x7fffff;
 	if (exp != 0) k += 1 << 23;
 	exp -= 150;
 	// exp = exp - 150
@@ -56,7 +56,7 @@ FLOAT fF2F(float a) {
 	if (exp > -16) k <<= exp + 16;
 	return sign == 0 ? k : -k;
 }
-FLOAT f2F(float a) {
+FLOAT fF2F(float a) {
 	/* You should figure out how to convert `a' into FLOAT without
 	 * introducing x87 floating point instructions. Else you can
 	 * not run this code in NEMU before implementing x87 floating
@@ -71,7 +71,7 @@ FLOAT f2F(float a) {
 	t = (t << 1) >> 1;
 	int Ex = (t >> 23) & 0xff;
 	FLOAT res = t & 0x7ffff;
-	int e = Ex - 150;
+	int e = Ex - 0x7f;
 	if(!Ex){
 		if(!res) return 0;
 		else e = 1 - Ex;
@@ -80,15 +80,10 @@ FLOAT f2F(float a) {
 	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
-	// if(e > 7){
-	// 	res <<= e - 7;
-	// } else{
-	// 	res >>= -e - 7;
-	// }
-	if(e < -16){
-		res >>= -e - 16;
-	} else if(e > -16){
-		res <<= e + 16;
+	if(e > 7){
+		res <<= e - 7;
+	} else{
+		res >>= -e - 7;
 	}
 	// res >>= 7;
 
