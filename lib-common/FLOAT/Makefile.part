@@ -16,8 +16,8 @@ $(FLOAT): $(FLOAT_A_OBJ)
 INCLUDE = -I ./$(LIB_COMMON_DIR)
 FLOAT_CFLAGS := -m32 -O2 -fno-builtin $(INCLUDE)
 
-$(FLOAT): $(FLOAT_O)
-	ar rcs $(FLOAT) $^
+# $(FLOAT): $(FLOAT_O)
+#	ar rcs $(FLOAT) $^
 
 $(FLOAT_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT.c
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT
