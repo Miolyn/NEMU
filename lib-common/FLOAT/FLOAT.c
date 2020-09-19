@@ -71,7 +71,7 @@ FLOAT f2F(float a) {
 	t = (t << 1) >> 1;
 	int Ex = (t >> 23) & 0xff;
 	FLOAT res = t & 0x7ffff;
-	int e = Ex - 0x7f;
+	int e = Ex - 150;
 	if(!Ex){
 		if(!res) return 0;
 		else e = 1 - Ex;
@@ -85,11 +85,10 @@ FLOAT f2F(float a) {
 	// } else{
 	// 	res >>= -e - 7;
 	// }
-	if(e > -1){
-		res <<= e - 7;
-		test();
+	if(e < -16){
+		res >>= -e - 16;
 	} else{
-		res >>= -e + 7;
+		res <<= e + 16;
 	}
 	// res >>= 7;
 
