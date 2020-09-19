@@ -4,6 +4,7 @@
 #include <elf.h>
 #include "stdio.h"
 #include "../nemu/include/memory/memory.h"
+
 #define ELF_OFFSET_IN_DISK 0
 
 #ifdef HAS_DEVICE
@@ -61,7 +62,7 @@ uint32_t loader() {
 			 */
 			// uint8_t zero = 0;
 			for(j = ph->p_filesz; j < ph->p_memsz; j++){
-				// ramdisk_write(&zero, ph->p_vaddr + j, 1);
+				// ramdisk_read((void*)(ph->p_vaddr + j), (void*)(ph->p_vaddr + j), ph->p_filesz);
 				swaddr_write(ph->p_vaddr + j, 1, 0);
 			}
 			
