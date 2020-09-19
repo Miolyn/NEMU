@@ -8,6 +8,7 @@ FLOAT_A_OBJ := $(FLOAT_O)
 # target  dependency
 $(FLOAT): $(FLOAT_A_OBJ)
 	ar r $@ $^
+	mv obj/$(LIB_COMMON_DIR)/FLOAT/FLOAT.a obj/$(LIB_COMMON_DIR)
 
 # TODO: complete the following rules
 # $@--规则中的目标，$^--规则中所有的依赖，$<--规则中的第一个依赖
