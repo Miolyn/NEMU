@@ -68,16 +68,14 @@ FLOAT f2F(float a) {
 	// int *addr = &a;
 	int t = *((int*)&a);
 	int s = sign_bit(t);
-	int noSa = (s << 1) >> 1;
-	int E = (noSa >> 23) & 0xff;
-	int m = noSa & 0x7ffff;
+	int E = (t >> 23) & 0xff;
+	int m = t & 0x7ffff;
 	FLOAT res = m;
 	int e = E - 0x7f;
 	if(!E){
 		if(!m) return 0;
 		else e = 1 - E;
 	} else if(!(E ^ 0xff)){
-		printf("\n");
 
 		return (-1) ^ ((!s) << 31);
 	}else res |= (1 << 23);
