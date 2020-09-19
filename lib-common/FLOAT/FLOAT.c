@@ -67,11 +67,16 @@ FLOAT f2F(float a) {
 	 * performing arithmetic operations on it directly?
 	 */
 	int b = *(int*)&a;
-	int sign = b >> 31;
+	int s = b >> 31;
 	int Ex = (b >> 23) & 0xff;
 	FLOAT res = b & 0x7ffff;
 	int e = Ex - 0x7f;
-	if(Ex) res |= (1 << 23);
+	if(!Ex){
+		if(!res) return 0;
+		else e = 1 - Ex;
+	} else if(!(Ex ^ 0xff)){
+		return (-1) ^ ((!s) << 31);
+	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
 	if(e > 7){
@@ -81,7 +86,7 @@ FLOAT f2F(float a) {
 	}
 	// res >>= 7;
 
-	return sign == 0? res : -res;
+	return s == 0? res : -res;
 }
 
 
