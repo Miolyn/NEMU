@@ -1,28 +1,79 @@
-#include "trap.h"
 #include "FLOAT.h"
 
-FLOAT f(FLOAT x) { 
-	/* f(x) = 1/(1+25x^2) */
-	return F_div_F(int2F(1), int2F(1) + F_mul_int(F_mul_F(x, x), 25));
+FLOAT F_mul_F(FLOAT a, FLOAT b) {
+	long long c = (long long)a * (long long)b;
+	return (FLOAT)(c >> 16);
 }
 
-FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
-	int k;
-	FLOAT s,h;
-	h = F_div_int((b - a), n);
-	s = F_div_int(fun(a) + fun(b), 2 );
-	for(k = 1; k < n; k ++) {
-		s += fun(a + F_mul_int(h, k));
+FLOAT F_div_F(FLOAT a, FLOAT b) {
+	int sign = 1;
+	if (a < 0) 
+	{
+		sign = -sign;
+		a = -a;
 	}
-	s = F_mul_F(s, h);
-	return s;
+	if (b < 0) 
+	{
+		sign = -sign;
+		b = -b;
+	}
+	int res = a / b;
+	a = a % b;
+	int i;
+	for (i = 0; i < 16; i++) 
+	{
+		a <<= 1;
+		res <<= 1;
+		if (a >= b) 
+		{
+			a -= b;
+			res++;
+		}
+	}
+	return res * sign;
 }
 
-int main() { 
-	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
-	FLOAT ans = f2F(0.551222);
-
-	nemu_assert(Fabs(a - ans) < f2F(1e-4));
-
-	return 0;
+FLOAT f2F(float a) {
+	int b = *(int *)&a;
+	int sign = b >> 31;
+	int exp = (b >> 23) & 0xff;
+	FLOAT k = b & 0x7fffff;
+	if (exp != 0) k += 1 << 23;
+	exp -= 150;
+	if (exp < -16) k >>= -16 - exp;
+	if (exp > -16) k <<= exp + 16;
+	return sign == 0 ? k : -k;
 }
+
+FLOAT Fabs(FLOAT a) {
+	FLOAT b;
+	if (a < 0)
+		b = - a;
+	else
+		b = a;
+	return b;
+}
+
+FLOAT sqrt(FLOAT x) {
+	FLOAT dt, t = int2F(2);
+	do {
+		dt = F_div_int((F_div_F(x, t) - t), 2);
+		t += dt;
+	} while(Fabs(dt) > f2F(1e-4));
+
+	return t;
+}
+
+FLOAT pow(FLOAT x, FLOAT y) {
+	/* we only compute x^0.333 */
+	FLOAT t2, dt, t = int2F(2);
+
+	do {
+		t2 = F_mul_F(t, t);
+		dt = (F_div_F(x, t2) - t) / 3;
+		t += dt;
+	} while(Fabs(dt) > f2F(1e-4));
+
+	return t;
+}
+
