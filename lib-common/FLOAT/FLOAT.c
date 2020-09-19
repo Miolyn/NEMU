@@ -87,6 +87,7 @@ FLOAT f2F(float a) {
 	// }
 	if(e > -16){
 		res <<= e - 7;
+		test();
 	} else{
 		res >>= -e + 7;
 	}
