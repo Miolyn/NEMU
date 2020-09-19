@@ -77,7 +77,7 @@ FLOAT f2F(float a) {
 	}
 	// res >>= 7;
 
-	return (res * int_sign(s));
+	return (FLOAT)(res * int_sign(s));
 }
 
 
