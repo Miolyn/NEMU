@@ -26,7 +26,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 */
 	int sa = sign_bit(a);
 	int sb = sign_bit(b);
-	int s = sa * sb;
+	int s = int_no_sign(sa) * int_no_sign(sb);
 	int noSa = a * int_no_sign(sa);
 	int noSb = b * int_no_sign(sb);
 	int res = noSa / noSb;
