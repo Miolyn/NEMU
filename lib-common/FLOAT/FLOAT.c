@@ -71,12 +71,12 @@ FLOAT f2F(float a) {
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
 	if(e >= 7){
-		res <<= e;
+		res <<= e - 7;
 	} else{
 		e *= -1;
-		res >>= e;
+		res >>= e - 7;
 	}
-	res >>= 7;
+	// res >>= 7;
 
 	return (res * int_sign(s));
 }
