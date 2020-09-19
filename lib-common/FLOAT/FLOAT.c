@@ -67,6 +67,7 @@ FLOAT f2F(float a) {
 		if(!m) return 0;
 		else e = 1 - E;
 	} else if(!(E ^ 0xff)){
+		printf("..........................................................................................\n");
 		return (-1) ^ ((!s) << 31);
 	}else res |= 0x80000;
 	// now point is at l:23
