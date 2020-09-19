@@ -51,7 +51,7 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			
-			ramdisk_write((void*)(ph->p_vaddr), ph->p_offset, ph->p_filesz);
+			ramdisk_read ((void *)ph->p_vaddr, ph->p_offset, ph->p_filesz);
 			// int j;
 			// for(j = 0; j <= ph->p_filesz; j++){
 			// 	swaddr_write(ph->p_vaddr + j, 1, buf[ph->p_offset + j]);
