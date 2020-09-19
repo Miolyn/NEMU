@@ -73,13 +73,13 @@ FLOAT F2F(float a) {
 	FLOAT res = m;
 	int e = E - 0x7f;
 	if(E != 0) res += (1 << 23);
-	// if(!E){
-	// 	if(!m) return 0;
-	// 	// else e = 1 - E;
-	// } else if(!(E ^ 0xff)){
+	if(!E){
+		if(!m) return 0;
+		// else e = 1 - E;
+	} else if(!(E ^ 0xff)){
 
-	// 	return (-1) ^ ((!s) << 31);
-	// }else res |= (1 << 23);
+		return (-1) ^ ((!s) << 31);
+	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
 	// now 
