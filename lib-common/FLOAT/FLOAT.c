@@ -90,7 +90,7 @@ FLOAT f2F(float a) {
 	if(e > 7){
 		res <<= e - 7;
 	} else{
-		if(e < 0){
+		if(e > 0){
 			printf("\n");
 		} 
 		res >>= -7 - e;
