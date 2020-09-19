@@ -67,7 +67,7 @@ FLOAT f2F(float a) {
 	 * performing arithmetic operations on it directly?
 	 */
 	int t = *(int*)&a;
-	int s = sign_bit(t);
+	int s = t >> 31;
 	int E = (t >> 23) & 0xff;
 	int m = t & 0x7ffff;
 	FLOAT res = m;
@@ -87,7 +87,7 @@ FLOAT f2F(float a) {
 	}
 	// res >>= 7;
 
-	return (res * int_sign(s));
+	return s == 0 ? res : -res;
 }
 
 
