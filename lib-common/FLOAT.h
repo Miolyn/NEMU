@@ -9,7 +9,7 @@ typedef int FLOAT;
 #define int_no_sign(sign) (sign ? -1 : 1)
 #define int_sign(sign) int_no_sign(sign)
 #define t16 (1 << (1 << 4))
-
+#define test() printf("\n")
 static inline int F2int(FLOAT a) {
 	// nemu_assert(0);
 	int sa = sign_bit(a);

@@ -90,6 +90,7 @@ FLOAT f2F(float a) {
 		res <<= e - 7;
 	} else{
 		res >>= e - 7;
+		test();
 	}
 	// res >>= 7;
 
