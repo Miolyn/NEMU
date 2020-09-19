@@ -65,7 +65,6 @@ FLOAT F2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-	// int *addr = &a;
 	int t = *(int*)&a;
 	int s = sign_bit(t);
 	int E = (t >> 23) & 0xff;
@@ -84,11 +83,9 @@ FLOAT F2F(float a) {
 	// (s)0 12345678¡¢9(10)(11)(12)(13)(14)(15).(16)
 	// now 
 	if(e > 0){
-		// res <<= (exp - 127) - 7
 		res <<= e;
 	} else{
 		e *= -1;
-		// res >>= (127 - exp) + 7
 		res >>= e;
 	}
 	res >>= 7;
