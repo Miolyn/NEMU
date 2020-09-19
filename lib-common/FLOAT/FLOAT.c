@@ -60,7 +60,7 @@ FLOAT f2F(float a) {
 	int m = t & 0x7ffff;
 	FLOAT res = m;
 	int e = E - 0x7f;
-	if(E != 0) res += (1 << 23);
+	// if(E != 0) res += (1 << 23);
 	if(!E){
 		if(!m) return 0;
 		else e = 1 - E;
