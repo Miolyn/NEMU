@@ -43,7 +43,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	return res * s;
 }
 
-FLOAT f2F(float a) {
+FLOAT F2F(float a) {
 	int b = *(int *)&a;
 	int sign = b >> 31;
 	int exp = (b >> 23) & 0xff;
@@ -55,7 +55,7 @@ FLOAT f2F(float a) {
 	return sign == 0 ? k : -k;
 }
 
-FLOAT F2F(float a) {
+FLOAT f2F(float a) {
 	/* You should figure out how to convert `a' into FLOAT without
 	 * introducing x87 floating point instructions. Else you can
 	 * not run this code in NEMU before implementing x87 floating
