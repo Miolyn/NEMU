@@ -67,7 +67,7 @@ FLOAT f2F(float a) {
 	 * performing arithmetic operations on it directly?
 	 */
 	int t = *(int*)&a;
-	int s = t >> 31;
+	int s = (t >> 31) & 1;
 	int E = (t >> 23) & 0xff;
 	int m = t & 0x7ffff;
 	FLOAT res = m;
