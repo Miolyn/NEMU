@@ -17,10 +17,10 @@ INCLUDE = -I ./$(LIB_COMMON_DIR)
 FLOAT_CFLAGS := -m32 -O2 -fno-builtin $(INCLUDE)
 
 $(FLOAT): $(FLOAT_O)
-	ar rcs $(FLOAT) $^
+	ar rcs obj/$(LIB_COMMON_DIR)/FLOAT.o $^
 
 $(FLOAT_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT.c
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT
 	$(CC) $(FLOAT_CFLAGS) -c $^
-	mv FLOAT.o obj/$(LIB_COMMON_DIR)/FLOAT
+	mv FLOAT.o obj/$(LIB_COMMON_DIR)
 
