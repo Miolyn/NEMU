@@ -11,7 +11,7 @@ $(FLOAT): $(FLOAT_A_OBJ)
 # TODO: complete the following rules
 # $@--目标文件，$^--所有的依赖文件，$<--第一个依赖文件。
 
-FLOAT_CFLAGS := -c -m32 -msoft-float -mno-sse -fno-builtin -fno-stack-protector -I$(LIB_COMMON_DIR)
+float_CFLAGS := -c -m32 -msoft-float -mno-sse -fno-builtin -fno-stack-protector -I$(LIB_COMMON_DIR)
 vpath %.h ../../lib-common
 $(FLOAT): % : $(FLOAT_O)
 	$(call make_command, @ar r, , ar $<, $^)
