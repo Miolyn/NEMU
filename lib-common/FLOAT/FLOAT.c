@@ -50,6 +50,7 @@ FLOAT fF2F(float a) {
 	FLOAT k = b & 0x7fffff;
 	if (exp != 0) k += 1 << 23;
 	exp -= 150;
+	// exp = exp - 150
 	if (exp < -16) k >>= -16 - exp;
 	// exp - 150 + 16 = exp - 134 = (exp - 127) - 7
 	if (exp > -16) k <<= exp + 16;
@@ -88,8 +89,7 @@ FLOAT f2F(float a) {
 	if(e >= 7){
 		res <<= e - 7;
 	} else{
-		if(e > 0) res >>= 7 - e;
-		else res >>= 7 - e;
+		res >>= e - 7;
 	}
 	// res >>= 7;
 
