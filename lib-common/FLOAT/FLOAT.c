@@ -74,7 +74,7 @@ FLOAT f2F(float a) {
 	if(E != 0) res += (1 << 23);
 	if(!E){
 		if(!m) return 0;
-		else e = 1 - E;
+		// else e = 1 - E;
 	} else if(!(E ^ 0xff)){
 
 		return (-1) ^ ((!s) << 31);
