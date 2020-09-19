@@ -69,15 +69,15 @@ FLOAT f2F(float a) {
 	 */
 	int t = *(int*)&a;
 	int s = sign_bit(t);
+	t = (t << 1) >> 1;
 	int Ex = (t >> 23) & 0xff;
 	FLOAT res = t & 0x7ffff;
 	int e = Ex - 0x7f;
 	if(!Ex){
-		if(!res) return 0;
+		// if(!res) return 0;
 		// else e = 1 - Ex;
 	} else if(!(Ex ^ 0xff)){
-		res |= (1 << 23);
-		// return (-1) ^ ((!s) << 31);
+		return (-1) ^ ((!s) << 31);
 	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
