@@ -35,7 +35,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	for(i = 0; i < 16; i++){
 		res <<= 1;
 		mod <<= 1;
-		if(mod > noSb){
+		if(mod >= noSb){
 			mod -= noSb;
 			res |= 1;
 		}
