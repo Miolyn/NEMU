@@ -1,5 +1,5 @@
 kernel_CFLAGS_EXTRA := -m32 -O2 -fno-builtin -fno-omit-frame-pointer -fno-stack-protector \
-						-I$(LIB_COMMON_DIR) -I$(LIBC_INC_DIR)
+						-I$(LIB_COMMON_DIR) -I$(LIBC_INC_DIR) -I/nemu
 $(eval $(call make_common_rules,kernel,$(kernel_CFLAGS_EXTRA)))
 
 kernel_START_OBJ := $(kernel_OBJ_DIR)/start.o
