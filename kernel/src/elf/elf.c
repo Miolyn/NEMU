@@ -3,7 +3,7 @@
 #include <string.h>
 #include <elf.h>
 #include "stdio.h"
-#include "api.h"
+#include "../nemu/include/memory/memory.h"
 
 #define ELF_OFFSET_IN_DISK 0
 
@@ -51,21 +51,21 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			
-			// ramdisk_write(buf + ph->p_offset, ph->p_vaddr, ph->p_filesz);
-			int j;
-			for(j = 0; j <= ph->p_filesz; j++){
-				swaddr_write(ph->p_vaddr + j, 1, buf[ph->p_offset + j]);
-			}
+			ramdisk_write(buf + ph->p_offset, ph->p_vaddr, ph->p_filesz);
+			// int j;
+			// for(j = 0; j <= ph->p_filesz; j++){
+			// 	swaddr_write(ph->p_vaddr + j, 1, buf[ph->p_offset + j]);
+			// }
 			// ramdisk_read((void*)ph->p_vaddr, ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 			// uint8_t zero = 0;
-			for(j = ph->p_filesz; j < ph->p_memsz; j++){
-				// ramdisk_read((void*)(ph->p_vaddr + j), (void*)(ph->p_vaddr + j), ph->p_filesz);
-				swaddr_write(ph->p_vaddr + j, 1, 0);
-			}
-			
+			// for(j = ph->p_filesz; j < ph->p_memsz; j++){
+			// 	// ramdisk_read((void*)(ph->p_vaddr + j), (void*)(ph->p_vaddr + j), ph->p_filesz);
+			// 	swaddr_write(ph->p_vaddr + j, 1, 0);
+			// }
+			memset ((void *)(ph->p_vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
