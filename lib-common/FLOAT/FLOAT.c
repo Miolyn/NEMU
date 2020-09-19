@@ -80,12 +80,13 @@ FLOAT f2F(float a) {
 	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
-	if(e >= 0){
-		res <<= e;
-	} else{
-		res >>= -e;
+	if(e > 8){
+		res <<= e - 7;
+	} 
+	if(e < 8){
+		res >>= -e + 8;
 	}
-	res >>= 7;
+	// res >>= 7;
 
 	return (res * int_sign(s));
 }
