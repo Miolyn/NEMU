@@ -3,7 +3,7 @@
 #include <string.h>
 #include <elf.h>
 #include "stdio.h"
-#include "../nemu/include/common.h"
+#include "api.h"
 
 #define ELF_OFFSET_IN_DISK 0
 
