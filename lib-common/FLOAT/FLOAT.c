@@ -44,8 +44,18 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT f2F(float a) {
-	int b = *(int *)&a;
-	int sign = b >> 31;
+	/* You should figure out how to convert `a' into FLOAT without
+	 * introducing x87 floating point instructions. Else you can
+	 * not run this code in NEMU before implementing x87 floating
+	 * point instructions, which is contrary to our expectation.
+	 *
+	 * Hint: The bit representation of `a' is already on the
+	 * stack. How do you retrieve it to another variable without
+	 * performing arithmetic operations on it directly?
+	 */
+	int b = *((int *)&a);
+	// int sign = b >> 31;
+	int sign = sign_bit(b);
 	int exp = (b >> 23) & 0xff;
 	FLOAT k = b & 0x7fffff;
 	if (exp != 0) k += 1 << 23;
