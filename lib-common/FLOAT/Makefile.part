@@ -7,7 +7,6 @@ FLOAT_A_OBJ := $(FLOAT_O) $(FLOAT_VFPRINTF_O)
 # target  dependency
 $(FLOAT): $(FLOAT_A_OBJ)
 	ar r $@ $^
-	pwd
 	cp obj/$(LIB_COMMON_DIR)/FLOAT/FLOAT.a obj/$(LIB_COMMON_DIR)/FLOAT.a
 
 # TODO: complete the following rules
