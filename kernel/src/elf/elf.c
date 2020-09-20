@@ -3,7 +3,6 @@
 #include <string.h>
 #include <elf.h>
 #include "stdio.h"
-#include "../nemu/include/memory/memory.h"
 
 #define ELF_OFFSET_IN_DISK 0
 
