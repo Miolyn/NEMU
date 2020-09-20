@@ -46,7 +46,6 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 FLOAT f2F(float a) {
 	int b = *(int *)&a;
 	int sign = b >> 31;
-	// int sign = int_sign(b);
 	int exp = (b >> 23) & 0xff;
 	FLOAT k = b & 0x7fffff;
 	if (exp != 0) k += 1 << 23;
