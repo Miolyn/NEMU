@@ -14,7 +14,7 @@ $(FLOAT): $(FLOAT_A_OBJ)
 # AR = ar rc —–生成静态库文件命令
 
 INCLUDE = -I ./$(LIB_COMMON_DIR)
-FLOAT_CFLAGS := -m32 -O2 -fno-builtin -fno-stack-protector $(INCLUDE)
+FLOAT_CFLAGS := -m32 -O2 -fno-builtin -fno-stack-protector -msoft-float -mno-sse -fno-builtin  $(INCLUDE)
 
 # $(FLOAT): $(FLOAT_O)
 #	ar rcs $(FLOAT) $^

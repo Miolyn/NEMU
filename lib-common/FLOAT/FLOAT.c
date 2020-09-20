@@ -73,7 +73,6 @@ FLOAT f2F(float a) {
 	} else {
 		res >>= -e + 7;
 	}
-	// res >>= 7;
 
 	return (res * int_sign(s));
 }

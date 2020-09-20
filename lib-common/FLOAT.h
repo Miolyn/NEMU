@@ -10,6 +10,7 @@ typedef int FLOAT;
 #define int_sign(sign) int_no_sign(sign)
 #define t16 (1 << (1 << 4))
 #define test() printf("\n")
+
 static inline int F2int(FLOAT a) {
 	// nemu_assert(0);
 	int sa = sign_bit(a);
@@ -27,21 +28,13 @@ static inline FLOAT int2F(int a) {
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
 	// nemu_assert(0);
-	// int sa = sign_bit(a);
-	// int noSa = no_sign(a);
-	// int sb = sign_bit(b);
-	// int noSb = a * int_no_sign(sb);
-	// return (a * b) | to_sign(sa * sb);
+
 	return (a * b);
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
 	// nemu_assert(0);
-	// int sa = sign_bit(a);
-	// int noSa = no_sign(a);
-	// int sb = sign_bit(b);
-	// int noSb = a * int_no_sign(sb);
-	// return (a / b) | to_sign(sa * sb);
+
 	return (a / b);
 }
 
