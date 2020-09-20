@@ -80,7 +80,7 @@ FLOAT f2F(float a) {
 	int t = *((int*)&a);
 	int s = t >> 31;
 	int E = (t >> 23) & 0xff;
-	int m = t & 0x7ffff;
+	int m = t & 0x7fffff;
 	FLOAT res = m;
 	int e = E - 0x7f;
 	if(!E){
