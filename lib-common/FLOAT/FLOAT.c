@@ -43,7 +43,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	return res * s;
 }
 
-FLOAT f2F(float a) {
+FLOAT fF2F(float a) {
 	/* You should figure out how to convert `a' into FLOAT without
 	 * introducing x87 floating point instructions. Else you can
 	 * not run this code in NEMU before implementing x87 floating
@@ -65,7 +65,7 @@ FLOAT f2F(float a) {
 	if (exp > -16) k <<= exp + 16;
 	return sign == 0 ? k : -k;
 }
-FLOAT fF2F(float a) {
+FLOAT f2F(float a) {
 	/* You should figure out how to convert `a' into FLOAT without
 	 * introducing x87 floating point instructions. Else you can
 	 * not run this code in NEMU before implementing x87 floating
@@ -75,7 +75,7 @@ FLOAT fF2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-	int t = *(int*)&a;
+	int t = *((int*)&a);
 	int s = t >> 31;
 	int E = (t >> 23) & 0xff;
 	int m = t & 0x7ffff;
@@ -89,7 +89,7 @@ FLOAT fF2F(float a) {
 	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
-	if(e >= 0){
+	if(e >= 7){
 		res <<= e - 7;
 	} else{
 		res >>= -e + 7;
