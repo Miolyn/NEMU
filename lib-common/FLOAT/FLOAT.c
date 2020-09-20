@@ -58,11 +58,13 @@ FLOAT fF2F(float a) {
 	int exp = (b >> 23) & 0xff;
 	FLOAT k = b & 0x7fffff;
 	if (exp != 0) k += 1 << 23;
+	// exp = exp - 127 - 23
 	exp -= 150;
-	// exp = exp - 150
+	// exp + 23 < -16 + 23
 	if (exp < -16) k >>= -16 - exp;
-	// exp - 150 + 16 = exp - 134 = (exp - 127) - 7
+	// -exp + 150  -16 = exp + 134 = -(exp - 127) + 7
 	if (exp > -16) k <<= exp + 16;
+	// exp - 150 + 16 = exp - 127 - 7
 	return sign == 0 ? k : -k;
 }
 FLOAT f2F(float a) {
@@ -89,9 +91,10 @@ FLOAT f2F(float a) {
 	}else res |= (1 << 23);
 	// now point is at l:23
 	// (s)(31) (30)--(23).(22)--(16).(15)...(0)
-	if(e >= 7){
+	if(e > 7){
 		res <<= e - 7;
-	} else{
+	} 
+	if(e < 7){
 		res >>= -e + 7;
 	}
 	// res >>= 7;
