@@ -1,12 +1,12 @@
 #!/bin/bash
 
 nemu=obj/nemu/nemu
-cmd="c\nq"
+cmd="c\nq\n"
 
 for file in $@; do
 	printf "[$file]"
 	logfile=`basename $file`-log.txt
-	echo -e $cmd | /usr/bin/time -f '%e' -o time.log $nemu $file &> $logfile
+	echo $cmd | /usr/bin/time -f '%e' -o time.log $nemu $file &> $logfile
 	time_cost=`cat time.log`
 	printf "($time_cost s): "
 	rm time.log
