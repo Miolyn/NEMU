@@ -61,6 +61,8 @@ typedef struct {
 	bool tmp;
 } CPU_state;
 
+
+
 extern CPU_state cpu;
 
 static inline int check_reg_index(int index) {
