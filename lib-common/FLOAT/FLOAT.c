@@ -108,3 +108,6 @@ FLOAT pow(FLOAT x, FLOAT y) {
 
 	return t;
 }
+
+void init_FLOAT_vfprintf(void){
+}
