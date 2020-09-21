@@ -3,8 +3,7 @@
 FLOAT_O := $(FLOAT:.a=.o)
 FLOAT_VFPRINTF_O := $(dir $(FLOAT))FLOAT_vfprintf.o
 
-# FLOAT_A_OBJ := $(FLOAT_O) $(FLOAT_VFPRINTF_O)
-FLOAT_A_OBJ := $(FLOAT_O)
+FLOAT_A_OBJ := $(FLOAT_O) $(FLOAT_VFPRINTF_O)
 # target  dependency
 $(FLOAT): $(FLOAT_A_OBJ)
 	ar r $@ $^
@@ -15,14 +14,13 @@ $(FLOAT): $(FLOAT_A_OBJ)
 # AR = ar rc —–生成静态库文件命令
 
 INCLUDE = -I ./$(LIB_COMMON_DIR)
-FLOAT_CFLAGS := -m32 -O2 -fno-builtin -fno-stack-protector -msoft-float -mno-sse -fno-builtin  $(INCLUDE)
+FLOAT_CFLAGS := -m32 -O2 -fno-builtin  -fno -stack-protector -fno-mudflap $(INCLUDE)
 
 
-$(FLOAT_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT_vfprintf.c $(LIB_COMMON_DIR)/FLOAT/FLOAT.c 
+$(FLOAT_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT.c 
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT
 	$(CC) $(FLOAT_CFLAGS) -c $^
 	mv FLOAT.o obj/$(LIB_COMMON_DIR)/FLOAT
-	mv FLOAT_vfprintf.o obj/$(LIB_COMMON_DIR)/FLOAT
 
 $(FLOAT_VFPRINTF_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT_vfprintf.c
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT

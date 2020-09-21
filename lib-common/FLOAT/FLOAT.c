@@ -1,4 +1,5 @@
 #include "FLOAT.h"
+#include "FLOAT_vfprintf.c"
 // #include "lib-common/FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
