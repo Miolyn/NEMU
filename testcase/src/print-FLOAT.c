@@ -3,7 +3,7 @@
 #include "FLOAT.h"
 
 #include "trap.h"
-
+#include "FLOAT_vfprintf.c"
 char buf[128];
 
 int main() {
