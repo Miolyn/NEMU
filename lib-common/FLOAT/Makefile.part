@@ -21,7 +21,7 @@ FLOAT_CFLAGS := -m32 -O2 -fno-builtin -fno-stack-protector -msoft-float -mno-sse
 $(FLOAT_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT.c $(LIB_COMMON_DIR)/FLOAT/FLOAT_vfprintf.c
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT
 	$(CC) $(FLOAT_CFLAGS) -c $^
-	mv FLOAT.o obj/$(LIB_COMMON_DIR)/FLOAT
+	mv FLOAT.o FLOAT_vfprintf.o obj/$(LIB_COMMON_DIR)/FLOAT
 
 $(FLOAT_VFPRINTF_O): $(LIB_COMMON_DIR)/FLOAT/FLOAT_vfprintf.c
 	@mkdir -p obj/$(LIB_COMMON_DIR)/FLOAT
