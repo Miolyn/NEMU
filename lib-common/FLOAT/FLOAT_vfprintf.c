@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <limits.h>
 #include "FLOAT.h"
-#include "trap.h"
+// #include "trap.h"
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
@@ -205,6 +205,5 @@ static void modify_ppfs_setargs() {
 
 void init_FLOAT_vfprintf(void) {
 	modify_vfprintf();
-	set_bp();
 	modify_ppfs_setargs();
 }
