@@ -39,6 +39,7 @@ $(testcase_OBJ_DIR)/print-FLOAT-linux: % : \
 	$(LIBC) \
 	$(LIBC_LIB_DIR)/crtn.o
 	$(call make_command, $(LD), -m elf_i386, ld $@, $^)
+	@objdump -d $@ > $@.txt
 
 pa2-7: $(testcase_OBJ_DIR)/print-FLOAT-linux
 
