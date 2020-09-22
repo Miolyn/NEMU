@@ -6,6 +6,7 @@
 // #include "trap.h"
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
+extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 uint32_t p[20];
@@ -153,7 +154,7 @@ static void modify_ppfs_setargs() {
 	 * Below is the code section in _vfprintf_internal() relative to
 	 * the modification.
 	 */
-
+	// char *ppfs = 
 #if 0
 	enum {                          /* C type: */
 		PA_INT,                       /* int */
