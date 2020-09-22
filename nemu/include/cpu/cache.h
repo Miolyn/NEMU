@@ -5,7 +5,8 @@
 
 typedef struct{
     
-} Cache;
+}CacheBlock;
+
 
 
 #endif
