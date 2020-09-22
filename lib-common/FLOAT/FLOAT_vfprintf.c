@@ -9,6 +9,7 @@ extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 uint32_t p[20];
+int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -26,7 +27,7 @@ int cntTen(int n){
 }
 int trans(uint32_t floatZone){
     int i;
-	int bound = 6;
+	int bound = 9;
     p[1] = 5;
     for(i = 2; i <= 16; i++){
         p[i] = 5 * p[i - 1];
@@ -36,21 +37,19 @@ int trans(uint32_t floatZone){
 	// }
 	// printf("\n");
     int res = 0;
-    for(i = 1; i <= 16; i++){
+    for(i = 1; i <= 15; i++){
         if((floatZone >> (16 - i)) & 1){
 			int tenC = cntTen(p[i]);
-            if(bound >= tenC){
-                res += p[i] * powTen(bound - tenC);
-				printf("i <= boud: %d\n", p[i] * powTen(bound - tenC));
-            } else{
-                res += p[i] / powTen(tenC - bound);
-            }
+			if(tenC > bound){
+				res += p[i] * powTen(tenC - bound) / powTen(-punish[i]);
+			} else{
+				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
+			}
+            
         }
     }
-	// int six = powTen(5);
-	// while(res / 10 > six){
-	// 	res /= 10;
-	// }
+	int cnt = cntTen(res);
+	if(cnt > 6) res /= powTen(cnt - 6);
     return res;
 }
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
@@ -79,6 +78,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 static void modify_vfprintf() {
 	char *addr = &_vfprintf_internal;
 	char *call = addr + 0x306;
+	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
 	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
@@ -101,6 +101,7 @@ static void modify_vfprintf() {
 	char *fop2 = fop1 - 4;
 	*fop2 = nop;
 	*(fop2 + 1)= nop;
+	// printf("stack:%x,op:%x,op1:%x,op2:%x\n", stackSize, fop, fop1, fop2);
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
