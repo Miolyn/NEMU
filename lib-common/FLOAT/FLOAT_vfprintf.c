@@ -154,7 +154,8 @@ static void modify_ppfs_setargs() {
 	 * Below is the code section in _vfprintf_internal() relative to
 	 * the modification.
 	 */
-	// char *ppfs = 
+	char *ppfs = &_ppfs_setargs;
+
 #if 0
 	enum {                          /* C type: */
 		PA_INT,                       /* int */
