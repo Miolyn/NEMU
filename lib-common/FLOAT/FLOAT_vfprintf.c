@@ -7,7 +7,8 @@
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
-int p[20];
+#define nop 0x90
+uint32_t p[20];
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -15,22 +16,41 @@ int powTen(int n){
     }
     return res;
 }
+int cntTen(int n){
+	int res = 0;
+	while(n){
+		++res;
+		n /= 10;
+	}
+	return res;
+}
 int trans(uint32_t floatZone){
     int i;
+	int bound = 6;
     p[1] = 5;
     for(i = 2; i <= 16; i++){
         p[i] = 5 * p[i - 1];
     }
+	// for(i = 1; i <= 16; i++){
+	// 	printf("%d ", p[i]);
+	// }
+	// printf("\n");
     int res = 0;
     for(i = 1; i <= 16; i++){
         if((floatZone >> (16 - i)) & 1){
-            if(9 > i){
-                res += p[i] * powTen(9 - i);
+			int tenC = cntTen(p[i]);
+            if(bound >= tenC){
+                res += p[i] * powTen(bound - tenC);
+				printf("i <= boud: %d\n", p[i] * powTen(bound - tenC));
             } else{
-                res += p[i] / powTen(i - 9);
+                res += p[i] / powTen(tenC - bound);
             }
         }
     }
+	// int six = powTen(5);
+	// while(res / 10 > six){
+	// 	res /= 10;
+	// }
     return res;
 }
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
@@ -43,16 +63,16 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	// uint32_t noS = f;
-    // if((f >> 31) & 1) noS *= -1;
-    // int intZone = noS >> 16;
-    // int floatZone = noS & 0xffff;
-    // char si[2] = "\0";
-    // if((f >> 31) & 1) si[0] = '-', si[1] = '\0';
-    // int res = trans(floatZone);
+	uint32_t noS = f;
+    if((f >> 31) & 1) noS *= -1;
+    int intZone = noS >> 16;
+    int floatZone = noS & 0xffff;
+    char si[2] = "\0";
+    if((f >> 31) & 1) si[0] = '-', si[1] = '\0';
+    int res = trans(floatZone);
 
-	int len = sprintf(buf, "0x%08x", f);
-	// int len = sprintf(buf, "%s%d.%u\n", si, intZone, res);
+	// int len = sprintf(buf, "0x%08x", f);
+	int len = sprintf(buf, "%s%d.%u", si, intZone, res);
 	return __stdio_fwrite(buf, len, stream);
 }
 
@@ -61,21 +81,26 @@ static void modify_vfprintf() {
 	char *call = addr + 0x306;
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
-	printf("fpmaxAddr:0x%x\n", &_fpmaxtostr);
-	printf("format addr:0x%x\n", format_FLOAT);
-	printf("addr:%x, cal:%x\n", addr, call);
-
-	printf("call  0x%x\n", (int)pre);
-
-	printf("offset ssis %x\n", offSet);
-	printf("call orgin offset: %x\n", *(int*)(call + 1));
 	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
-
-
 	int *off = (int*)(call + 1);
 	int originOff = *off;
-	*off = originOff - offSet;
-	printf("call after offset: %x\n", *off);
+	*off = originOff + offSet;
+
+	char *fop = call - 10;
+	// ff 32                	pushl  (%edx)
+	*fop = 0xff;
+	*(fop + 1) = 0x32;
+	// nop
+	*(fop + 2) = nop;
+	char *stackSize = fop - 1;
+	*stackSize -= 4;
+
+	char *fop1 = fop - 20;
+	*fop1 = nop;
+	*(fop1 + 1) = nop;
+	char *fop2 = fop1 - 4;
+	*fop2 = nop;
+	*(fop2 + 1)= nop;
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
