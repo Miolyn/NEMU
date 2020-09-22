@@ -6,7 +6,32 @@
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
-
+int p[20];
+int powTen(int n){
+    int res = 1;
+    while(n--){
+        res *= 10;
+    }
+    return res;
+}
+int trans(uint32_t floatZone){
+    int i;
+    p[1] = 5;
+    for(i = 2; i <= 16; i++){
+        p[i] = 5 * p[i - 1];
+    }
+    int res = 0;
+    for(i = 1; i <= 16; i++){
+        if((floatZone >> (16 - i)) & 1){
+            if(9 > i){
+                res += p[i] * powTen(9 - i);
+            } else{
+                res += p[i] / powTen(i - 9);
+            }
+        }
+    }
+    return res;
+}
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	/* TODO: Format a FLOAT argument `f' and write the formating
 	 * result to `stream'. Keep the precision of the formating
@@ -17,12 +42,16 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	int noS = f;
-	if (f >> 31) noS = -1 * noS;
-	int intZone = noS >> 16;
-	int floatZone = noS & 0xffff;
-	
-	int len = sprintf(buf, "0x%08x", f);
+	uint32_t noS = f;
+    if((f >> 31) & 1) noS *= -1;
+    int intZone = noS >> 16;
+    int floatZone = noS & 0xffff;
+    char si[2] = "\0";
+    if((f >> 31) & 1) si[0] = '-', si[1] = '\0';
+    int res = trans(floatZone);
+
+	// int len = sprintf(buf, "0x%08x", f);
+	int len = sprintf(buf, "%s%d.%u\n", si, intZone, res);
 	return __stdio_fwrite(buf, len, stream);
 }
 
