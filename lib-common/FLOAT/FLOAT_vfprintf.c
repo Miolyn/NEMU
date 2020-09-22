@@ -156,7 +156,7 @@ static void modify_ppfs_setargs() {
 	 */
 	char *ppfs = &_ppfs_setargs;
 	// 0xe9
-	char *lea = ppfs + 0x6F;
+	char *lea = ppfs + 0x71;
 	// 801377 - 80134a
 	int offSet = 0x2D;
 	*lea = 0xE9;
