@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <limits.h>
 #include "FLOAT.h"
+#include "sys/mman.h"
 // #include "trap.h"
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
@@ -42,20 +43,39 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	uint32_t noS = f;
-    if((f >> 31) & 1) noS *= -1;
-    int intZone = noS >> 16;
-    int floatZone = noS & 0xffff;
-    char si[2] = "\0";
-    if((f >> 31) & 1) si[0] = '-', si[1] = '\0';
-    int res = trans(floatZone);
+	// uint32_t noS = f;
+    // if((f >> 31) & 1) noS *= -1;
+    // int intZone = noS >> 16;
+    // int floatZone = noS & 0xffff;
+    // char si[2] = "\0";
+    // if((f >> 31) & 1) si[0] = '-', si[1] = '\0';
+    // int res = trans(floatZone);
 
-	// int len = sprintf(buf, "0x%08x", f);
-	int len = sprintf(buf, "%s%d.%u\n", si, intZone, res);
+	int len = sprintf(buf, "0x%08x", f);
+	// int len = sprintf(buf, "%s%d.%u\n", si, intZone, res);
 	return __stdio_fwrite(buf, len, stream);
 }
 
 static void modify_vfprintf() {
+	char *addr = &_vfprintf_internal;
+	char *call = addr + 0x306;
+	char *pre = call - 100;
+	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
+	printf("fpmaxAddr:0x%x\n", &_fpmaxtostr);
+	printf("format addr:0x%x\n", format_FLOAT);
+	printf("addr:%x, cal:%x\n", addr, call);
+
+	printf("call  0x%x\n", (int)pre);
+
+	printf("offset ssis %x\n", offSet);
+	printf("call orgin offset: %x\n", *(int*)(call + 1));
+	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+
+
+	int *off = (int*)(call + 1);
+	int originOff = *off;
+	*off = originOff - offSet;
+	printf("call after offset: %x\n", *off);
 	/* TODO: Implement this function to hijack the formating of "%f"
 	 * argument during the execution of `_vfprintf_internal'. Below
 	 * is the code section in _vfprintf_internal() relative to the
