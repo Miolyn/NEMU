@@ -17,6 +17,11 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
+	int noS = f;
+	if (f >> 31) noS = -1 * noS;
+	int intZone = noS >> 16;
+	int floatZone = noS & 0xffff;
+	
 	int len = sprintf(buf, "0x%08x", f);
 	return __stdio_fwrite(buf, len, stream);
 }
