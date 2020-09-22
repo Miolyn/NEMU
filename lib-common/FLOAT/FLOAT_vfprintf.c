@@ -155,6 +155,13 @@ static void modify_ppfs_setargs() {
 	 * the modification.
 	 */
 	char *ppfs = &_ppfs_setargs;
+	// 0xe9
+	char *lea = ppfs + 0x6F;
+	// 801377 - 80134a
+	int offSet = 0x2D;
+	*lea = 0xE9;
+	int *of = lea + 1;
+	*of = offSet;
 
 #if 0
 	enum {                          /* C type: */
