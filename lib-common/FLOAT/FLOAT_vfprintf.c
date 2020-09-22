@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <limits.h>
 #include "FLOAT.h"
 
 extern char _vfprintf_internal;
@@ -166,6 +167,7 @@ static void modify_ppfs_setargs() {
 #endif
 
 }
+
 
 void init_FLOAT_vfprintf(void) {
 	modify_vfprintf();
