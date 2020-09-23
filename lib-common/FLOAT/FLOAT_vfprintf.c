@@ -10,8 +10,10 @@ extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 
-int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
-int p[20] = {0, 5, 25, 125, 625, 3125, 15625, 78125, 390625, 1953125, 9765625, 48828125, 244140625, 1220703125, 0, 0};
+// int punish[20] = {0, 0,	0, 	0,		-1,		-1,		-1,		-2,		-2,		-3,			-3,			-3,			-3,			-3,			-4,			-4,				-4};
+// int p[20] = 	 {0, 5, 25, 125,	625,	3125,	15625,	78125,	390625,	1953125,	9765625,	48828125,	244140625,	1220703125,	6103515625,	30517578125,	152587890625};
+int p[20] = {500000000, 250000000, 125000000, 62500000, 31250000, 15625000, 7812500, 3906250, 1953125, 976562, 488281, 244140, 122070, 61035, 30517, 15258, }
+// int mod[20] = {0, 0, 0, 0, 0, 0, 0, 500, 250, 125, 563, 281, 141, 70, 35, 518, 259};
 int tres = 0;
 int tf = 0;
 int tfz = 0;
@@ -34,24 +36,14 @@ int cntTen(int n){
 }
 int trans(int floatZone){
 	tfz = floatZone;
-	// int p[20];
     int i;
 	int bound = 9;
-    // p[1] = 5;
-    // for(i = 2; i <= 16; i++){
-    //     p[i] = 5 * p[i - 1];
-    // }
     int res = 0;
-    for(i = 1; i <= 15; i++){
+    for(i = 1; i <= 16; i++){
         // if((floatZone >> (16 - i)) & 1 == 1){
 		if(floatZone & (1 << (16 - i))){
-			int tenC = cntTen(p[i]);
-			if(tenC > bound){
-				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
-			} else{
-				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
-			}
-            
+			res += p[i];
+			// m += mod[i];
         }
     }
 	// floatZone >>= 1;
@@ -66,13 +58,12 @@ int trans(int floatZone){
 	// 		}
     //     }
     // }
-	int cnt = cntTen(res);
-	if(cnt > 6){ 
-		tcnt = cnt - 6;
-		res = res / powTen(cnt - 6);
-	}
-	tres = res;
-	// tcnt = powTen(cnt - 6);
+	// int cnt = cntTen(res);
+	// if(cnt > 6){ 
+	// 	res = res / powTen(cnt - 6);
+	// }
+	// tres = res;
+	res /= 1000;	
     return res;
 }
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
