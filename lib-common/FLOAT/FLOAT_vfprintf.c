@@ -55,8 +55,8 @@ int trans(int floatZone){
     //     }
     // }
 	// set_bp();
-	floatZone >>= 1;
-	for(i = 14; i >= 1; i--){
+	floatZone >>= 2;
+	for(i = 13; i >= 1; i--){
 		floatZone >>= 1;
 		if(floatZone & 1 == 1){
 			int tenC = cntTen(p[i]);
