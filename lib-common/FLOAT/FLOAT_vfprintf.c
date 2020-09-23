@@ -53,7 +53,7 @@ int trans(uint32_t floatZone){
     }
 	int cnt = cntTen(res);
 	if(cnt > 6) res /= powTen(cnt - 6);
-	tcnt = cnt;
+	tcnt = powTen(cnt - 6);
 	tres = res;
     return res;
 }
