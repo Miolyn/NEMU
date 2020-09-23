@@ -116,14 +116,6 @@ void parity_flag(int res){
 	res ^= res >>1;
 	cpu.PF=!(res & 1);
 	return;
-	int low = low8(res);
-	int tmp = (low >> 4) ^ (low & 0xF);
-	int tmp1 = (tmp >> 2) ^ (tmp & 0b11);
-	if ((tmp1 >> 1) ^ (tmp1 & 1)){
-		cpu.PF = 0;
-	} else{
-		cpu.PF = 1;
-	}
 }
 
 void adjust_flag(int dest, int src){
