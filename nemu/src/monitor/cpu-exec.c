@@ -48,7 +48,7 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int cnt = 0;
-	bool de = true;
+	bool de = false;
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
