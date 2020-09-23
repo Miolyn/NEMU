@@ -61,7 +61,9 @@ int trans(int floatZone){
 			} else{
 				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
 			}
-            
+			tres = res;
+            set_bp();
+
         }
     }
 	int cnt = cntTen(res);
