@@ -34,4 +34,5 @@ typedef struct {
 
 typedef struct {
     CacheSet cacheSet[CACHE_SET];
+    
 }Cache;
