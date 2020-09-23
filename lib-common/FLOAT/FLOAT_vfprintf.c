@@ -14,28 +14,8 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 // int p[20] = 	 {0, 5, 25, 125,	625,	3125,	15625,	78125,	390625,	1953125,	9765625,	48828125,	244140625,	1220703125,	6103515625,	30517578125,	152587890625};
 int p[20] = {0, 500000000, 250000000, 125000000, 62500000, 31250000, 15625000, 7812500, 3906250, 1953125, 976562, 488281, 244140, 122070, 61035, 30517, 15258, };
 // int mod[20] = {0, 0, 0, 0, 0, 0, 0, 500, 250, 125, 563, 281, 141, 70, 35, 518, 259};
-int tres = 0;
-int tf = 0;
-int tfz = 0;
-int tcnt = 0;
-int i1 = 0, i2 = 0;
-int powTen(int n){
-    int res = 1;
-    while(n-- != 0){
-        res = res * 10;
-    }
-    return res;
-}
-int cntTen(int n){
-	int res = 0;
-	while(n != 0){
-		res += 1;
-		n = n / 10;
-	}
-	return res;
-}
+
 int trans(int floatZone){
-	tfz = floatZone;
     int i;
 	int bound = 9;
     int res = 0;
@@ -46,24 +26,7 @@ int trans(int floatZone){
 			// m += mod[i];
         }
     }
-	// floatZone >>= 1;
-	// for(i = 15; i >= 1; i--){
-	// 	floatZone >>= 1;
-	// 	if(floatZone & 1 == 1){
-	// 		int tenC = cntTen(p[i]);
-	// 		if(tenC > bound){
-	// 			res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
-	// 		} else{
-	// 			res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
-	// 		}
-    //     }
-    // }
-	// int cnt = cntTen(res);
-	// if(cnt > 6){ 
-	// 	res = res / powTen(cnt - 6);
-	// }
-	// tres = res;
-	// printf("%d\n", res);
+
 	res /= 1000;	
     return res;
 }
@@ -75,7 +38,6 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
-	tf = f;
 	char buf[80];
 	int noS = f;
     if((f >> 31) & 1) noS *= -1;
