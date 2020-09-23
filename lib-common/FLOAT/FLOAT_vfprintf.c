@@ -90,7 +90,9 @@ static void modify_vfprintf() {
 	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
+	#ifdef LINUX_RT
 	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	#endif
 	int *off = (int*)(call + 1);
 	int originOff = *off;
 	*off = originOff + offSet;
