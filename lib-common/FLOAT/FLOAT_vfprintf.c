@@ -3,7 +3,7 @@
 #include <limits.h>
 #include "FLOAT.h"
 #include "sys/mman.h"
-// #include "trap.h"
+#include "trap.h"
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern char _ppfs_setargs;
@@ -40,6 +40,7 @@ int trans(uint32_t floatZone){
         p[i] = 5 * p[i - 1];
     }
     int res = 0;
+	set_bp();
     for(i = 1; i <= 15; i++){
         if((floatZone >> (16 - i)) & 1 == 1){
 			int tenC = cntTen(p[i]);
