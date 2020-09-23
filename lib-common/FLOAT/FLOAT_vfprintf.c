@@ -12,6 +12,7 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 
 int tres = 0;
 int tf = 0;
+int tfz = 0;
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -28,6 +29,7 @@ int cntTen(int n){
 	return res;
 }
 int trans(uint32_t floatZone){
+	tfz = floatZone;
 	uint32_t p[20];
 	int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
     int i;
