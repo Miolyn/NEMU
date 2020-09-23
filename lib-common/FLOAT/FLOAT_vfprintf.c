@@ -42,36 +42,30 @@ int trans(int floatZone){
     //     p[i] = 5 * p[i - 1];
     // }
     int res = 0;
-    // for(i = 1; i <= 15; i++){
-    //     // if((floatZone >> (16 - i)) & 1 == 1){
-	// 	if(floatZone & (1 << (16 - i))){
-	// 		int tenC = cntTen(p[i]);
-	// 		if(tenC > bound){
-	// 			res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
-	// 		} else{
-	// 			res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
-	// 		}
-            
-    //     }
-    // }
-	// set_bp();
-	floatZone >>= 2;
-	for(i = 13; i >= 1; i--){
-		floatZone >>= 1;
-		if(floatZone & 1 == 1){
+    for(i = 1; i <= 15; i++){
+        // if((floatZone >> (16 - i)) & 1 == 1){
+		if(floatZone & (1 << (16 - i))){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
 				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
 			} else{
 				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
 			}
-			tres = res;
-			i1 = i;
-			i2 = p[i];
-            // set_bp();
-
+            
         }
     }
+	// floatZone >>= 1;
+	// for(i = 15; i >= 1; i--){
+	// 	floatZone >>= 1;
+	// 	if(floatZone & 1 == 1){
+	// 		int tenC = cntTen(p[i]);
+	// 		if(tenC > bound){
+	// 			res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
+	// 		} else{
+	// 			res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
+	// 		}
+    //     }
+    // }
 	int cnt = cntTen(res);
 	if(cnt > 6){ 
 		tcnt = cnt - 6;
@@ -110,7 +104,7 @@ static void modify_vfprintf() {
 	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
-	// mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
 	int *off = (int*)(call + 1);
 	int originOff = *off;
 	*off = originOff + offSet;
