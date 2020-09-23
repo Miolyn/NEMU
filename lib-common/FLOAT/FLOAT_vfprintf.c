@@ -17,15 +17,15 @@ int tcnt = 0;
 int powTen(int n){
     int res = 1;
     while(n-- != 0){
-        res *= 10;
+        res = res * 10;
     }
     return res;
 }
 int cntTen(int n){
 	int res = 0;
 	while(n != 0){
-		++res;
-		n /= 10;
+		res += 1;
+		n = n / 10;
 	}
 	return res;
 }
@@ -52,7 +52,7 @@ int trans(uint32_t floatZone){
         }
     }
 	int cnt = cntTen(res);
-	if(cnt > 6) res /= powTen(cnt - 6);
+	if(cnt > 6) res = res / powTen(cnt - 6);
 	tres = res;
     return res;
 }
