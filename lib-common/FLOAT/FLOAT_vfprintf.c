@@ -16,14 +16,14 @@ int tfz = 0;
 int tcnt = 0;
 int powTen(int n){
     int res = 1;
-    while(n--){
+    while(n-- != 0){
         res *= 10;
     }
     return res;
 }
 int cntTen(int n){
 	int res = 0;
-	while(n){
+	while(n != 0){
 		++res;
 		n /= 10;
 	}
