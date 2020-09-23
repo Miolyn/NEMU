@@ -66,7 +66,7 @@ int trans(int floatZone){
 			tres = res;
 			i1 = i;
 			i2 = p[i];
-            set_bp();
+            // set_bp();
 
         }
     }
