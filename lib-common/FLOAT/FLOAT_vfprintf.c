@@ -14,6 +14,7 @@ int tres = 0;
 int tf = 0;
 int tfz = 0;
 int tcnt = 0;
+int i1 = 0, i2 = 0;
 int powTen(int n){
     int res = 1;
     while(n-- != 0){
@@ -62,6 +63,8 @@ int trans(int floatZone){
 				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
 			}
 			tres = res;
+			i1 = i;
+			i2 = p[i];
             set_bp();
 
         }
