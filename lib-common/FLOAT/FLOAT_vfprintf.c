@@ -56,7 +56,7 @@ int trans(int floatZone){
     // }
 	for(i = 15; i >= 1; i--){
 		floatZone >>= 1;
-		if(floatZone & 1){
+		if(floatZone & 1 == 1){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
 				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
