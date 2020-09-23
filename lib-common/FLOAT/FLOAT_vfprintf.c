@@ -12,7 +12,7 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 
 // int punish[20] = {0, 0,	0, 	0,		-1,		-1,		-1,		-2,		-2,		-3,			-3,			-3,			-3,			-3,			-4,			-4,				-4};
 // int p[20] = 	 {0, 5, 25, 125,	625,	3125,	15625,	78125,	390625,	1953125,	9765625,	48828125,	244140625,	1220703125,	6103515625,	30517578125,	152587890625};
-int p[20] = {500000000, 250000000, 125000000, 62500000, 31250000, 15625000, 7812500, 3906250, 1953125, 976562, 488281, 244140, 122070, 61035, 30517, 15258, }
+int p[20] = {0, 500000000, 250000000, 125000000, 62500000, 31250000, 15625000, 7812500, 3906250, 1953125, 976562, 488281, 244140, 122070, 61035, 30517, 15258, };
 // int mod[20] = {0, 0, 0, 0, 0, 0, 0, 500, 250, 125, 563, 281, 141, 70, 35, 518, 259};
 int tres = 0;
 int tf = 0;
@@ -63,6 +63,7 @@ int trans(int floatZone){
 	// 	res = res / powTen(cnt - 6);
 	// }
 	// tres = res;
+	// printf("%d\n", res);
 	res /= 1000;	
     return res;
 }
@@ -95,7 +96,7 @@ static void modify_vfprintf() {
 	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
-	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	// mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
 	int *off = (int*)(call + 1);
 	int originOff = *off;
 	*off = originOff + offSet;
