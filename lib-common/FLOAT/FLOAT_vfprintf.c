@@ -41,7 +41,7 @@ int trans(uint32_t floatZone){
     }
     int res = 0;
     for(i = 1; i <= 15; i++){
-        if((floatZone >> (16 - i)) & 1){
+        if((floatZone >> (16 - i)) & 1 == 1){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
 				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
