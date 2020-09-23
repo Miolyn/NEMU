@@ -29,9 +29,9 @@ int cntTen(int n){
 	}
 	return res;
 }
-int trans(uint32_t floatZone){
+int trans(int floatZone){
 	tfz = floatZone;
-	uint32_t p[20];
+	int p[20];
 	int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
     int i;
 	int bound = 9;
@@ -83,7 +83,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 	tf = f;
 	char buf[80];
-	uint32_t noS = f;
+	int noS = f;
     if((f >> 31) & 1) noS *= -1;
     int intZone = noS >> 16;
     int floatZone = noS & 0xffff;
