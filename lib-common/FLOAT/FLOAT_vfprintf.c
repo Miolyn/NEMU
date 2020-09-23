@@ -40,7 +40,6 @@ int trans(uint32_t floatZone){
         p[i] = 5 * p[i - 1];
     }
     int res = 0;
-	set_bp();
     for(i = 1; i <= 15; i++){
         // if((floatZone >> (16 - i)) & 1 == 1){
 		if(floatZone & (1 << (16 - i))){
@@ -91,7 +90,7 @@ static void modify_vfprintf() {
 	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
-	// mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
 	int *off = (int*)(call + 1);
 	int originOff = *off;
 	*off = originOff + offSet;
