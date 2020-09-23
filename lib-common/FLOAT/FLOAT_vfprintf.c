@@ -54,7 +54,7 @@ int trans(uint32_t floatZone){
 	int cnt = cntTen(res);
 	if(cnt > 6) res = res / powTen(cnt - 6);
 	tres = res;
-	tcnt = powTen(4);
+	tcnt = powTen(cnt - 6);
     return res;
 }
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
