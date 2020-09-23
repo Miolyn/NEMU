@@ -72,7 +72,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
     int res = trans(floatZone);
 
 	// int len = sprintf(buf, "0x%08x", f);
-	int len = sprintf(buf, "%s%d.%u", si, intZone, res);
+	int len = sprintf(buf, "%s%d.%06u", si, intZone, res);
 	return __stdio_fwrite(buf, len, stream);
 }
 
@@ -154,6 +154,7 @@ static void modify_ppfs_setargs() {
 	 * Below is the code section in _vfprintf_internal() relative to
 	 * the modification.
 	 */
+	// #if 0
 	char *ppfs = &_ppfs_setargs;
 	// 0xe9
 	char *lea = ppfs + 0x71;
@@ -166,7 +167,7 @@ static void modify_ppfs_setargs() {
 	*(lea + 4) = 0;
 	// int *of = lea + 1;
 	// *of = offSet;
-
+	// #endif
 #if 0
 	enum {                          /* C type: */
 		PA_INT,                       /* int */
