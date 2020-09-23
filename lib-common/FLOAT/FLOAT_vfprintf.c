@@ -38,9 +38,9 @@ int trans(int floatZone){
     int i;
 	int bound = 9;
     p[1] = 5;
-    for(i = 2; i <= 16; i++){
-        p[i] = 5 * p[i - 1];
-    }
+    // for(i = 2; i <= 16; i++){
+    //     p[i] = 5 * p[i - 1];
+    // }
     int res = 0;
     // for(i = 1; i <= 15; i++){
     //     // if((floatZone >> (16 - i)) & 1 == 1){
