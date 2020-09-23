@@ -10,6 +10,7 @@ extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 
+int tres = 0;
 int powTen(int n){
     int res = 1;
     while(n--){
