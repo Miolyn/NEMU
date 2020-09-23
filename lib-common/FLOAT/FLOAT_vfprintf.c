@@ -53,6 +53,7 @@ int trans(int floatZone){
     //     }
     // }
 	for(i = 15; i >= 1; i--){
+		floatZone >>= 1;
 		if(floatZone & 1){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
@@ -62,7 +63,6 @@ int trans(int floatZone){
 			}
             
         }
-		floatZone >>= 1;
     }
 	int cnt = cntTen(res);
 	if(cnt > 6){ 
