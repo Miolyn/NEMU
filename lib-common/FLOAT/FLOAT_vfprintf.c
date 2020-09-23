@@ -15,7 +15,7 @@ int tf = 0;
 int tfz = 0;
 int tcnt = 0;
 int powTen(int n){
-	if(n <= 1){printf("\n");}
+	if(n < 0){printf("\n");}
     int res = 1;
     while(n != 0){
         res = res * 10;
