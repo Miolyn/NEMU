@@ -11,6 +11,7 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 
 int tres = 0;
+int tf = 0;
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -60,7 +61,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
-
+	tf = f;
 	char buf[80];
 	uint32_t noS = f;
     if((f >> 31) & 1) noS *= -1;
