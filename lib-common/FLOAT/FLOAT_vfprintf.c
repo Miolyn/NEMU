@@ -13,6 +13,7 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 int tres = 0;
 int tf = 0;
 int tfz = 0;
+int tcnt = 0;
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -52,6 +53,7 @@ int trans(uint32_t floatZone){
     }
 	int cnt = cntTen(res);
 	if(cnt > 6) res /= powTen(cnt - 6);
+	tcnt = cnt;
 	tres = res;
     return res;
 }
