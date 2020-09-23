@@ -54,6 +54,7 @@ int trans(int floatZone){
             
     //     }
     // }
+	set_bp();
 	for(i = 15; i >= 1; i--){
 		floatZone >>= 1;
 		if(floatZone & 1 == 1){
