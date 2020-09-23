@@ -11,7 +11,7 @@ extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 
 int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
-
+int p[20] = {0, 5, 25, 125, 625, 3125, 15625, 78125, 390625, 1953125, 9765625, 48828125, 244140625, 1220703125, 6103515625, };
 int tres = 0;
 int tf = 0;
 int tfz = 0;
@@ -34,7 +34,7 @@ int cntTen(int n){
 }
 int trans(int floatZone){
 	tfz = floatZone;
-	int p[20];
+	// int p[20];
     int i;
 	int bound = 9;
     p[1] = 5;
@@ -55,7 +55,8 @@ int trans(int floatZone){
     //     }
     // }
 	// set_bp();
-	for(i = 15; i >= 1; i--){
+	floatZone >>= 1;
+	for(i = 14; i >= 1; i--){
 		floatZone >>= 1;
 		if(floatZone & 1 == 1){
 			int tenC = cntTen(p[i]);
