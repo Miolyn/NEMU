@@ -40,9 +40,20 @@ int trans(uint32_t floatZone){
         p[i] = 5 * p[i - 1];
     }
     int res = 0;
-    for(i = 1; i <= 15; i++){
-        // if((floatZone >> (16 - i)) & 1 == 1){
-		if(floatZone & (1 << (16 - i))){
+    // for(i = 1; i <= 15; i++){
+    //     // if((floatZone >> (16 - i)) & 1 == 1){
+	// 	if(floatZone & (1 << (16 - i))){
+	// 		int tenC = cntTen(p[i]);
+	// 		if(tenC > bound){
+	// 			res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
+	// 		} else{
+	// 			res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
+	// 		}
+            
+    //     }
+    // }
+	for(i = 15; i >= 1; i--){
+		if(floatZone & 1){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
 				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
@@ -51,6 +62,7 @@ int trans(uint32_t floatZone){
 			}
             
         }
+		floatZone >>= 1;
     }
 	int cnt = cntTen(res);
 	if(cnt > 6){ 
@@ -90,9 +102,7 @@ static void modify_vfprintf() {
 	// printf("call:%x\n", call);
 	char *pre = call - 100;
 	int offSet = (int)format_FLOAT -  (int)(&_fpmaxtostr);
-	#ifdef LINUX_RT
 	mprotect((void*)((int)pre & 0xfffff000), 4096 * 2, PROT_READ | PROT_WRITE | PROT_EXEC);
-	#endif
 	int *off = (int*)(call + 1);
 	int originOff = *off;
 	*off = originOff + offSet;
