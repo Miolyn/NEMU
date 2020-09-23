@@ -16,9 +16,8 @@ int tfz = 0;
 int tcnt = 0;
 int powTen(int n){
     int res = 1;
-    while(n != 0){
+    while(n-- != 0){
         res = res * 10;
-		n -= 1;
     }
     return res;
 }
@@ -45,7 +44,6 @@ int trans(uint32_t floatZone){
         if((floatZone >> (16 - i)) & 1){
 			int tenC = cntTen(p[i]);
 			if(tenC > bound){
-				
 				res += p[i] / powTen(tenC - bound) / powTen(-punish[i]);
 			} else{
 				res += p[i] * powTen(bound - tenC) / powTen(-punish[i]);
