@@ -160,8 +160,12 @@ static void modify_ppfs_setargs() {
 	// 801387 - 801355
 	int offSet = 0x32;
 	*lea = 0xE9;
-	int *of = lea + 1;
-	*of = offSet;
+	*(lea + 1) = offSet;
+	*(lea + 2) = 0;
+	*(lea + 3) = 0;
+	*(lea + 4) = 0;
+	// int *of = lea + 1;
+	// *of = offSet;
 
 #if 0
 	enum {                          /* C type: */
