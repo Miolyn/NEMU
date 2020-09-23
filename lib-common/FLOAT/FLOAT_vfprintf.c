@@ -10,6 +10,8 @@ extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
 
+int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
+
 int tres = 0;
 int tf = 0;
 int tfz = 0;
@@ -33,7 +35,6 @@ int cntTen(int n){
 int trans(int floatZone){
 	tfz = floatZone;
 	int p[20];
-	int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
     int i;
 	int bound = 9;
     p[1] = 5;
