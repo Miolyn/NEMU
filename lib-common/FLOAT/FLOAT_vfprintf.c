@@ -9,8 +9,7 @@ extern char _fpmaxtostr;
 extern char _ppfs_setargs;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 #define nop 0x90
-uint32_t p[20];
-int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
+
 int powTen(int n){
     int res = 1;
     while(n--){
@@ -27,16 +26,14 @@ int cntTen(int n){
 	return res;
 }
 int trans(uint32_t floatZone){
+	uint32_t p[20];
+	int punish[20] = {0, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -3, -3, -3, -4, -4};
     int i;
 	int bound = 9;
     p[1] = 5;
     for(i = 2; i <= 16; i++){
         p[i] = 5 * p[i - 1];
     }
-	// for(i = 1; i <= 16; i++){
-	// 	printf("%d ", p[i]);
-	// }
-	// printf("\n");
     int res = 0;
     for(i = 1; i <= 15; i++){
         if((floatZone >> (16 - i)) & 1){
