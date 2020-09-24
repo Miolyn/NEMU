@@ -92,6 +92,7 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
     if(cAddr.blockOffset + len > CACHE_BLOCK){
+        assert(0);
         memcpy(this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, buf, CACHE_BLOCK - cAddr.blockOffset);
         this->cache_write(this, buf + CACHE_BLOCK - cAddr.blockOffset, addr + CACHE_BLOCK - cAddr.blockOffset, cAddr.blockOffset + len - CACHE_BLOCK);
     } else{
