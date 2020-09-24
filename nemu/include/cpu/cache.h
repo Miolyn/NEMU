@@ -28,5 +28,7 @@
 #define SUFFIX l2
 #include "cpu/cache-template.h"
 extern Cache_l1 cache_l1;
-// extern Cache_l2 cache_l2;
+extern Cache_l2 cache_l2;
+
+extern void init_cache();
 #endif

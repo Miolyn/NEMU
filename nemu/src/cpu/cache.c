@@ -1,9 +1,12 @@
 #include "common.h"
+
 // 2^3 * 2^7 * 2^6
 // uint8_t _cache[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
 // uint8_t *hw_cache = (void*)_cache;
 
-
+void init_cache(){
+    
+}
  
 // typedef struct {
 //     uint32_t valid : 1;
