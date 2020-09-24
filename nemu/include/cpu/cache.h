@@ -12,14 +12,14 @@
 
 #define SET_WIDTH_l1 3
 #define LINE_WIDTH_l1 7
-#define TAG_WIDTH_l1 (32 - SET_WIDTH_l1 - LINE_WIDTH_l1 - BLOCK_WIDTH)
+#define TAG_WIDTH_l1 (32 - SET_WIDTH_l1 - BLOCK_WIDTH)
 
 #define CACHE_SET_l1 (1 << SET_WIDTH_l1)
 #define CACHE_LINE_l1 (1 << LINE_WIDTH_l1)
 
 #define SET_WIDTH_l2 4
 #define LINE_WIDTH_l2 6
-#define TAG_WIDTH_l2 (32 - SET_WIDTH_l2 - LINE_WIDTH_l2 - BLOCK_WIDTH)
+#define TAG_WIDTH_l2 (32 - SET_WIDTH_l2 - BLOCK_WIDTH)
 
 #define CACHE_SET_l2 (1 << SET_WIDTH_l2)
 #define CACHE_LINE_l2 (1 << LINE_WIDTH_l2)
