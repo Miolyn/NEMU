@@ -122,7 +122,6 @@ int cache_miss(struct Cache *this, uint32_t addr){
 
 void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
-    // memcpy(buf_l2, this->cacheSet[setID].cacheLine[lineID].block, CACHE_BLOCK);
     cache_l2.cache_write(&cache_l2, this->cacheSet[setID].cacheLine[lineID].block, addr, CACHE_BLOCK);
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
 }
