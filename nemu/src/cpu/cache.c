@@ -161,12 +161,13 @@ uint32_t c_read(uint32_t addr, int len){
     memset(buf, 0, sizeof(uint8_t) * 64);
     cache_l1.cache_read(&cache_l1, buf, addr, len);
 
-    uint32_t res = buf[0];
-    int i;
-    for(i = 1; i < len; i++){
-        res = buf[i] + (res << 8);
-    }
-    return res;
+    // uint32_t res = buf[0];
+    // int i;
+    // for(i = 1; i < len; i++){
+    //     res <<= 8;
+    //     res += buf[i];
+    // }
+    return buf2uint(buf);
 }
 
 void c_write(uint32_t addr, int len, uint32_t data){
@@ -176,11 +177,12 @@ void c_write(uint32_t addr, int len, uint32_t data){
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     memset(buf, 0, sizeof(uint8_t) * 64);
     // *(uint32_t*)(buf) = data; 
-    int i;
-    for(i = 0; i < len; i++){
-        buf[i] = data & 0xff;
-        data >>= 8;
-    }
+    uint2buf(buf, data);
+    // int i;
+    // for(i = 0; i < len; i++){
+    //     buf[i] = data & 0xff;
+    //     data >>= 8;
+    // }
     cache_l1.cache_write(&cache_l1, buf, addr, len);
 }
 

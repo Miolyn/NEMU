@@ -128,3 +128,11 @@ void dram_write(hwaddr_t addr, size_t len, uint32_t data) {
 		ddr3_write(addr + BURST_LEN, temp + BURST_LEN, mask + BURST_LEN);
 	}
 }
+
+uint32_t buf2uint(uint8_t *buf){
+	return unalign_rw(buf + 0, 4);
+}
+
+void uint2buf(uint8_t *buf, uint32_t data){
+	*(uint32_t *)(buf + 0) = data;
+}

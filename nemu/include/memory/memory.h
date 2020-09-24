@@ -24,5 +24,7 @@ extern void swaddr_write(swaddr_t, size_t, uint32_t);
 void lnaddr_write(lnaddr_t, size_t, uint32_t);
 void hwaddr_write(hwaddr_t, size_t, uint32_t);
 #define swr4(addr) swaddr_read(addr, 4)
+extern uint32_t buf2uint(uint8_t *buf);
 
+extern void uint2buf(uint8_t *buf, uint32_t data);
 #endif
