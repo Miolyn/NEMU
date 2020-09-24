@@ -80,6 +80,7 @@ void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     assert(0);
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
+    printf("loc:%d\n", loc);
     if(cAddr.blockOffset + len > CACHE_BLOCK){
         memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, CACHE_BLOCK - cAddr.blockOffset);
         this->cache_read(this, buf + CACHE_BLOCK - cAddr.blockOffset, addr + CACHE_BLOCK - cAddr.blockOffset, cAddr.blockOffset + len - CACHE_BLOCK);
