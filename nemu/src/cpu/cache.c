@@ -26,19 +26,24 @@ void init_cache(){
     init_cache_l2();
     cache_l1.getCacheAddr = getCacheAddr1;
     cache_l2.getCacheAddr = getCacheAddr2;
+
     cache_l1.cache_find = cache_find;
     cache_l2.cache_find = cache_find;
+
     cache_l1.cache_read = cache_read;
     cache_l2.cache_read = cache_read;
+
     cache_l1.cache_write = cache_write;
     cache_l2.cache_write = cache_write;
+
     cache_l1.cache_miss = cache_miss;
     cache_l2.cache_miss = cache_miss;
+
     cache_l1.cache_deal_dirt = cache_deal_dirt_l1;
     cache_l2.cache_deal_dirt = cache_deal_dirt_l2;
+
     cache_l1.cache_load_miss = cache_load_miss_l1;
     cache_l2.cache_load_miss = cache_load_miss_l2;
-    printf("init cache success");
 }
 
 AddrHelper getCacheAddr1(struct Cache *this, uint32_t addr){
@@ -151,6 +156,7 @@ uint32_t c_read(uint32_t addr, int len){
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     uint8_t buf[64];
     cache_l1.cache_read(&cache_l1, buf, addr, len);
+    printf("val:%d\n", buf[0]);
     return unalign_rw(buf, 4);
 }
 
