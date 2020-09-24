@@ -155,6 +155,7 @@ uint32_t c_read(uint32_t addr, int len){
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
+    printf("prepare\n");
     memset(buf, 0, sizeof(uint8_t) * 64);
     cache_l1.cache_read(&cache_l1, buf, addr, len);
     printf("hello\n");
