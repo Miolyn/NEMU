@@ -7,7 +7,7 @@
  * you clear about how DRAM perform read/write operations.
  * Note that cross addressing is not simulated.
  */
-
+// 1 rank with 8bank 1bank with 10 row 1row(page) with 10 column
 #define COL_WIDTH 10
 #define ROW_WIDTH 10
 #define BANK_WIDTH 3
@@ -99,18 +99,20 @@ static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 uint32_t dram_read(hwaddr_t addr, size_t len) {
 	uint32_t offset = addr & BURST_MASK;
 	uint8_t temp[2 * BURST_LEN];
-	
+	// read one row of the addr 
 	ddr3_read(addr, temp);
-
+	// but the size of the data cross to the next line 
+	// so read on more line 
 	if(offset + len > BURST_LEN) {
 		/* data cross the burst boundary */
 		ddr3_read(addr + BURST_LEN, temp + BURST_LEN);
 	}
-
+	// change the data to the type of unalign pointer 
 	return unalign_rw(temp + offset, 4);
 }
 
 void dram_write(hwaddr_t addr, size_t len, uint32_t data) {
+	
 	uint32_t offset = addr & BURST_MASK;
 	uint8_t temp[2 * BURST_LEN];
 	uint8_t mask[2 * BURST_LEN];

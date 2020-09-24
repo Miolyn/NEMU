@@ -142,11 +142,38 @@ void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     pl->tag = cAddr.tag;
     pl->valid = 1;
 }
+
 uint32_t c_read(uint32_t addr, int len){
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     uint8_t buf[64];
     cache_l1.cache_read(&cache_l1, buf, addr, len);
     return unalign_rw(buf, 4);
+}
+
+void c_write(uint32_t addr, int len, uint32_t data){
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
+    uint8_t buf[64];
+    *(uint32_t*)(buf) = data;
+    cache_l1.cache_write(&cache_l1, buf, addr, len);
+}
+
+
+uint32_t swaddr_read(swaddr_t addr, size_t len) {
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+	return c_read(addr, len);
+}
+
+void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+	c_write(addr, len, data);
 }
