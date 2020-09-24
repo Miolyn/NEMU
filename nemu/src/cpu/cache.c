@@ -76,7 +76,7 @@ int cache_find(struct Cache *this, int setID, uint32_t tag){
 
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     AddrHelper cAddr = this->getCacheAddr(this, addr);
-    printf("%d\n", cAddr.set);
+    printf("%x\n", addr);
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
     if(cAddr.blockOffset + len > CACHE_BLOCK){
