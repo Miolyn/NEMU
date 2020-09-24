@@ -100,7 +100,6 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
 }
 
 int cache_miss(struct Cache *this, uint32_t addr){
-    printf("cache_miss\n");
     addr = addr & ~((1 << BLOCK_WIDTH) - 1);
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     CacheSet *sp = &(this->cacheSet[cAddr.set]);
@@ -187,7 +186,9 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     // printf("read\n");
-	return c_read(addr, len);
+	int res = c_read(addr, len);
+    printf("0x%x\n", res);
+    return res;
 }
 
 void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
