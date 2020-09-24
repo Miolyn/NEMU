@@ -80,7 +80,6 @@ void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
     printf("loc:%d\n", loc);
-    assert(0);
 
     if(cAddr.blockOffset + len > CACHE_BLOCK){
         memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, CACHE_BLOCK - cAddr.blockOffset);
@@ -105,6 +104,9 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
 
 int cache_miss(struct Cache *this, uint32_t addr){
     addr = addr & ~((1 << BLOCK_WIDTH) - 1);
+    printf("addr:%x\n", addr);
+    assert(0);
+
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     CacheSet *sp = &(this->cacheSet[cAddr.set]);
     int i;
