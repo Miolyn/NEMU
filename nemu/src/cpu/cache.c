@@ -5,6 +5,7 @@
 // 2^3 * 2^7 * 2^6
 Cache cache_l1;
 Cache cache_l2;
+uint8_t buf[64];
 
 cache_initor(l1);
 cache_initor(l2);
@@ -75,7 +76,6 @@ int cache_find(struct Cache *this, int setID, uint32_t tag){
 
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     AddrHelper cAddr = this->getCacheAddr(this, addr);
-    memset(buf, 0, sizeof(uint8_t) * 20);
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
     if(cAddr.blockOffset + len > CACHE_BLOCK){
@@ -155,9 +155,8 @@ uint32_t c_read(uint32_t addr, int len){
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
-    uint8_t buf[64];
+    memset(buf, 0, sizeof(uint8_t) * 64);
     cache_l1.cache_read(&cache_l1, buf, addr, len);
-    printf("val:%d\n", buf[0]);
     printf("hello\n");
 
     uint32_t res = buf[0];
@@ -173,8 +172,8 @@ void c_write(uint32_t addr, int len, uint32_t data){
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
-    uint8_t buf[64];
     // *(uint32_t*)(buf) = data; 
+    memset(buf, 0, sizeof(uint8_t) * 64);
     int i;
     for(i = 0; i < len; i++){
         buf[len - 1 - i] = (data >> (i << 3)) & 0xff;
