@@ -160,12 +160,11 @@ uint32_t c_read(uint32_t addr, int len){
     // printf("prepare\n");
     memset(buf, 0, sizeof(uint8_t) * 64);
     cache_l1.cache_read(&cache_l1, buf, addr, len);
-    printf("hello\n");
 
     uint32_t res = buf[0];
     int i;
     for(i = 1; i < len; i++){
-        res += buf[i] << (i << 3);
+        res = buf[i] + (res << (i << 3));
     }
     return res;
 }
@@ -179,7 +178,7 @@ void c_write(uint32_t addr, int len, uint32_t data){
     memset(buf, 0, sizeof(uint8_t) * 64);
     int i;
     for(i = 0; i < len; i++){
-        buf[len - 1 - i] = (data >> (i << 3)) & 0xff;
+        buf[i] = (data >> (i << 3)) & 0xff;
     }
     cache_l1.cache_write(&cache_l1, buf, addr, len);
 }
@@ -189,9 +188,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    // printf("read\n");
 	int res = c_read(addr, len);
-    // printf("0x%x\n", res);
     return res;
 }
 
@@ -199,6 +196,5 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    printf("write\n");
 	c_write(addr, len, data);
 }
