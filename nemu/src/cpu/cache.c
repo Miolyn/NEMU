@@ -104,8 +104,6 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
 
 int cache_miss(struct Cache *this, uint32_t addr){
     addr = addr & ~((1 << BLOCK_WIDTH) - 1);
-    printf("addr:%x\n", addr);
-    assert(0);
 
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     CacheSet *sp = &(this->cacheSet[cAddr.set]);
@@ -117,6 +115,8 @@ int cache_miss(struct Cache *this, uint32_t addr){
     if(i == this->lineNum){
         i = random(this->lineNum);
     }
+    printf("i%d\n", i);
+    assert(0);
     CacheLine *pl = &cache_l1.cacheSet[cAddr.set].cacheLine[i];
     this->cache_deal_dirt(this, addr, cAddr.set, i);
     this->cache_load_miss(this, addr, pl, CACHE_BLOCK);
