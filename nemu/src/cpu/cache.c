@@ -123,7 +123,6 @@ int cache_miss(struct Cache *this, uint32_t addr){
 
 void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, int setID, int lineID){
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
-    printf("deal\n");
     // memcpy(buf_l2, this->cacheSet[setID].cacheLine[lineID].block, CACHE_BLOCK);
     cache_l2.cache_write(&cache_l2, this->cacheSet[setID].cacheLine[lineID].block, addr, CACHE_BLOCK);
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
@@ -146,6 +145,8 @@ void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, int setID, int lineID
 }
 
 void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len){
+    printf("load\n");
+    assert(0);
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
