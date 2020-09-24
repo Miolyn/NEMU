@@ -185,9 +185,9 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    printf("read\n");
+    // printf("read\n");
 	int res = c_read(addr, len);
-    printf("0x%x\n", res);
+    // printf("0x%x\n", res);
     return res;
 }
 
