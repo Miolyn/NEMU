@@ -25,7 +25,6 @@ typedef struct {
     void (*cache_write)(uint32_t adr, uint32_t len, uint32_t data);
 }concat(Cache_, SUFFIX);
 
-extern uint8_t concat(_cache_, SUFFIX)[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
 extern uint8_t *concat(hw_cache_, SUFFIX);
 
 #undef SET_WIDTH

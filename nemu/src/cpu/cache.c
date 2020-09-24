@@ -1,8 +1,26 @@
 #include "common.h"
 
 // 2^3 * 2^7 * 2^6
-// uint8_t _cache[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
-// uint8_t *hw_cache = (void*)_cache;
+#define SET_WIDTH_l1 3
+#define LINE_WIDTH_l1 7
+#define BLOCK_WIDTH_l1 6
+#define TAG_WIDTH_l1 (32 - SET_WIDTH_l1 - LINE_WIDTH_l1 - BLOCK_WIDTH_l1)
+
+#define CACHE_SET_l1 (1 << SET_WIDTH_l1)
+#define CACHE_LINE_l1 (1 << LINE_WIDTH_l1)
+#define CACHE_BLOCK_l1 (1 << BLOCK_WIDTH_l1)
+
+
+#define SET_WIDTH_l2 4
+#define LINE_WIDTH_l2 6
+#define BLOCK_WIDTH_l2 6
+#define TAG_WIDTH_l2 (32 - SET_WIDTH_l2 - LINE_WIDTH_l2 - BLOCK_WIDTH_l2)
+
+#define CACHE_SET_l2 (1 << SET_WIDTH_l2)
+#define CACHE_LINE_l2 (1 << LINE_WIDTH_l2)
+#define CACHE_BLOCK_l2 (1 << BLOCK_WIDTH_l2)
+
+uint8_t _cache_l1[CACHE_SET_l1][CACHE_LINE_l1][CACHE_BLOCK_l1];
 
 void init_cache(){
     
