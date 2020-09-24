@@ -147,8 +147,10 @@ void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint3
 void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len){
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     int i;
-    for(i = 0; i < CACHE_BLOCK; i++){
-        pl->block[i] = lnaddr_read(addr + i, 1);
+    for(i = 0; i < CACHE_BLOCK; i += 4){
+        uint32_t res =lnaddr_read(addr + i, 4);
+        uint2buf(buf + i, res);
+        // pl->block[i] = lnaddr_read(addr + i, 1);
     }
     pl->tag = cAddr.tag;
     pl->valid = 1;
