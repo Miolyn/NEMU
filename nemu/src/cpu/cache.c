@@ -158,7 +158,12 @@ uint32_t c_read(uint32_t addr, int len){
     uint8_t buf[64];
     cache_l1.cache_read(&cache_l1, buf, addr, len);
     printf("val:%d\n", buf[0]);
-    return unalign_rw(buf, 4);
+    uint32_t res = buf[0];
+    int i;
+    for(i = 1; i < len; i++){
+        res += buf[i] << (i << 3);
+    }
+    return res;
 }
 
 void c_write(uint32_t addr, int len, uint32_t data){
