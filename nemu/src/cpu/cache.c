@@ -135,6 +135,7 @@ void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
 }
 
 void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
+    assert(0);
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
@@ -174,7 +175,7 @@ void c_write(uint32_t addr, uint32_t len, uint32_t data){
 }
 
 
-uint32_t swaddr_read_(swaddr_t addr, size_t len) {
+uint32_t swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
@@ -182,7 +183,7 @@ uint32_t swaddr_read_(swaddr_t addr, size_t len) {
     return res;
 }
 
-void swaddr_write_(swaddr_t addr, size_t len, uint32_t data) {
+void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
