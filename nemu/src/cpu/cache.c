@@ -63,10 +63,10 @@ AddrHelper getCacheAddr2(struct Cache *this, uint32_t addr){
 }
 
 int cache_find(struct Cache *this, int setID, uint32_t tag){
-    CacheSet set = this->cacheSet[setID];
+    CacheSet *set = &(this->cacheSet[setID]);
     int i;
     for(i = 0; i < this->lineNum; i++){
-        if(set.cacheLine[i].valid && set.cacheLine[i].tag == tag){
+        if(set->cacheLine[i].valid && set->cacheLine[i].tag == tag){
             break;
         }
     }
@@ -106,6 +106,7 @@ int cache_miss(struct Cache *this, uint32_t addr){
     int i;
     for(i = 0; i < this->lineNum; i++){
         if(sp->cacheLine[i].valid) continue;
+        else break;
     }
     if(i == this->lineNum){
         i = random(this->lineNum);
@@ -175,7 +176,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    printf("read\n");
 	return c_read(addr, len);
 }
 
