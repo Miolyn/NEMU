@@ -12,13 +12,13 @@ cache_initor(l2);
 
 AddrHelper getCacheAddr1(struct Cache *this, uint32_t addr);
 AddrHelper getCacheAddr2(struct Cache *this, uint32_t addr);
-int cache_find(struct Cache *this, int setID, uint32_t tag);
+int cache_find(struct Cache *this, uint32_t setID, uint32_t tag);
 int cache_miss(struct Cache *this, uint32_t addr);
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
 void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
 int cache_miss(struct Cache *this, uint32_t addr);
-void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, int setID, int lineID);
-void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, int setID, int lineID);
+void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID);
+void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID);
 void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len);
 void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len);
 void init_cache(){
@@ -63,7 +63,7 @@ AddrHelper getCacheAddr2(struct Cache *this, uint32_t addr){
     return ar;
 }
 
-int cache_find(struct Cache *this, int setID, uint32_t tag){
+int cache_find(struct Cache *this, uint32_t setID, uint32_t tag){
     CacheSet *set = &(this->cacheSet[setID]);
     int i;
     for(i = 0; i < this->lineNum; i++){
@@ -119,7 +119,7 @@ int cache_miss(struct Cache *this, uint32_t addr){
     return i;
 }
 
-void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, int setID, int lineID){
+void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     // memcpy(buf_l2, this->cacheSet[setID].cacheLine[lineID].block, CACHE_BLOCK);
     cache_l2.cache_write(&cache_l2, this->cacheSet[setID].cacheLine[lineID].block, addr, CACHE_BLOCK);
@@ -133,7 +133,7 @@ void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     pl->valid = 1;
 }
 
-void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, int setID, int lineID){
+void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
@@ -152,7 +152,7 @@ void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     pl->valid = 1;
 }
 
-uint32_t c_read(uint32_t addr, int len){
+uint32_t c_read(uint32_t addr, uint32_t len){
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
@@ -162,7 +162,7 @@ uint32_t c_read(uint32_t addr, int len){
     return buf2uint(buf);
 }
 
-void c_write(uint32_t addr, int len, uint32_t data){
+void c_write(uint32_t addr, uint32_t len, uint32_t data){
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
