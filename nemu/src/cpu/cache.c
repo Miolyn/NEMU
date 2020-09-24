@@ -100,6 +100,7 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
 }
 
 int cache_miss(struct Cache *this, uint32_t addr){
+    printf("cache_miss\n");
     addr = addr & ~((1 << BLOCK_WIDTH) - 1);
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     CacheSet *sp = &(this->cacheSet[cAddr.set]);
@@ -172,7 +173,11 @@ void c_write(uint32_t addr, int len, uint32_t data){
 #endif
     Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     uint8_t buf[64];
-    *(uint32_t*)(buf) = data;
+    // *(uint32_t*)(buf) = data; 
+    int i;
+    for(i = 0; i < len; i++){
+        buf[len - 1 - i] = (data >> (i << 3)) & 0xff;
+    }
     cache_l1.cache_write(&cache_l1, buf, addr, len);
 }
 
@@ -181,7 +186,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    printf("read\n");
+    // printf("read\n");
 	return c_read(addr, len);
 }
 
