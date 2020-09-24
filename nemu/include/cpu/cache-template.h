@@ -26,7 +26,7 @@ typedef struct {
 }concat(Cache_, SUFFIX);
 
 extern uint8_t *concat(hw_cache_, SUFFIX);
-
+extern concat(Cache_, SUFFIX) concat(cache_, SUFFIX);
 #undef SET_WIDTH
 #undef LINE_WIDTH
 #undef BLOCK_WIDTH
