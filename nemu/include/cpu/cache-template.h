@@ -16,7 +16,7 @@ typedef struct {
     uint32_t tag : TAG_WIDTH;
     uint32_t set : SET_WIDTH;
     uint32_t blockOffset : BLOCK_WIDTH;
-} concat(cacheAddr_, SUFFIX);
+} concat(CacheAddr_, SUFFIX);
 #pragma pack()
 
 typedef struct {
@@ -25,8 +25,8 @@ typedef struct {
     void (*cache_write)(uint32_t adr, uint32_t len, uint32_t data);
 }concat(Cache_, SUFFIX);
 
-uint8_t concat(_cache_, SUFFIX)[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
-uint8_t *concat(hw_cache_, SUFFIX) = (void*)concat(_cache_, SUFFIX);
+extern uint8_t concat(_cache_, SUFFIX)[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
+extern uint8_t *concat(hw_cache_, SUFFIX);
 
 #undef SET_WIDTH
 #undef LINE_WIDTH

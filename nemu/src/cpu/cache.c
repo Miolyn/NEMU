@@ -2,26 +2,9 @@
 // 2^3 * 2^7 * 2^6
 // uint8_t _cache[CACHE_SET][CACHE_LINE][CACHE_BLOCK];
 // uint8_t *hw_cache = (void*)_cache;
-#define SET_WIDTH 3
-#define LINE_WIDTH 7
-#define BLOCK_WIDTH 6
-#define TAG_WIDTH (32 - SET_WIDTH - LINE_WIDTH - BLOCK_WIDTH)
 
-#define CACHE_SET (1 << SET_WIDTH)
-#define CACHE_LINE (1 << LINE_WIDTH)
-#define CACHE_BLOCK (1 << BLOCK_WIDTH)
-#define SUFFIX l1
-#include "cpu/cache-template.h"
-#define SET_WIDTH 4
-#define LINE_WIDTH 6
-#define BLOCK_WIDTH 6
-#define TAG_WIDTH (32 - SET_WIDTH - LINE_WIDTH - BLOCK_WIDTH)
 
-#define CACHE_SET (1 << SET_WIDTH)
-#define CACHE_LINE (1 << LINE_WIDTH)
-#define CACHE_BLOCK (1 << BLOCK_WIDTH)
-#define SUFFIX l2
-#include "cpu/cache-template.h"
+ 
 // typedef struct {
 //     uint32_t valid : 1;
 //     uint32_t tag : TAG_WIDTH;
