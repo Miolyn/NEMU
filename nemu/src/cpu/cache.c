@@ -178,7 +178,7 @@ void c_write(uint32_t addr, int len, uint32_t data){
     // *(uint32_t*)(buf) = data; 
     int i;
     for(i = 0; i < len; i++){
-        buf[i] = (data >> (i << 3)) & 0xff;
+        buf[i] = (data >> (i * 8)) & 0xff;
     }
     cache_l1.cache_write(&cache_l1, buf, addr, len);
 }
