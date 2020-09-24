@@ -143,5 +143,10 @@ void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     pl->valid = 1;
 }
 uint32_t c_read(uint32_t addr, int len){
-    return 0;
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+    uint8_t buf[64];
+    cache_l1.cache_read(&cache_l1, buf, addr, len);
+    return unalign_rw(buf, 4);
 }
