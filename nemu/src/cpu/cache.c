@@ -164,7 +164,7 @@ uint32_t c_read(uint32_t addr, int len){
     uint32_t res = buf[0];
     int i;
     for(i = 1; i < len; i++){
-        res = buf[i] + (res << (i << 3));
+        res = buf[i] + (res << 8);
     }
     return res;
 }
@@ -178,7 +178,7 @@ void c_write(uint32_t addr, int len, uint32_t data){
     // *(uint32_t*)(buf) = data; 
     int i;
     for(i = 0; i < len; i++){
-        buf[i] = (data >> (i << 3)) & 0xff;
+        buf[i] = (data >> 8) & 0xff;
     }
     cache_l1.cache_write(&cache_l1, buf, addr, len);
 }
