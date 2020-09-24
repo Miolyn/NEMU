@@ -29,7 +29,7 @@
 typedef struct {
     uint32_t valid : 1;
     uint32_t tag;
-    uint8_t block[CACHE_BLOCK];
+    uint8_t *block;
     uint32_t dirt_bit : 1;
 } CacheLine;
 
@@ -48,10 +48,14 @@ typedef struct Cache{
     CacheSet *cacheSet;
     int setNum;
     int lineNum;
+    int blockSize;
     AddrHelper (*getCacheAddr)(struct Cache *this, uint32_t addr);
-    uint32_t (*cache_read)(struct Cache *this, uint32_t addr, uint32_t len);
+    void (*cache_read)(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
     int (*cache_find)(struct Cache *this, int set, uint32_t tag);
-    void (*cache_write)(struct Cache *this, uint32_t addr, uint32_t len, uint32_t data);
+    void (*cache_write)(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
+    int (*cache_miss)(struct Cache *this, uint32_t addr);
+    void (*cache_deal_dirt)(struct Cache *this, uint32_t addr, int setID, int lineID);
+    void (*cache_load_miss)(struct Cache *this, uint32_t addr, CacheLine *linePointer, uint32_t len);
 }Cache;
 
 extern Cache cache_l1;
@@ -64,30 +68,20 @@ extern Cache cache_l2;
     concat(cache_, suffix).setNum = concat(CACHE_SET_, suffix); \
     concat(cache_, suffix).cacheSet = (CacheSet*)malloc(concat(CACHE_SET_, suffix) * sizeof(CacheSet)); \
     concat(cache_, suffix).lineNum = concat(CACHE_LINE_, suffix); \
+    concat(cache_, suffix).blockSize = CACHE_BLOCK; \
     for(i = 0; i < concat(CACHE_SET_, suffix); i++){ \
         concat(cache_, suffix).cacheSet[i].setID = i; \
         concat(cache_, suffix).cacheSet[i].cacheLine = (CacheLine*)malloc(concat(CACHE_LINE_, suffix) * sizeof(CacheLine)); \
         for(j = 0; j < concat(CACHE_LINE_, suffix); j++){ \
             concat(cache_, suffix).cacheSet[i].cacheLine[j].dirt_bit = 0; \
             concat(cache_, suffix).cacheSet[i].cacheLine[j].valid = 0; \
+            concat(cache_, suffix).cacheSet[i].cacheLine[j].block = (uint8_t*)malloc(CACHE_BLOCK * sizeof(uint8_t)); \
         } \
     } \
 }
 extern void init_cache();
 
-
-#pragma pack(1)
-typedef struct {
-    uint32_t tag : TAG_WIDTH_l1;
-    uint32_t set : SET_WIDTH_l1;
-    uint32_t blockOffset : BLOCK_WIDTH;
-} CacheAddr_l1;
-typedef struct {
-    uint32_t tag : TAG_WIDTH_l2;
-    uint32_t set : SET_WIDTH_l2;
-    uint32_t blockOffset : BLOCK_WIDTH;
-} CacheAddr_l2;
-#pragma pack()
-
+extern uint32_t c_read(uint32_t addr, int len);
+extern void c_write(uint32_t addr, int len, uint32_t data);
 
 #endif
