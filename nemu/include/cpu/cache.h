@@ -10,7 +10,7 @@
 #define BLOCK_WIDTH 6
 #define CACHE_BLOCK (1 << BLOCK_WIDTH)
 
-
+#define CACHE_TYPE_l1 0
 #define SET_WIDTH_l1 3
 #define LINE_WIDTH_l1 7
 #define TAG_WIDTH_l1 (32 - SET_WIDTH_l1 - LINE_WIDTH_l1 - BLOCK_WIDTH)
@@ -18,7 +18,7 @@
 #define CACHE_SET_l1 (1 << SET_WIDTH_l1)
 #define CACHE_LINE_l1 (1 << LINE_WIDTH_l1)
 
-
+#define CACHE_TYPE_l2 1
 #define SET_WIDTH_l2 4
 #define LINE_WIDTH_l2 6
 #define TAG_WIDTH_l2 (32 - SET_WIDTH_l2 - LINE_WIDTH_l2 - BLOCK_WIDTH)
@@ -37,15 +37,21 @@ typedef struct {
 
 typedef struct {
     CacheLine *cacheLine;
-    int lineNum;
     uint32_t setID;
 } CacheSet;
 
+typedef struct{
+    uint32_t tag;
+    uint32_t set;
+    uint32_t blockOffset;
+} AddrHelper;
 
 typedef struct Cache{
     CacheSet *cacheSet;
     int setNum;
-    int type:1;
+    int lineNum;
+    int type;
+    AddrHelper (*getCacheAddr)(struct Cache *this, uint32_t *addr);
     uint32_t (*cache_read)(struct Cache *this, uint32_t addr, uint32_t len);
     int (*cache_find)(struct Cache *this, int set, uint32_t tag);
     void (*cache_write)(struct Cache *this, uint32_t addr, uint32_t len, uint32_t data);
@@ -58,11 +64,12 @@ extern Cache cache_l2;
 // extern Cache_l2 cache_l2;
 #define cache_initor(suffix) void concat(init_cache_, suffix)(){ \
     int i, j; \
+    concat(cache_, suffix).type = concat(CACHE_TYPE_, suffix); \
     concat(cache_, suffix).setNum = concat(CACHE_SET_, suffix); \
     concat(cache_, suffix).cacheSet = (CacheSet*)malloc(concat(CACHE_SET_, suffix) * sizeof(CacheSet)); \
+    concat(cache_, suffix).lineNum = concat(CACHE_LINE_, suffix); \
     for(i = 0; i < concat(CACHE_SET_, suffix); i++){ \
         concat(cache_, suffix).cacheSet[i].setID = i; \
-        concat(cache_, suffix).cacheSet[i].lineNum = concat(CACHE_LINE_, suffix); \
         concat(cache_, suffix).cacheSet[i].cacheLine = (CacheLine*)malloc(concat(CACHE_LINE_, suffix) * sizeof(CacheLine)); \
         for(j = 0; j < concat(CACHE_LINE_, suffix); j++){ \
             concat(cache_, suffix).cacheSet[i].cacheLine[j].dirt_bit = 0; \
@@ -85,4 +92,6 @@ typedef struct {
     uint32_t blockOffset : BLOCK_WIDTH;
 } CacheAddr_l2;
 #pragma pack()
+
+
 #endif
