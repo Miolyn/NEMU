@@ -135,11 +135,11 @@ void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
 }
 
 void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
-    assert(0);
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     int i;
-    for(i = 0; i < CACHE_BLOCK; i++){
-        lnaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
+    for(i = 0; i < CACHE_BLOCK; i += 4){
+        uint32_t res = buf2uint(buf + i);
+        lnaddr_write(addr + i, 4, res);
     }
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
 }
