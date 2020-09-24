@@ -29,6 +29,15 @@
 #include "cpu/cache-template.h"
 // extern Cache_l1 cache_l1;
 // extern Cache_l2 cache_l2;
-
+#define cache_initor(suffix) void concat(init_cache_, suffix)(){ \
+    int i, j; \
+    for(i = 0; i < concat(CACHE_SET_, suffix); i++){ \
+        concat(cache_, suffix).cacheSet[i].setID = i; \
+        for(j = 0; j < concat(CACHE_LINE_, suffix); j++){ \
+            concat(cache_, suffix).cacheSet[i].cacheLine[j].dirt_bit = 0; \
+            concat(cache_, suffix).cacheSet[i].cacheLine[j].valid = 0; \
+        } \
+    } \
+}
 extern void init_cache();
 #endif

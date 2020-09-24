@@ -28,16 +28,7 @@ typedef struct {
 
 extern uint8_t *concat(hw_cache_, SUFFIX);
 extern concat(Cache_, SUFFIX) concat(cache_, SUFFIX);
-#define cache_initor(suffix) void concat(init_cache_, suffix)(){ \
-    int i, j; \
-    for(i = 0; i < CACHE_SET; i++){ \
-        concat(cache_, SUFFIX).cacheSet[i].setID = i; \
-        for(j = 0; j < CACHE_LINE; j++){ \
-            concat(cache_, SUFFIX).cacheSet[i].cacheLine[j].dirt_bit = 0; \
-            concat(cache_, SUFFIX).cacheSet[i].cacheLine[j].valid = 0; \
-        } \
-    } \
-}
+
 
 #undef SET_WIDTH
 #undef LINE_WIDTH

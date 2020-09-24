@@ -26,22 +26,11 @@ uint8_t *hw_cache_l2 = (void*)_cache_l2;
 Cache_l1 cache_l1;
 Cache_l2 cache_l2;
 
+cache_initor(l1);
+cache_initor(l2);
 
 void init_cache(){
-    int i, j;
-    for(i = 0; i < CACHE_SET_l1; i++){
-        cache_l1.cacheSet[i].setID = i;
-        for(j = 0; j < CACHE_LINE_l1; j++){
-            cache_l1.cacheSet[i].cacheLine[j].dirt_bit = 0;
-            cache_l1.cacheSet[i].cacheLine[j].valid = 0;
-        }
-    }
-    for(i = 0; i < CACHE_SET_l2; i++){
-        cache_l2.cacheSet[i].setID = i;
-        for(j = 0; j < CACHE_LINE_l2; j++){
-            cache_l2.cacheSet[i].cacheLine[j].dirt_bit = 0;
-            cache_l2.cacheSet[i].cacheLine[j].valid = 0;
-        }
-    }
+    init_cache_l1();
+    init_cache_l2();
 }
 
