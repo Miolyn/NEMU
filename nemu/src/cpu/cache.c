@@ -76,10 +76,8 @@ int cache_find(struct Cache *this, int setID, uint32_t tag){
 
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     AddrHelper cAddr = this->getCacheAddr(this, addr);
-    printf("%x, len:%d, offSet:%d\n", addr, len, cAddr.blockOffset);
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
-    printf("loc:%d\n", loc);
 
     if(cAddr.blockOffset + len > CACHE_BLOCK){
         memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, CACHE_BLOCK - cAddr.blockOffset);
@@ -139,18 +137,16 @@ void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, int setID, int lineID
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
-        swaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
+        lnaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
     }
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
 }
 
 void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len){
-    printf("load\n");
-    assert(0);
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
-        pl->block[i] = swaddr_read(addr + i, 1);
+        pl->block[i] = lnaddr_read(addr + i, 1);
     }
     pl->tag = cAddr.tag;
     pl->valid = 1;
