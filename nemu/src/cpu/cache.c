@@ -38,6 +38,7 @@ void init_cache(){
     cache_l2.cache_deal_dirt = cache_deal_dirt_l2;
     cache_l1.cache_load_miss = cache_load_miss_l1;
     cache_l2.cache_load_miss = cache_load_miss_l2;
+    printf("init cache success");
 }
 
 AddrHelper getCacheAddr1(struct Cache *this, uint32_t addr){
