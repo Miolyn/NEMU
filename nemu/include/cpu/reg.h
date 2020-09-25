@@ -58,7 +58,7 @@ typedef struct {
 			uint32_t no : 14;
 		};
 	};
-	bool tmp;
+
 } CPU_state;
 
 
