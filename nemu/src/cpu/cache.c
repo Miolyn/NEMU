@@ -68,21 +68,21 @@ int cache_find(struct Cache *this, uint32_t setID, uint32_t tag){
     int i;
     for(i = 0; i < this->lineNum; i++){
         if(set->cacheLine[i].valid && set->cacheLine[i].tag == tag){
-            break;
+            return i;
         }
     }
-    return i == this->lineNum ? -1 : i;
+    return -1;
 }
 
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
-
     if(cAddr.blockOffset + len > CACHE_BLOCK){
-        assert(0);
-        memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, CACHE_BLOCK - cAddr.blockOffset);
-        this->cache_read(this, buf + CACHE_BLOCK - cAddr.blockOffset, addr + CACHE_BLOCK - cAddr.blockOffset, cAddr.blockOffset + len - CACHE_BLOCK);
+        uint32_t inBlock = CACHE_BLOCK - cAddr.blockOffset;
+        uint32_t outBlock = len - inBlock;
+        memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, inBlock);
+        this->cache_read(this, buf + inBlock, addr + inBlock, outBlock);
     } else{
         memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, len);
     }
@@ -93,9 +93,10 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     int loc = this->cache_find(this, cAddr.set, cAddr.tag);
     if(loc == -1) loc = this->cache_miss(this, addr);
     if(cAddr.blockOffset + len > CACHE_BLOCK){
-        assert(0);
-        memcpy(this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, buf, CACHE_BLOCK - cAddr.blockOffset);
-        this->cache_write(this, buf + CACHE_BLOCK - cAddr.blockOffset, addr + CACHE_BLOCK - cAddr.blockOffset, cAddr.blockOffset + len - CACHE_BLOCK);
+        uint32_t inBlock = CACHE_BLOCK - cAddr.blockOffset;
+        uint32_t outBlock = len - inBlock;
+        memcpy(this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, buf, inBlock);
+        this->cache_write(this, buf + inBlock, addr + inBlock, outBlock);
     } else{
         memcpy(this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, buf, len);
     }
@@ -122,6 +123,7 @@ int cache_miss(struct Cache *this, uint32_t addr){
 }
 
 void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
+    if(addr & ((1 << BLOCK_WIDTH) - 1)) assert(0);
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     cache_l2.cache_write(&cache_l2, this->cacheSet[setID].cacheLine[lineID].block, addr, CACHE_BLOCK);
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
