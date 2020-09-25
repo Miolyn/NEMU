@@ -12,13 +12,15 @@ cache_initor(l2);
 
 AddrHelper getCacheAddr1(struct Cache *this, uint32_t addr);
 AddrHelper getCacheAddr2(struct Cache *this, uint32_t addr);
+uint32_t createCacheAddr1(struct Cache *this, uint32_t setID, uint32_t lineID);
+uint32_t createCacheAddr2(struct Cache *this, uint32_t setID, uint32_t lineID);
 int cache_find(struct Cache *this, uint32_t setID, uint32_t tag);
 int cache_miss(struct Cache *this, uint32_t addr);
 void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
 void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
 int cache_miss(struct Cache *this, uint32_t addr);
-void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID);
-void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID);
+void cache_deal_dirt_l1(struct Cache *this, uint32_t setID, uint32_t lineID);
+void cache_deal_dirt_l2(struct Cache *this, uint32_t setID, uint32_t lineID);
 void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len);
 void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32_t len);
 void init_cache(){
@@ -28,6 +30,8 @@ void init_cache(){
     cache_l1.getCacheAddr = getCacheAddr1;
     cache_l2.getCacheAddr = getCacheAddr2;
 
+    cache_l1.createCacheAddr = createCacheAddr1;
+    cache_l2.createCacheAddr = createCacheAddr2;
     cache_l1.cache_find = cache_find;
     cache_l2.cache_find = cache_find;
 
@@ -61,6 +65,22 @@ AddrHelper getCacheAddr2(struct Cache *this, uint32_t addr){
     ar.set = (addr >> BLOCK_WIDTH) & ((1 << SET_WIDTH_l2) - 1);
     ar.tag = (addr >> (BLOCK_WIDTH + SET_WIDTH_l2)) & ((1 << TAG_WIDTH_l2) - 1);
     return ar;
+}
+
+uint32_t createCacheAddr1(struct Cache *this, uint32_t setID, uint32_t lineID){
+    uint32_t addr = 0;
+    CacheLine line = this->cacheSet[setID].cacheLine[lineID];
+    addr += setID << (BLOCK_WIDTH);
+    addr += line.tag << (BLOCK_WIDTH + SET_WIDTH_l1);
+    return addr;
+}
+
+uint32_t createCacheAddr2(struct Cache *this, uint32_t setID, uint32_t lineID){
+    uint32_t addr = 0;
+    CacheLine line = this->cacheSet[setID].cacheLine[lineID];
+    addr += setID << (BLOCK_WIDTH);
+    addr += line.tag << (BLOCK_WIDTH + SET_WIDTH_l2);
+    return addr;
 }
 
 int cache_find(struct Cache *this, uint32_t setID, uint32_t tag){
@@ -117,13 +137,13 @@ int cache_miss(struct Cache *this, uint32_t addr){
         i = random(this->lineNum);
     }
     CacheLine *pl = &(sp->cacheLine[i]);
-    this->cache_deal_dirt(this, addr, cAddr.set, i);
+    this->cache_deal_dirt(this, cAddr.set, i);
     this->cache_load_miss(this, addr, pl, CACHE_BLOCK);
     return i;
 }
 
-void cache_deal_dirt_l1(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
-    if(addr & ((1 << BLOCK_WIDTH) - 1)) printf("erro\n");
+void cache_deal_dirt_l1(struct Cache *this, uint32_t setID, uint32_t lineID){
+    uint32_t addr = this->createCacheAddr(this, setID, lineID);
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
     cache_l2.cache_write(&cache_l2, this->cacheSet[setID].cacheLine[lineID].block, addr, CACHE_BLOCK);
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
@@ -136,8 +156,9 @@ void cache_load_miss_l1(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     pl->valid = 1;
 }
 
-void cache_deal_dirt_l2(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID){
+void cache_deal_dirt_l2(struct Cache *this, uint32_t setID, uint32_t lineID){
     if(!this->cacheSet[setID].cacheLine[lineID].dirt_bit || !this->cacheSet[setID].cacheLine[lineID].valid) return;
+    uint32_t addr = this->createCacheAddr(this, setID, lineID);
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
         lnaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);

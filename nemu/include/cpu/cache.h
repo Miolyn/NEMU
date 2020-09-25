@@ -50,11 +50,12 @@ typedef struct Cache{
     int lineNum;
     int blockSize;
     AddrHelper (*getCacheAddr)(struct Cache *this, uint32_t addr);
+    uint32_t (*createCacheAddr)(struct Cache *this, uint32_t setID, uint32_t lineID);
     void (*cache_read)(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
     int (*cache_find)(struct Cache *this, uint32_t set, uint32_t tag);
     void (*cache_write)(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len);
     int (*cache_miss)(struct Cache *this, uint32_t addr);
-    void (*cache_deal_dirt)(struct Cache *this, uint32_t addr, uint32_t setID, uint32_t lineID);
+    void (*cache_deal_dirt)(struct Cache *this, uint32_t setID, uint32_t lineID);
     void (*cache_load_miss)(struct Cache *this, uint32_t addr, CacheLine *linePointer, uint32_t len);
 }Cache;
 
