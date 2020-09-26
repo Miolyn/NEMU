@@ -168,7 +168,7 @@ void load_descriptor(uint8_t sReg){
 	cpu.sRegs[sReg].base_addr0 = des.seg_base0;
 	cpu.sRegs[sReg].base_addr1 = des.seg_base1;
 	cpu.sRegs[sReg].base_addr2 = des.seg_base2;
-
+	printf("base addr:%x", cpu.sRegs[sReg].base_addr);
 	cpu.sRegs[sReg].seg_limit0 = des.seg_limit0;
 	cpu.sRegs[sReg].seg_limit1 = des.seg_limit1;
 
