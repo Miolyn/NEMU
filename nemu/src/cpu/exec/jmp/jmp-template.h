@@ -47,7 +47,7 @@ make_helper(concat(ljmp_ptr_, SUFFIX)){
     cpu.eip = pt0;
     cpu.sRegs[R_CS].selector.val = pt1;
     load_descriptor(R_CS);
-    print_asm("ljmp" " %ul, %ul", pt0, pt1);
+    print_asm("ljmp" " %u, %u", pt0, pt1);
     return len;
 }
 #endif
