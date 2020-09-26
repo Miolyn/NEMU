@@ -156,7 +156,7 @@ void overflow_flag(int dest, int src){
 
 void load_descriptor(uint8_t sReg){
 	assert(cpu.cr0.protect_enable);
-	assert(R_CS <= sReg && sReg <= R_GS);
+	assert(R_ES <= sReg && sReg <= R_GS);
 	uint32_t baseAddr = cpu.gdtr.base_addr;
 	uint32_t index = cpu.sRegs[sReg].selector.index;
 	Descriptor des;
