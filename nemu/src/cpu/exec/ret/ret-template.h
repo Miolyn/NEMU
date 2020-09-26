@@ -6,10 +6,10 @@
 make_helper(concat(ret_rel_, SUFFIX)){
     if (ops_decoded.is_operand_size_16){
         // cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
-        cpu.eip = swaddr_read(reg_l(R_ESP), 2) & 0xFFFF;
+        cpu.eip = swaddr_read(reg_l(R_ESP), 2, R_SS) & 0xFFFF;
         reg_l(R_ESP) = reg_l(R_ESP) + 2;
     } else{
-        cpu.eip = swaddr_read(reg_l(R_SP), 4);
+        cpu.eip = swaddr_read(reg_l(R_SP), 4, R_SS);
         reg_l(R_ESP) = reg_l(R_ESP) + 4;
     }
     print_asm(str(instr) str(SUFFIX));
@@ -22,10 +22,10 @@ make_helper(concat(ret_i_, SUFFIX)){
 
     if (ops_decoded.is_operand_size_16){
         // cpu.eip = swaddr_read(reg_l(R_ESP), 4) & 0xFFFF;
-        cpu.eip = swaddr_read(reg_l(R_ESP), 2) & 0xFFFF;
+        cpu.eip = swaddr_read(reg_l(R_ESP), 2, R_SS) & 0xFFFF;
         reg_l(R_ESP) = reg_l(R_ESP) + 2;
     } else{
-        cpu.eip = swaddr_read(reg_l(R_SP), 4);
+        cpu.eip = swaddr_read(reg_l(R_SP), 4, R_SS);
         reg_l(R_ESP) = reg_l(R_ESP) + 4;
     }
     // i before

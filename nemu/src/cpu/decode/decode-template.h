@@ -246,7 +246,7 @@ make_helper(concat(decode_rm_imm_, SUFFIX)) {
 
 void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 	if(op->type == OP_TYPE_REG) { REG(op->reg) = src; }
-	else if(op->type == OP_TYPE_MEM) { swaddr_write(op->addr, op->size, src); }
+	else if(op->type == OP_TYPE_MEM) { swaddr_write(op->addr, op->size, src, op->sreg); }
 	else { assert(0); }
 }
 
@@ -257,12 +257,12 @@ void_helper(concat(push_stack_, SUFFIX)){
 #if DATA_BYTE != 1
 	reg_l(R_ESP) = reg_l(R_ESP) - DATA_BYTE;
 	// reg_l(R_ESP) = reg_l(R_ESP) - 4;
-	swaddr_write(reg_l(R_ESP), DATA_BYTE, src);
+	swaddr_write(reg_l(R_ESP), DATA_BYTE, src, R_SS);
 	// swaddr_write(reg_l(R_ESP), 4, src);
 #endif
 #if DATA_BYTE == 1
 	reg_l(R_ESP) = reg_l(R_ESP) - 4;
-	swaddr_write(reg_l(R_ESP), 4, src);
+	swaddr_write(reg_l(R_ESP), 4, src, R_SS);
 #endif
 	
 }
@@ -271,11 +271,11 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 	// printf("pop stack op read %x\n", swaddr_read(REG(R_SP), DATA_BYTE));
 	
 #if DATA_BYTE != 1
-	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE));
+	concat(write_operand_, SUFFIX)(op, swaddr_read(reg_l(R_ESP), DATA_BYTE, R_SS));
 	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
 #endif
 #if DATA_BYTE == 1
-	concat(write_operand_, l)(op, swaddr_read(reg_l(R_ESP), 4));
+	concat(write_operand_, l)(op, swaddr_read(reg_l(R_ESP), 4, R_SS));
 	reg_l(R_ESP) = reg_l(R_ESP) + 4;
 #endif
 }

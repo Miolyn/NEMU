@@ -29,9 +29,10 @@
 #define W_REG(name, src) concat(write_, reg) (name) (src)
 #define PUSH_STACK(val) concat(push_stack_, SUFFIX) (val)
 #define POP_STACK(op_dest) concat(pop_stack_, SUFFIX) (op_dest)
-#define MEM_R(addr) swaddr_read(addr, DATA_BYTE)
+// #define MEM_R(addr) swaddr_read(addr, DATA_BYTE)
+#define MEM_R(addr, sReg) swaddr_read(addr, DATA_BYTE, sReg)
 // #define MEM_W(addr, data) swaddr_write(addr, DATA_BYTE, data)
-#define MEM_W(addr, data) swaddr_write(addr, DATA_BYTE, data)
+#define MEM_W(addr, data, sReg) swaddr_write(addr, DATA_BYTE, data, sReg)
 #define OPERAND_W(op, src) concat(write_operand_, SUFFIX) (op, src)
 
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))

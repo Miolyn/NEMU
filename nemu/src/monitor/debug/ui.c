@@ -107,11 +107,11 @@ static int cmd_x(char *args){
     int i;
     for (i = 0; i < n; i++){
         uint32_t addrI = uAddr + i * 4;
-        uint32_t val = swaddr_read(addrI, 4);
+        uint32_t val = swaddr_read(addrI, 4, R_DS);
         printf("(+0x%x)addr:0x%x,val:0x%x\n", i * 4, addrI, val);
         int j;
         for(j = 0; j < 4; j++){
-            val = swaddr_read(addrI + j, 1);
+            val = swaddr_read(addrI + j, 1, R_DS);
             printf("%c", val);
         }
         printf("\n");
@@ -153,7 +153,7 @@ static int cmd_pt(char *args){
     int n = atoi(args);
     int i = 0;
     for(i = 0; i < n; i++){
-        printf("+0x%x($esp)=0x%x\n", i * 4, swaddr_read(cpu.esp + i * 4, 4));
+        printf("+0x%x($esp)=0x%x\n", i * 4, swaddr_read(cpu.esp + i * 4, 4, R_SS));
     }
     return 0;
 }
@@ -170,12 +170,12 @@ static int cmd_bt(char *args){
         printf("in function [%s]\n", name);
         int addr = ebp + 8;
         for(i = 0; i < 4; i++){
-            printf("arg%d: addr:0x%x, val:0x%x\n", i + 1, addr + i * 4,swr4(addr + i * 4));
+            printf("arg%d: addr:0x%x, val:0x%x\n", i + 1, addr + i * 4,swr4(addr + i * 4, R_SS));
         }
         printf("-----------------------------\n");
         esp = ebp - 8;
-        eip = swr4(ebp + 4);
-        ebp = swr4(ebp);
+        eip = swr4(ebp + 4, R_SS);
+        ebp = swr4(ebp, R_SS);
     }
     return 0;
 }

@@ -47,7 +47,12 @@ int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 	if(index_reg != -1) {
 		addr += reg_l(index_reg) << scale;
 	}
-
+	// insert
+	if(base_reg == R_ESP || base_reg == R_EBP || index_reg == R_ESP || index_reg == R_EBP){
+		rm->sreg = R_SS;
+	} else{
+		rm->sreg = R_DS;
+	}
 #ifdef DEBUG
 	char disp_buf[16];
 	char base_buf[8];
@@ -114,8 +119,8 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 	}
 	else {
 		int instr_len = load_addr(eip, &m, rm);
-
-		rm->val = swaddr_read(rm->addr, rm->size);
+		
+		rm->val = swaddr_read(rm->addr, rm->size, rm->sreg);
 		return instr_len;
 	}
 }

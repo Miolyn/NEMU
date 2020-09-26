@@ -4,7 +4,7 @@
 
 
 make_helper(concat(lods_m_, SUFFIX)){
-    REG(R_EAX) = MEM_R(reg_l(R_ESI));
+    REG(R_EAX) = MEM_R(reg_l(R_ESI), R_DS);
     int incDec = cpu.DF ? -DATA_BYTE : DATA_BYTE;
     reg_l(R_ESI) = reg_l(R_ESI) + incDec;
     #ifdef DEBUG

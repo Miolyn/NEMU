@@ -197,14 +197,14 @@ void c_write(uint32_t addr, uint32_t len, uint32_t data){
 }
 
 
-uint32_t swaddr_read(swaddr_t addr, size_t len) {
+uint32_t _swaddr_read(swaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
 	int res = c_read(addr, len);
     return res;
 }
-uint32_t _swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
+uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
@@ -214,7 +214,8 @@ uint32_t _swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
     return res;
 }
 
-void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
+
+void _swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
@@ -222,7 +223,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 }
 
 
-void _swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
+void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif

@@ -7,7 +7,7 @@ enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 enum { CF, POS1, PF, POS3, AF, POS5, ZF, SF, TF, IF, DF, OF, OL, IP, NT, POS15, RF, VM };
-enum { R_CS, R_SS, R_DS, R_ES, R_FS, R_GS, };
+enum { R_ES, R_CS, R_SS, R_DS, R_FS, R_GS, };
 /* TODO: Re-organize the `CPU_state' structure to match the register
  * encoding scheme in i386 instruction format. For example, if we
  * access cpu.gpr[3]._16, we will get the `bx' register; if we access
@@ -104,7 +104,7 @@ typedef struct {
 	union {
 		SegReg sRegs[6];
 		struct{
-			SegReg cs, ds, ss, es, fs, gs;
+			SegReg es, cs, ds, ss, fs, gs;
 		};
 	};
 	
@@ -177,7 +177,7 @@ extern const char* regsl[];
 extern const char* regsw[];
 extern const char* regsb[];
 extern const char* regef[];
-
+extern uint32_t cSreg;
 extern uint32_t get_reg_by_str(bool *success, char *e);
 extern void load_descriptor(uint8_t sReg);
 extern lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);

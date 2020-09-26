@@ -223,7 +223,7 @@ int eval(bool *success, uint32_t p, uint32_t q){
             case '*': return val1 * val2;
             case '/': return val1 / val2;
             case DEREF:{
-                return swaddr_read(val2, 4);              
+                return swaddr_read(val2, 4, R_DS);              
             }
             case NEG: return -1 * val2;
             case LNOT: return !val2;

@@ -10,7 +10,7 @@
 #define void_op_helper(name) void name(Operand *op)
 
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
-	return swaddr_read(addr, len);
+	return swaddr_read(addr, len, R_CS);
 }
 
 /* Instruction Decode and EXecute */
