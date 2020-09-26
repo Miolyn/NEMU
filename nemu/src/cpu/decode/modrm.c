@@ -97,11 +97,12 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 	if(m.mod == 3) {
 		rm->type = OP_TYPE_REG;
 		rm->reg = m.R_M;
-		if(rm->reg == R_ESP || rm->reg == R_EBP){
-			reg->sreg = R_SS;
-		} else{
-			reg->sreg = R_DS;
-		}
+		// if(rm->reg == R_ESP || rm->reg == R_EBP){
+		// 	reg->sreg = R_SS;
+		// } else{
+		// 	reg->sreg = R_DS;
+		// }
+		reg->sreg = m.R_M;
 		switch(rm->size) {
 			case 1: rm->val = reg_b(m.R_M); break;
 			case 2: rm->val = reg_w(m.R_M); break;
