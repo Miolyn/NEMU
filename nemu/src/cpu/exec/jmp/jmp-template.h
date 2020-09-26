@@ -41,7 +41,7 @@ make_helper(concat(ljmp_ptr_, SUFFIX)){
         len = 5;
     } else{
         pt0 = instr_fetch(eip, 4);
-        pt0 = instr_fetch(eip + 4, 2);
+        pt0 = instr_fetch(eip + 2, 4);
         len = 7;
     }
     cpu.eip = pt0;
