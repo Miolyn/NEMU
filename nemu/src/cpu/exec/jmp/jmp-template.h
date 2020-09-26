@@ -44,10 +44,11 @@ make_helper(concat(ljmp_ptr_, SUFFIX)){
         pt1 = instr_fetch(eip + 4, 2);
         len = 7;
     }
+    printf("pt0:0x%x, pt1:0x%x\n", pt0, pt1);
     cpu.eip = pt0;
     cpu.sRegs[R_CS].selector.val = pt1;
     load_descriptor(R_CS);
-    print_asm("ljmp" " %u, %u", pt0, pt1);
+    print_asm("ljmp" " %x, %x", pt0, pt1);
     return len;
 }
 #endif
