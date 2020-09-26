@@ -88,6 +88,14 @@ int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 	return instr_len;
 }
 
+/*
+make_helper(concat(decode_r2rm_, SUFFIX)) {
+	return decode_rm_internal(eip, op_dest, op_src);
+}
+make_helper(concat(decode_rm2r_, SUFFIX)) {
+	return decode_rm_internal(eip, op_src, op_dest);
+}
+*/
 int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 	ModR_M m;
 	m.val = instr_fetch(eip, 1);
@@ -102,7 +110,7 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 		// } else{
 		// 	reg->sreg = R_DS;
 		// }
-		reg->sreg = m.R_M;
+		reg->sreg = m.reg;
 		switch(rm->size) {
 			case 1: rm->val = reg_b(m.R_M); break;
 			case 2: rm->val = reg_w(m.R_M); break;
