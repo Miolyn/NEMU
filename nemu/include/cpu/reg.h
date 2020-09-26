@@ -17,9 +17,9 @@ enum { R_ES, R_CS, R_SS, R_DS, R_FS, R_GS, };
 
 typedef union{
 	struct{
+		uint16_t rpl :2;
+		uint16_t ti : 1;
 		uint16_t index :13;
-		uint16_t ti : 2;
-		uint16_t rpl :1;
 	};
 	uint32_t val;
 }Selector;
