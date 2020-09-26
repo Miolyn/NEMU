@@ -48,7 +48,7 @@ make_helper(concat(ljmp_ptr_, SUFFIX)){
     cpu.eip = pt0;
     cpu.sRegs[R_CS].selector.val = pt1;
     load_descriptor(R_CS);
-    printf("jmp end\n");
+    printf("jmp end at eip : %x\n", cpu.eip);
     print_asm("ljmp" " %x, %x", pt0, pt1);
     return len;
 }
