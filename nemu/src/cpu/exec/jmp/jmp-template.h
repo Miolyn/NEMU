@@ -29,6 +29,26 @@ make_helper(concat(jmp_rm_, SUFFIX)){
     reset_all_eflags();
     return 0;
 }
+
+make_helper(concat(ljmp_ptr_, SUFFIX)){
+    ++eip;
+    uint32_t pt0 = 0;
+    uint16_t pt1 = 0;
+    int len = 0;
+    if(ops_decoded.is_operand_size_16){
+        pt0 = instr_fetch(eip, 2);
+        pt1 = instr_fetch(eip + 2, 2);
+        len = 5;
+    } else{
+        pt0 = instr_fetch(eip, 4);
+        pt0 = instr_fetch(eip + 4, 2);
+        len = 7;
+    }
+    cpu.eip = pt0;
+    cpu.sRegs[R_CS].selector.val = pt1;
+    load_descriptor(R_CS);
+    return len;
+}
 #endif
 
 #include "cpu/exec/template-end.h"
