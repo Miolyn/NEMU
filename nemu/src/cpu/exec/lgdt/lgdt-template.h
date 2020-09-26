@@ -4,7 +4,7 @@
 
 #if DATA_BYTE != 1
 make_helper(concat(lgdt_m_, SUFFIX)){
-    int len = concat3(decode_rm_, SUFFIX, _internal)(eip, op_src, op_src2);
+    int len = concat3(decode_rm_, SUFFIX, _internal)(eip + 1, op_src, op_src2);
     printf("addr->0x%x\n", op_src->addr);
     uint16_t limit = lnaddr_read(op_src->addr, 2);
     uint32_t base = 0;
