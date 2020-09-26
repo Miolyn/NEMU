@@ -5,7 +5,7 @@
 #if DATA_BYTE != 1
 make_helper(concat(lgdt_m_, SUFFIX)){
     int len = concat3(decode_rm_, SUFFIX, _internal)(eip + 1, op_src, op_src2);
-    printf("addr->0x%x\n", op_src->addr);
+    // printf("addr->0x%x\n", op_src->addr);
     uint16_t limit = lnaddr_read(op_src->addr, 2);
     uint32_t base = 0;
     if(ops_decoded.is_operand_size_16){
@@ -13,6 +13,7 @@ make_helper(concat(lgdt_m_, SUFFIX)){
     } else{
         base = lnaddr_read(op_src->addr + 2, 4);
     }
+    printf("base:0x%x,limit:0x%d\n", base, limit);
     cpu.gdtr.base_addr = base;
     cpu.gdtr.table_limit = limit;
     return len + 1;
