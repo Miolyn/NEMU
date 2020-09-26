@@ -5,4 +5,5 @@
 #include "memory/memory.h"
 #include "cpu/reg.h"
 #include "cpu/cache.h"
+#define IA32_SEG
 #endif

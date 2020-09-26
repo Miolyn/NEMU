@@ -7,7 +7,7 @@ enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 enum { CF, POS1, PF, POS3, AF, POS5, ZF, SF, TF, IF, DF, OF, OL, IP, NT, POS15, RF, VM };
-
+enum { R_CS, R_SS, R_DS, R_ES, R_FS, R_GS, };
 /* TODO: Re-organize the `CPU_state' structure to match the register
  * encoding scheme in i386 instruction format. For example, if we
  * access cpu.gpr[3]._16, we will get the `bx' register; if we access
@@ -15,20 +15,33 @@ enum { CF, POS1, PF, POS3, AF, POS5, ZF, SF, TF, IF, DF, OF, OL, IP, NT, POS15, 
  * For more details about the register encoding scheme, see i386 manual.
  */
 
-typedef struct{
-	uint16_t index :13;
-	uint16_t ti : 2;
-	uint16_t rpl :1;
+typedef union{
+	struct{
+		uint16_t index :13;
+		uint16_t ti : 2;
+		uint16_t rpl :1;
+	};
+	uint32_t val;
 }Selector;
 
 typedef struct {
 	Selector selector;
-	struct{
-		// the base addr of the segment
+	union{
+		struct{
+			// the base addr of the segment
+			uint32_t base_addr0 : 16;
+			uint32_t base_addr1 : 8;
+			uint32_t base_addr2 : 8;
+		};
 		uint32_t base_addr;
 	};
-	struct{
-		// max offset of the segment
+	union{
+		struct{
+			// max offset of the segment
+			uint32_t seg_limit0 : 16;
+			uint32_t seg_limit1 : 4;
+			uint32_t seg_limit2 : 12;
+		};
 		uint32_t seg_limit;
 	};
 	struct{
@@ -89,7 +102,7 @@ typedef struct {
 	CR3 cr3;
 
 	union {
-		SegReg sg[6];
+		SegReg sRegs[6];
 		struct{
 			SegReg cs, ds, ss, es, fs, gs;
 		};

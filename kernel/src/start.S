@@ -35,7 +35,7 @@
 	.globl start
 	start:
 		lgdt    va_to_pa(gdtdesc) # See i386 manual for more information
-		movl    %cr3, %eax        # %CR0 |= PROTECT_ENABLE_BIT
+		movl    %cr0, %eax        # %CR0 |= PROTECT_ENABLE_BIT
 		orl     $0x1, %eax
 		movl    %eax, %cr0
 

@@ -83,6 +83,12 @@ static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
 	cpu.cr0.protect_enable = 1;
+	int i;
+	for(i = R_CS; i <= R_GS; i++){
+		cpu.sRegs[i].selector.val = 0;
+	}
+	cpu.gdtr.base_addr = 0;
+	cpu.gdtr.table_limit = 0x3ff;
 }
 
 void restart() {
