@@ -2,7 +2,7 @@
 #define __REG_H__
 
 #include "common.h"
-
+#include "../../lib-common/x86-inc/cpu.h"
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
@@ -14,6 +14,30 @@ enum { CF, POS1, PF, POS3, AF, POS5, ZF, SF, TF, IF, DF, OF, OL, IP, NT, POS15, 
  * cpu.gpr[1]._8[1], we will get the 'ch' register. Hint: Use `union'.
  * For more details about the register encoding scheme, see i386 manual.
  */
+
+typedef struct{
+	uint16_t index :13;
+	uint16_t ti : 2;
+	uint16_t rpl :1;
+}Selector;
+
+typedef struct {
+	Selector selector;
+	struct{
+		// the base addr of the segment
+		uint32_t base_addr;
+	};
+	struct{
+		// max offset of the segment
+		uint32_t seg_limit;
+	};
+	struct{
+		// some attribute of the segment
+		uint16_t attr;
+	};
+} SegReg;
+
+
 
 typedef struct {
 	union {
@@ -33,9 +57,6 @@ typedef struct {
 
 	union {
 		uint32_t ef;
-		// struct {
-		// 	uint32_t _1: 1;
-		// }eflags[32];
 		struct {
 			uint32_t CF : 1;
 			uint32_t POS1 : 1;
@@ -59,11 +80,57 @@ typedef struct {
 		};
 	};
 
+	struct GDTR{
+		uint32_t base_addr;
+		uint16_t table_limit;
+	} gdtr;
+
+	CR0 cr0;
+	CR3 cr3;
+
+	union {
+		SegReg sg[6];
+		struct{
+			SegReg cs, ds, ss, es, fs, gs;
+		};
+	};
+	
+
 } CPU_state;
 
 
-
 extern CPU_state cpu;
+
+typedef struct{
+	union{
+		uint32_t dword0;
+		struct{
+			uint32_t seg_limit0 : 16;
+			uint32_t seg_base0 : 16;
+		};
+	};
+	union{
+		uint32_t dword1;
+		struct{
+			uint32_t seg_base1 : 8;
+			uint32_t type :5;
+			uint32_t dpl :2;
+			uint32_t p :1;
+
+			uint32_t seg_limit1 : 4;
+			uint32_t AVL :1;
+			uint32_t ZERO :1;
+			uint32_t B :1;
+			// depending on the setting of the granularity bit:
+			// 1 In units of one byte, to define a limit of up to 1 megabyte. (DWORD)Limit & 0X000FFFFF
+			// 2 In units of 4 Kilobytes, to define a limit of up to 4 gigabytes.¡¢ ((DWORD)Limit << 12) | 0XFFFFFFFF£©
+			//  The limit is shifted left by 12 bits when loaded, and low-order one-bits are inserted.
+			uint32_t G :1;
+			uint32_t seg_base2 : 8;
+		};
+	};
+	
+}Descriptor;
 
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);

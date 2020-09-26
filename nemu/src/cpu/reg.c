@@ -153,3 +153,7 @@ void overflow_flag(int dest, int src){
 	}
 	// return res;
 }
+
+void load_descriptor(){
+	
+}
