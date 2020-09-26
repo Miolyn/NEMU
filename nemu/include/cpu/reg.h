@@ -179,7 +179,8 @@ extern const char* regsb[];
 extern const char* regef[];
 
 extern uint32_t get_reg_by_str(bool *success, char *e);
-
+extern void load_descriptor(uint8_t sReg);
+extern lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);
 #define cf_sub(dest, src) cpu.CF = dest < src
 #define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
 #define sf_add(dest, src) cpu.SF = ((dest + src) < 0)

@@ -83,6 +83,9 @@ static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
 	cpu.cr0.protect_enable = 1;
+	if(!cpu.cr0.protect_enable){
+		#undef IA32_SEG
+	}
 	int i;
 	for(i = R_CS; i <= R_GS; i++){
 		cpu.sRegs[i].selector.val = 0;
