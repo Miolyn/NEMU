@@ -104,7 +104,7 @@ typedef struct {
 	union {
 		SegReg sRegs[6];
 		struct{
-			SegReg es, cs, ds, ss, fs, gs;
+			SegReg es, cs, ss, ds, fs, gs;
 		};
 	};
 	
