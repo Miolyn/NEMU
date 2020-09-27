@@ -190,30 +190,25 @@ lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg){
 	}
 }
 
-LinearAddr load_lnAddr(lnaddr_t addr){
-	LinearAddr lnAddr;
-	lnAddr.offset = addr & 0xfff;
-	lnAddr.page = (addr >> 12) & 0x3ff;
-	lnAddr.dir = (addr >> 22) & 0x3ff;
-	return lnAddr;
-}
-
 uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	if(!cpu.cr0.protect_enable || !cpu.cr0.paging){
 		return addr;
 	}
+	PageTableEntry dirPageEntry;
+	PageTableEntry pageEntry;
+	LinearAddr lnAddr;
 	
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
-	LinearAddr lnAddr = load_lnAddr(addr);
+	lnAddr.val = addr;
 	printf("addr:0x%x\n", addr);
-	printf("dir:%x,page:%x,off%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
+	printf("dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
-	PageTableEntry dirPageEntry;
 	dirPageEntry.val = dirPageEntryVal;
 	assert(dirPageEntry.p);
+	printf("dirPageEntry.pageFrameAddr:%x", FRAME_ADDR(dirPageEntry.pageFrameAddr));
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
-	PageTableEntry pageEntry;
 	pageEntry.val = pageEntryVal;
+	printf("pageEntry.pageFrameAddr:%x", FRAME_ADDR(pageEntry.pageFrameAddr));
 	assert(pageEntry.p);
 	uint32_t res;
 	if(lnAddr.offset + len <= 1 << 12){
