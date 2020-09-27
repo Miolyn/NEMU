@@ -199,16 +199,17 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	LinearAddr lnAddr;
 	
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
+	printf("baseAddr:%x\n", dirBaseAddr);
 	lnAddr.val = addr;
 	printf("addr:0x%x\n", addr);
 	printf("dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	dirPageEntry.val = dirPageEntryVal;
 	assert(dirPageEntry.p);
-	printf("dirPageEntry.pageFrameAddr:%x", FRAME_ADDR(dirPageEntry.pageFrameAddr));
+	printf("dirPageEntry.pageFrameAddr:%x\n", FRAME_ADDR(dirPageEntry.pageFrameAddr));
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
-	printf("pageEntry.pageFrameAddr:%x", FRAME_ADDR(pageEntry.pageFrameAddr));
+	printf("pageEntry.pageFrameAddr:%x\n", FRAME_ADDR(pageEntry.pageFrameAddr));
 	assert(pageEntry.p);
 	uint32_t res;
 	if(lnAddr.offset + len <= 1 << 12){
