@@ -20,7 +20,7 @@ make_helper(mov_r2cr_v){
     if(op_dest->reg == 0){
         printf("mov %d 2 cr0\n", op_dest->reg);
         cpu.cr0.val = reg_l(op_src->reg);
-        printf("cr0 pe:%d\n", cpu.cr0.protect_enable);
+        printf("cr0 pe:%d, pagin:%d\n", cpu.cr0.protect_enable, cpu.cr0.paging);
     } else if(op_dest->reg == 3){
         cpu.cr3.val = reg_l(op_src->reg);
         printf("page addr%x\n", cpu.cr3.page_directory_base);
