@@ -89,7 +89,7 @@ static void init_register(){
 	}
 	cpu.cs.seg_limit = 0xffffffff;
 	cpu.ds.seg_limit = 0xffffffff;
-	cpu.ss.seg_limit = 0xffffffff;
+	// cpu.ss.seg_limit = 0xffffffff;
 	cpu.gdtr.base_addr = 0;
 	cpu.gdtr.table_limit = 0x3ff;
 }
