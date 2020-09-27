@@ -17,7 +17,7 @@ make_helper(mov_cr2r_v){
 make_helper(mov_r2cr_v){
     // assert(cpu.cr0.protect_enable == 0);
     decode_rm2r_l(eip + 1);
-    printf("op_dest:%d\n", op_dest->reg);
+    printf("op_dest:%d\n", op_dest->val);
     if(op_dest->val == 0){
         printf("mov %d 2 cr0\n", op_dest->reg);
         cpu.cr0.val = reg_l(op_src->reg);
