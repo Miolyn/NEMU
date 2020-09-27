@@ -11,7 +11,7 @@ make_helper(mov_sreg2rm_w){
 
 make_helper(mov_rm2sreg_w){
     decode_rm2r_w(eip + 1);
-    printf("op_dest->reg:%d\n", op_dest->reg);
+    printf("sreg:%d\n", op_dest->sreg);
     // cpu.sRegs[op_dest->sreg].selector.val = reg_w(op_src->reg);
     cpu.sRegs[op_dest->sreg].selector.val = reg_w(R_EAX);
     load_descriptor(op_dest->sreg);
