@@ -191,7 +191,7 @@ static inline int check_reg_index(int index) {
 #define sign_bit16(res) ((res >> 15) & 1)
 #define sign_bit8(res) ((res >> 7) & 1)
 #define low8(res) (res & 0xFF)
-#define FRAME_ADDR(addr) (addr << 0)
+#define FRAME_ADDR(addr) (addr << 12)
 extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
 extern int carry_flag_sub(int dest, int src);
