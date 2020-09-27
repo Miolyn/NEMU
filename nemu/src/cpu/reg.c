@@ -185,7 +185,6 @@ lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg){
 	assert(lnAddr + 4 <= cpu.sRegs[sReg].seg_limit);
 // #ifdef IA32_SEG
 	if(cpu.cr0.protect_enable){
-		assert(0);
 		return lnAddr;
 	} else{
 		return addr;
