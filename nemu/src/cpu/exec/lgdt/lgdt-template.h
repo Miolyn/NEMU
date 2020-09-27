@@ -14,7 +14,7 @@ make_helper(concat(lgdt_m_, SUFFIX)){
     }
     cpu.gdtr.base_addr = base;
     cpu.gdtr.table_limit = limit;
-    print_asm(str(instr) str(SUFFIX) " %u", op_src->addr);
+    print_asm(str(instr) str(SUFFIX) " %x", op_src->addr);
     return len + 1;
 }
 #endif
