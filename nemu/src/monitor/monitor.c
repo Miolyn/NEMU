@@ -87,6 +87,7 @@ static void init_register(){
 	for(i = R_CS; i <= R_GS; i++){
 		cpu.sRegs[i].selector.val = 0;
 	}
+	cpu.cs.seg_limit = 0xffffffff;
 	cpu.gdtr.base_addr = 0;
 	cpu.gdtr.table_limit = 0x3ff;
 }
