@@ -25,9 +25,9 @@ make_helper(rep) {
 				|| ops_decoded.opcode == 0xae	// scasb
 				|| ops_decoded.opcode == 0xaf	// scasw
 				);
-
+			uint32_t oc = ops_decoded.opcode;
 			// /* TODO: Jump out of the while loop if necessary. */
-			if(ops_decoded.opcode >= 0xa6 && !cpu.ZF){
+			if((oc == 0xa6 || oc == 0xa7 || oc == 0xae || oc == 0xaf) && !cpu.ZF){
 				printf("error\n");
 				break;
 			}
