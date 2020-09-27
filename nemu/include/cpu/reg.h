@@ -180,6 +180,7 @@ static inline int check_reg_index(int index) {
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
 #define reg_eip cpu.eip
+#define PAGE_FRAME_SIZE (1 << 12)
 // #define reg_eflags(pos) cpu.eflags[pos]._1
 // #define set_eflags(pos) cpu.eflags[pos]._1 = 1
 // #define reset_eflags(pos) cpu.eflags[pos]._1 = 0
@@ -207,6 +208,7 @@ extern uint32_t cSreg;
 extern uint32_t get_reg_by_str(bool *success, char *e);
 extern void load_descriptor(uint8_t sReg);
 extern lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);
+extern uint32_t page_translate(lnaddr_t addr, uint32_t len);
 #define cf_sub(dest, src) cpu.CF = dest < src
 #define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
 #define sf_add(dest, src) cpu.SF = ((dest + src) < 0)

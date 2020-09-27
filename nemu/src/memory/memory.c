@@ -13,13 +13,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	dram_write(addr, len, data);
 }
 
-uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
-}
 
-void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-	hwaddr_write(addr, len, data);
-}
 
 uint32_t swaddr_read_(swaddr_t addr, size_t len) {
 #ifdef DEBUG
