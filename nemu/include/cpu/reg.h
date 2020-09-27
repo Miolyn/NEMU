@@ -147,6 +147,30 @@ typedef struct{
 	
 }Descriptor;
 
+typedef union{
+	uint32_t val;
+	struct{
+		uint32_t offset : 12;
+		uint32_t page : 10;
+		uint32_t dir : 10;
+	};
+}LinearAddr;
+
+typedef union{
+	uint32_t val;
+	struct{
+		uint32_t p : 1;
+		uint32_t R_W : 1;
+		uint32_t U_S : 1;
+		uint32_t : 2;
+		uint32_t A : 1;
+		uint32_t D : 1;
+		uint32_t : 2;
+		uint32_t AVAIL : 3;
+		uint32_t pageFrameAddr : 20;
+	};
+} PageTableEntry;
+
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
 	return index;
