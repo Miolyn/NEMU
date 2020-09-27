@@ -197,17 +197,17 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
 	LinearAddr lnAddr;
 	lnAddr.val = addr;
-	uint32_t dirPageEntryVal = hwaddr_read(dirBaseAddr + lnAddr.dir * 4, 4);
+	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	PageTableEntry dirPageEntry;
 	dirPageEntry.val = dirPageEntryVal;
 	assert(dirPageEntry.p);
-	uint32_t pageEntryVal = hwaddr_read(dirPageEntry.pageFrameAddr + lnAddr.page * 4, 4);
+	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	PageTableEntry pageEntry;
 	pageEntry.val = pageEntryVal;
 	assert(pageEntry.p);
 	uint32_t res;
 	if(lnAddr.offset + len <= 1 << 12){
-		res = hwaddr_read(pageEntry.pageFrameAddr + lnAddr.offset, len);
+		res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, len);
 	} else{
 		assert(0);
 	}
