@@ -52,3 +52,4 @@
 #include "lgdt/lgdt.h"
 #include "sp-mov/spmov.h"
 #include "data-mov/movsreg.h"
+#include "std/std.h"
