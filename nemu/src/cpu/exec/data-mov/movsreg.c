@@ -9,11 +9,8 @@ make_helper(mov_sreg2rm_w){
 
 make_helper(mov_rm2sreg_w){
     decode_rm2r_w(eip + 1);
-    // cpu.sRegs[op_src->sreg].selector.val = reg_w(op_dest->reg);
-    // printf("op_src %d\n", op_src->reg);
-    // printf("sreg %d\n", op_dest->sreg);
+    printf("reg:val:%d\n", reg_w(op_src->reg));
     cpu.sRegs[op_dest->sreg].selector.val = reg_w(op_src->reg);
-    if(op_dest->sreg == R_SS) printf("hello\n");
     load_descriptor(op_dest->sreg);
     print_asm("movsreg " "sreg%d", op_dest->sreg);
     return 2;
