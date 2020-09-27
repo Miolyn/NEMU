@@ -28,7 +28,6 @@ make_helper(rep) {
 			uint32_t oc = ops_decoded.opcode;
 			// /* TODO: Jump out of the while loop if necessary. */
 			if((oc == 0xa6 || oc == 0xa7 || oc == 0xae || oc == 0xaf) && !cpu.ZF){
-				printf("error\n");
 				break;
 			}
 		}
