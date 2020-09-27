@@ -160,15 +160,11 @@ void load_descriptor(uint8_t sReg){
 	uint32_t baseAddr = cpu.gdtr.base_addr;
 	uint32_t index = cpu.sRegs[sReg].selector.index;
 	Descriptor des;
-	printf("gdtr:%x\n", cpu.gdtr.base_addr);
-	printf("index:%x\n", index);
-	printf("addr:0x%x\n", baseAddr + index * 8);
 	des.dword0 = lnaddr_read(baseAddr + index * 8, 4);
 	des.dword1 = lnaddr_read(baseAddr + index * 8 + 4, 4);
 	cpu.sRegs[sReg].base_addr0 = des.seg_base0;
 	cpu.sRegs[sReg].base_addr1 = des.seg_base1;
 	cpu.sRegs[sReg].base_addr2 = des.seg_base2;
-	printf("base addr:%x", cpu.sRegs[sReg].base_addr);
 	cpu.sRegs[sReg].seg_limit0 = des.seg_limit0;
 	cpu.sRegs[sReg].seg_limit1 = des.seg_limit1;
 
@@ -185,7 +181,6 @@ void load_descriptor(uint8_t sReg){
 lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg){
 	lnaddr_t baseAddr = cpu.sRegs[sReg].base_addr;
 	lnaddr_t lnAddr = (baseAddr << 4) + addr;
-	printf("addr:%x,limit%x\n", lnAddr, cpu.sRegs[sReg].seg_limit);
 	assert(lnAddr + 4 <= cpu.sRegs[sReg].seg_limit);
 #ifdef IA32_SEG
 	return lnAddr;
