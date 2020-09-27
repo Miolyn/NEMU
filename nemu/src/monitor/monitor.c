@@ -82,7 +82,10 @@ static void load_entry() {
 static void init_register(){
 	cpu.eip = ENTRY_START;
 	cpu.ef = 0x2;
+	// open the protect mode
 	cpu.cr0.protect_enable = 1;
+	// open the page mode
+	cpu.cr0.paging = 1;
 	int i;
 	for(i = R_CS; i <= R_GS; i++){
 		cpu.sRegs[i].selector.val = 0;
@@ -110,3 +113,4 @@ void restart() {
 	/* Initialize DRAM. */
 	init_ddr3();
 }
+

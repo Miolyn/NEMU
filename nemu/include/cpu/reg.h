@@ -25,7 +25,9 @@ typedef union{
 }Selector;
 
 typedef struct {
+	// visible
 	Selector selector;
+	// invisible
 	union{
 		struct{
 			// the base addr of the segment
