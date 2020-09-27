@@ -22,6 +22,7 @@ make_helper(mov_r2cr_v){
         cpu.cr0.val = reg_l(op_src->reg);
         printf("cr0 pe:%d\n", cpu.cr0.protect_enable);
     } else if(op_dest->reg == 3){
+        assert(0);
         cpu.cr3.val = reg_l(op_src->reg);
     }
     return 2;
