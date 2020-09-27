@@ -106,7 +106,6 @@ void cpu_exec(volatile uint32_t n) {
 		printf("cnt:%d\n", cnt);
 		}
 		cpu.eip += instr_len;
-
 #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len);
 		strcat(asm_buf, assembly);
