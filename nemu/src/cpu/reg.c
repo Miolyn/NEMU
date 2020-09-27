@@ -190,14 +190,21 @@ lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg){
 	}
 }
 
+LinearAddr load_lnAddr(lnaddr_t addr){
+	LinearAddr lnAddr;
+	lnAddr.offset = addr & 0xfff;
+	lnAddr.page = (addr >> 12) & 0x3ff;
+	lnAddr.dir = (addr >> 22) & 0x3ff;
+	return lnAddr;
+}
+
 uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	if(!cpu.cr0.protect_enable || !cpu.cr0.paging){
 		return addr;
 	}
 	
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
-	LinearAddr lnAddr;
-	lnAddr.val = addr;
+	LinearAddr lnAddr = load_lnAddr(addr);
 	printf("addr:0x%x\n", addr);
 	printf("dir:%x,page:%x,off%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
