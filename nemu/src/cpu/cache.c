@@ -180,7 +180,6 @@ uint32_t c_read(uint32_t addr, uint32_t len){
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     memset(buf, 0, sizeof(uint8_t) * 64);
     cache_l1.cache_read(&cache_l1, buf, addr, len);
     return buf2uint(buf);
@@ -190,7 +189,6 @@ void c_write(uint32_t addr, uint32_t len, uint32_t data){
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
     memset(buf, 0, sizeof(uint8_t) * 64);
     uint2buf(buf, data);
     cache_l1.cache_write(&cache_l1, buf, addr, len);
