@@ -6,7 +6,7 @@ make_helper(mov_cr2r_v){
     if(op_src->reg == 0){
         printf("mov cr0 2 %d\n", op_dest->reg);
         reg_l(op_dest->reg) = cpu.cr0.val;
-        printf("cr0 pe:%d\n", cpu.cr0.protect_enable);
+        printf("cr0 pe:%d, pagin:%d\n", cpu.cr0.protect_enable, cpu.cr0.paging);
     } else if(op_src->reg == 3){
         reg_l(op_dest->reg) = cpu.cr3.val;
     }
