@@ -49,7 +49,6 @@ int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 	}
 	// insert
 	if(base_reg == R_ESP || base_reg == R_EBP || index_reg == R_ESP || index_reg == R_EBP){
-		printf("base_reg:%d,index_reg:%x\n", base_reg, index_reg);
 		rm->sreg = R_SS;
 	} else{
 		rm->sreg = R_DS;
@@ -129,7 +128,7 @@ int read_ModR_M(swaddr_t eip, Operand *rm, Operand *reg) {
 	}
 	else {
 		int instr_len = load_addr(eip, &m, rm);
-		
+		printf("addr:%x\n", rm->addr);
 		rm->val = swaddr_read(rm->addr, rm->size, rm->sreg);
 		return instr_len;
 	}
