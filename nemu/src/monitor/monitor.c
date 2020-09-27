@@ -91,7 +91,9 @@ static void init_register(){
 		cpu.sRegs[i].selector.val = 0;
 	}
 	cpu.cs.seg_limit = 0xffffffff;
+	cpu.cs.base_addr = 0;
 	cpu.ds.seg_limit = 0xffffffff;
+	cpu.ds.base_addr = 0;
 	cpu.gdtr.base_addr = 0;
 	cpu.gdtr.table_limit = 0x3ff;
 }
