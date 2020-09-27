@@ -47,10 +47,10 @@ int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 	if(index_reg != -1) {
 		addr += reg_l(index_reg) << scale;
 	}
-	// insert
 	if(base_reg == R_ESP || base_reg == R_EBP || index_reg == R_ESP || index_reg == R_EBP){
 		rm->sreg = R_SS;
 	} else{
+		printf("%d\n", R_DS);
 		rm->sreg = R_DS;
 	}
 #ifdef DEBUG
