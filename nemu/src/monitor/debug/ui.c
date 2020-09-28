@@ -180,6 +180,18 @@ static int cmd_bt(char *args){
     return 0;
 }
 
+
+static int cmd_page(char *args){
+    bool success = true;
+    uint32_t res = expr(args, &success);
+    if (!success){
+        printf("error expression\n");
+        return 0;
+    }
+    uint32_t addr = page_translate(res, 4);
+    printf("addr after page translate: 0x%x\n", addr);
+    return 0;
+}
 // function test2
 static struct {
 	char *name;
@@ -200,7 +212,7 @@ static struct {
     {"d", "delete watch point", cmd_d},
     {"pt", "print esp", cmd_pt},
     {"bt", "print the stack link", cmd_bt},
-
+    {"page", "print the page addr after page translate", cmd_page},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
