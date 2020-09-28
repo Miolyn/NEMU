@@ -236,7 +236,11 @@ void ui_mainloop() {
 		/* extract the first token as the command */
 		char *cmd = strtok(str, " ");
 		if(cmd == NULL) { continue; }
-        if(strcmp(cmd, "=")) de = true;
+        if(strcmp(cmd, "=")) {
+            de = true; 
+            printf("debug on\n");
+            continue;
+        }
 		/* treat the remaining string as the arguments,
 		 * which may need further parsing
 		 */
