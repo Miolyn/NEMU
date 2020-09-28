@@ -211,7 +211,8 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	assert(pageEntry.p);
 	uint32_t res;
 	if(lnAddr.offset + len <= 1 << 12){
-		res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, len);
+		// res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, len);
+		res = FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset;
 		printf("page addr:0x%x\n", res);
 	} else{
 		assert(0);

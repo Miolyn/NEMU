@@ -11,7 +11,7 @@
 
 static inline uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	if(cpu.cr0.paging){
-		printf("eip after page on:0x%x\n", addr);
+		// printf("eip after page on:0x%x\n", addr);
 	}
 	return swaddr_read(addr, len, R_CS);
 }

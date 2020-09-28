@@ -198,7 +198,7 @@ static int cmd_page(char *args){
 	printf("lnaddr: dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	dirPageEntry.val = dirPageEntryVal;
-	printf("dirPageEntry.pageFrameAddr:%x, pageIndex:%d,val:%x\n", FRAME_ADDR(dirPageEntry.pageFrameAddr), lnAddr.dir, dirPageEntryVal);
+	printf("dirPageEntry.pageFrameAddr:%x, pageIndex:%x,val:%x\n", FRAME_ADDR(dirPageEntry.pageFrameAddr), lnAddr.dir, dirPageEntryVal);
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
 	printf("pageEntry.pageFrameAddr:%x, pageIndex:%d,val:%x\n", FRAME_ADDR(pageEntry.pageFrameAddr), lnAddr.page, pageEntryVal);

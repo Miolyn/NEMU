@@ -20,10 +20,19 @@ void init_page(void) {
 	memset(pdir, 0, NR_PDE * sizeof(PDE));
 
 	/* fill PDEs */
+	// PHY_MEM 128 * 1024 * 1024
+	// PT_SIZE is the size of a page table eg: 1kb tableEntry * 4kbpageFrame
+	// pdir_idx < 128 / 4 = 32 = 0x20
 	for (pdir_idx = 0; pdir_idx < PHY_MEM / PT_SIZE; pdir_idx ++) {
+		/*
+			#define make_pde(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
+			#define make_pte(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
+		*/
 		pdir[pdir_idx].val = make_pde(ptable);
+		// KOFFSET  0xC0000000
+		// KOFFSET / PT_SIZE = 0x2f
 		pdir[pdir_idx + KOFFSET / PT_SIZE].val = make_pde(ptable);
-
+		// NR_PTE 1024
 		ptable += NR_PTE;
 	}
 
