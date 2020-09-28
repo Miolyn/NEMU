@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
+int de = 0;
 void cpu_exec(uint32_t);
 
 typedef struct {
@@ -236,7 +236,7 @@ void ui_mainloop() {
 		/* extract the first token as the command */
 		char *cmd = strtok(str, " ");
 		if(cmd == NULL) { continue; }
-
+        if(strcmp(cmd, "=")) de = true;
 		/* treat the remaining string as the arguments,
 		 * which may need further parsing
 		 */
