@@ -13,6 +13,7 @@ make_helper(concat(lgdt_m_, SUFFIX)){
         base = lnaddr_read(op_src->addr + 2, 4);
     }
     cpu.gdtr.base_addr = base;
+    printf("seg table base:%x\n", base);
     cpu.gdtr.table_limit = limit;
     print_asm(str(instr) str(SUFFIX) " %x", op_src->addr);
     return len + 1;
