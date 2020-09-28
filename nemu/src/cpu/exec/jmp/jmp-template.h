@@ -24,6 +24,7 @@ make_helper(concat(jmp_rm_, SUFFIX)){
         cpu.eip = op_src->val & 0xffff;
     } else{
         cpu.eip = op_src->val;
+        printf("swaddr jmp:%x\n", swaddr_read(op_src->val, 4, R_DS));
         // cpu.eip = swaddr_read(op_src->val, 4, R_DS);
     }
     print_asm_template1();
