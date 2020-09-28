@@ -10,6 +10,7 @@ make_helper(mov_cr2r_v){
     } else if(op_src->reg == 3){
         reg_l(op_dest->reg) = cpu.cr3.val;
     }
+    print_asm("mov cr%d -> reg%d", op_src->reg, op_dest->reg);
     return 2;
 }
 
@@ -23,7 +24,8 @@ make_helper(mov_r2cr_v){
         printf("cr0 pe:%d, pagin:%d\n", cpu.cr0.protect_enable, cpu.cr0.paging);
     } else if(op_dest->reg == 3){
         cpu.cr3.val = reg_l(op_src->reg);
-        printf("page addr%x\n", cpu.cr3.page_directory_base);
+        printf("page base addr%x\n", cpu.cr3.page_directory_base);
     }
+    print_asm("mov reg%d -> cr%d", op_dest->reg, op_src->reg);
     return 2;
 }
