@@ -202,7 +202,7 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
 	printf("baseAddr:%x\n", dirBaseAddr);
 	lnAddr.val = addr;
-	printf("addr:0x%x\n", addr);
+	printf("baseaddr:0x%x\n", FRAME_ADDR(dirBaseAddr));
 	printf("dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	int i;
 	for(i = 0; i <= lnAddr.dir; i++){
