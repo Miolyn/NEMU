@@ -208,6 +208,9 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 #endif
 
     addr = seg_translate(addr, len, sReg);
+    if(sReg == R_CS){
+        printf("cs addr:%x\n", addr);
+    }
 	int res = c_read(addr, len);
     return res;
 }

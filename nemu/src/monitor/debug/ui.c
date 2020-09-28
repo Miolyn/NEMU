@@ -195,10 +195,6 @@ static int cmd_page(char *args){
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
 	printf("baseAddr:%x\n", dirBaseAddr);
 	lnAddr.val = res;
-    int i;
-	for(i = 0; i <= lnAddr.dir; i++){
-		printf("%x\t", hwaddr_read(FRAME_ADDR(dirBaseAddr) + i * 4, 4));
-	}
 	printf("addr:0x%x\n", res);
 	printf("dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
