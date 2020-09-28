@@ -225,9 +225,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    int tmp = addr;
     addr = seg_translate(addr, len, sReg);
-    assert(tmp == addr);
 	c_write(addr, len, data);
 }
 
@@ -237,6 +235,8 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+    int tmp = addr;
     addr = page_translate(addr, len);
+    assert(tmp == addr);
 	hwaddr_write(addr, len, data);
 }
