@@ -163,6 +163,9 @@ void load_descriptor(uint8_t sReg){
 	des.dword0 = lnaddr_read(baseAddr + index * 8, 4);
 	des.dword1 = lnaddr_read(baseAddr + index * 8 + 4, 4);
 	cpu.sRegs[sReg].base_addr0 = des.seg_base0;
+	printf("des.base0:%x\n", des.seg_base0);
+	printf("des.base1:%x\n", des.seg_base1);
+	printf("des.base2:%x\n", des.seg_base2);
 	cpu.sRegs[sReg].base_addr1 = des.seg_base1;
 	cpu.sRegs[sReg].base_addr2 = des.seg_base2;
 	cpu.sRegs[sReg].seg_limit0 = des.seg_limit0;
