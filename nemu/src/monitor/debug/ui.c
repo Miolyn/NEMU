@@ -109,6 +109,7 @@ static int cmd_x(char *args){
         uint32_t addrI = uAddr + i * 4;
         // uint32_t val = swaddr_read(addrI, 4, R_DS);
         uint32_t val = hwaddr_read(addrI, 4);
+        printf("swaddr:0x%x\n", swaddr_read(addrI, 4, R_DS));
         printf("(+0x%x)addr:0x%x,val:0x%x\n", i * 4, addrI, val);
         int j;
         for(j = 0; j < 4; j++){
