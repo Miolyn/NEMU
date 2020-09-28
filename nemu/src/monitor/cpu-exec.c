@@ -48,7 +48,7 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int cnt = 0;
-	bool de = false;
+	bool de = true;
 	for(; n > 0; n --) {
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
@@ -65,7 +65,7 @@ void cpu_exec(volatile uint32_t n) {
 		// }
 		if(de){
 		printf("----------------------------------------------------------------------------\n");
-		printf("start to exec at eip:%x and opcode is %x\n", cpu.eip, instr_fetch(cpu.eip, 1));
+		printf("start to exec at eip:%x and opcode is %x\n", seg_translate(cpu.eip, 4, R_CS), instr_fetch(cpu.eip, 1));
 		}
 		int instr_len = exec(cpu.eip);
 		if(de){
