@@ -237,8 +237,8 @@ void ui_mainloop() {
 		char *cmd = strtok(str, " ");
 		if(cmd == NULL) { continue; }
         if(strcmp(cmd, "=") == 0) {
-            de = true; 
-            printf("debug on\n");
+            de = !de; 
+            printf("debug %x\n", de);
             continue;
         }
 		/* treat the remaining string as the arguments,
