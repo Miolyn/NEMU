@@ -195,16 +195,15 @@ static int cmd_page(char *args){
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
 	printf("baseAddr:%x\n", dirBaseAddr);
 	lnAddr.val = res;
-	printf("addr:0x%x\n", res);
-	printf("dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
+	printf("lnaddr: dir:%x,page:%x,off:%x\n", lnAddr.dir, lnAddr.page, lnAddr.offset);
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	dirPageEntry.val = dirPageEntryVal;
-	printf("dirPageEntry.pageFrameAddr:%x\n", FRAME_ADDR(dirPageEntry.pageFrameAddr));
+	printf("dirPageEntry.pageFrameAddr:%x, pageIndex:%d,val:%x\n", FRAME_ADDR(dirPageEntry.pageFrameAddr), lnAddr.dir, dirPageEntryVal);
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
-	printf("pageEntry.pageFrameAddr:%x\n", FRAME_ADDR(pageEntry.pageFrameAddr));
+	printf("pageEntry.pageFrameAddr:%x, pageIndex:%d,val:%x\n", FRAME_ADDR(pageEntry.pageFrameAddr), lnAddr.page, pageEntryVal);
     res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, 4);
-    printf("addr after page translate: 0x%x\n", res);
+    printf("offset:%d, addr after page translate: 0x%x\n", lnAddr.offset, res);
     return 0;
 }
 // function test2
