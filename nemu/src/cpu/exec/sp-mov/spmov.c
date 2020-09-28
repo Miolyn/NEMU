@@ -12,7 +12,7 @@ make_helper(mov_cr2r_v){
         // reg_l(op_dest->reg) = cpu.cr3.val;
         reg_l(R_EAX) = cpu.cr3.val;
     }
-    print_asm("mov cr%d -> reg%d", op_src->reg, op_dest->reg);
+    print_asm("mov cr%d -> eax", op_src->reg);
     return 2;
 }
 
@@ -30,6 +30,6 @@ make_helper(mov_r2cr_v){
         cpu.cr3.val = reg_l(R_EAX);
         printf("page base addr%x\n", cpu.cr3.page_directory_base);
     }
-    print_asm("mov reg%d -> cr%d", op_dest->reg, op_src->reg);
+    print_asm("mov eax -> cr%d", op_dest->reg);
     return 2;
 }
