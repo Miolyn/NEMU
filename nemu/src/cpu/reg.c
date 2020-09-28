@@ -168,6 +168,7 @@ void load_descriptor(uint8_t sReg){
 	cpu.sRegs[sReg].seg_limit0 = des.seg_limit0;
 	cpu.sRegs[sReg].seg_limit1 = des.seg_limit1;
 	printf("sreg:%d, base_addr:%x\n", sReg, cpu.sRegs[sReg].base_addr);
+	printf("dword0:%x,dword1:%x\n", des.dword0, des.dword1);
 	if(!des.G){
 		// byte
 		cpu.sRegs[sReg].seg_limit &= 0x000fffff;
