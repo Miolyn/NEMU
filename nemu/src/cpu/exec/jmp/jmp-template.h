@@ -24,7 +24,8 @@ make_helper(concat(jmp_rm_, SUFFIX)){
         cpu.eip = op_src->val & 0xffff;
     } else{
         cpu.eip = op_src->val;
-        // printf("swaddr jmp:%x\n", swaddr_read(op_src->val, 4, R_DS));
+
+        printf("swaddr jmp:%x\n", seg_translate(op_src->val, 4, R_CS));
         // cpu.eip = swaddr_read(op_src->val, 4, R_DS);
     }
     print_asm_template1();
@@ -47,7 +48,6 @@ make_helper(concat(ljmp_ptr_, SUFFIX)){
     }
     cpu.eip = pt0;
     cpu.sRegs[R_CS].selector.val = pt1;
-    printf("cs index%d\n", cpu.sRegs[R_CS].selector.index);
     load_descriptor(R_CS);
     print_asm("ljmp" " %x, %x", pt0, pt1);
     return len;

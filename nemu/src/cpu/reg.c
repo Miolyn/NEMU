@@ -158,7 +158,7 @@ void load_descriptor(uint8_t sReg){
 	assert(cpu.cr0.protect_enable);
 	assert(R_ES <= sReg && sReg <= R_GS);
 	uint32_t baseAddr = cpu.gdtr.base_addr;
-	printf("seg base addr:%x\n", baseAddr);
+	// printf("seg base addr:%x\n", baseAddr);
 	uint32_t index = cpu.sRegs[sReg].selector.index;
 	Descriptor des;
 	des.dword0 = lnaddr_read(baseAddr + index * 8, 4);
@@ -168,7 +168,7 @@ void load_descriptor(uint8_t sReg){
 	cpu.sRegs[sReg].base_addr2 = des.seg_base2;
 	cpu.sRegs[sReg].seg_limit0 = des.seg_limit0;
 	cpu.sRegs[sReg].seg_limit1 = des.seg_limit1;
-	printf("sreg:%d, base:%d\n", sReg, cpu.sRegs[sReg].base_addr);
+	// printf("sreg:%d, base:%d\n", sReg, cpu.sRegs[sReg].base_addr);
 	if(!des.G){
 		// byte
 		cpu.sRegs[sReg].seg_limit &= 0x000fffff;
