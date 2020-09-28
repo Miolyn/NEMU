@@ -11,6 +11,7 @@ make_helper(concat(lgdt_m_, SUFFIX)){
         base = swaddr_read(op_src->addr + 2, 3, R_DS);
     } else{
         base = swaddr_read(op_src->addr + 2, 4, R_DS);
+        assert(0);
     }
     cpu.gdtr.base_addr = base;
     cpu.gdtr.table_limit = limit;
