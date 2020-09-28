@@ -11,7 +11,7 @@ make_helper(concat(jmp_rel_, SUFFIX)){
     } else{
         cpu.eip = eip + op_src->val;
     }
-    reset_all_eflags();
+    // reset_all_eflags();
     print_asm_template1();
     return len;
 }
@@ -24,11 +24,11 @@ make_helper(concat(jmp_rm_, SUFFIX)){
         cpu.eip = op_src->val & 0xffff;
     } else{
         cpu.eip = op_src->val;
-        printf("swaddr jmp:%x\n", swaddr_read(op_src->val, 4, R_DS));
+        // printf("swaddr jmp:%x\n", swaddr_read(op_src->val, 4, R_DS));
         // cpu.eip = swaddr_read(op_src->val, 4, R_DS);
     }
     print_asm_template1();
-    reset_all_eflags();
+    // reset_all_eflags();
     return 0;
 }
 
