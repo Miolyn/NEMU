@@ -23,7 +23,8 @@ make_helper(concat(jmp_rm_, SUFFIX)){
     if(ops_decoded.is_operand_size_16){
         cpu.eip = op_src->val & 0xffff;
     } else{
-        cpu.eip = op_src->val;
+        // cpu.eip = op_src->val;
+        cpu.eax = swaddr_read(op_src->val, 4, R_DS);
     }
     print_asm_template1();
     reset_all_eflags();
