@@ -160,6 +160,7 @@ void load_descriptor(uint8_t sReg){
 	uint32_t baseAddr = cpu.gdtr.base_addr;
 	uint32_t index = cpu.sRegs[sReg].selector.index;
 	Descriptor des;
+	printf("index:%x\n", cpu.sRegs[sReg].selector.index);
 	des.dword0 = lnaddr_read(baseAddr + index * 8, 4);
 	des.dword1 = lnaddr_read(baseAddr + index * 8 + 4, 4);
 	cpu.sRegs[sReg].base_addr0 = des.seg_base0;
