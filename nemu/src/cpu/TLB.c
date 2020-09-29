@@ -7,6 +7,7 @@ void reset_tlb(){
     srand((int)time(0));
     int i;
     if(TLB.TLBLines == NULL){
+        printf("inti tlb\n");
         TLB.TLBLines = (TLBLine*)malloc(TLB_LINE_NUM * sizeof(TLBLine));
     }
     for(i = 0; i < TLB.lineNum; i++){
@@ -28,6 +29,7 @@ uint32_t read_tlb(uint32_t lnAddr, bool *success){
 }
 
 void write_tlb(uint32_t lnAddr, uint32_t addr){
+    uint32_t v_addr = lnAddr >> 12;
     int i;
     for(i = 0; i < TLB.lineNum; i++){
         if(!TLB.TLBLines[i].valid_bit){
@@ -38,6 +40,6 @@ void write_tlb(uint32_t lnAddr, uint32_t addr){
         i = random(TLB.lineNum);
     }
     TLB.TLBLines[i].valid_bit = 1;
-    TLB.TLBLines[i].tag = ((lnAddr >> 12) & 0xfffff);
+    TLB.TLBLines[i].tag = v_addr;
     TLB.TLBLines[i].addr = addr;
 }
