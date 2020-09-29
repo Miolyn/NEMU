@@ -24,6 +24,7 @@ void create_video_mapping() {
 }
 
 void video_mapping_write_test() {
+	assert(0);
 	int i;
 	uint32_t *buf = (void *)VMEM_ADDR;
 	for(i = 0; i < SCR_SIZE / 4; i ++) {
