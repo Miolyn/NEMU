@@ -2,7 +2,7 @@
 #include "x86.h"
 #include "memory.h"
 #include <string.h>
-
+// #define align_to_page              __attribute((aligned(PAGE_SIZE)))
 static PDE kpdir[NR_PDE] align_to_page;						// kernel page directory
 static PTE kptable[PHY_MEM / PAGE_SIZE] align_to_page;		// kernel page tables
 
@@ -107,3 +107,7 @@ init_segment(void) {
 	write_gdtr(gdt, sizeof(gdt));
 }
 
+
+PTE* getPde(){
+	return (PTE *)va_to_pa(kptable);
+}
