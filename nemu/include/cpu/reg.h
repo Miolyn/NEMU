@@ -171,6 +171,17 @@ typedef union{
 	};
 } PageTableEntry;
 
+typedef struct{
+	uint32_t tag :20;
+	uint32_t valid_bit:1;
+	uint32_t addr;
+}TLBLine;
+
+typedef struct {
+	TLBLine *TLBLines;
+	int lineNum;
+} TLBCache;
+extern TLBCache TLB;
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
 	return index;
@@ -192,6 +203,7 @@ static inline int check_reg_index(int index) {
 #define sign_bit8(res) ((res >> 7) & 1)
 #define low8(res) (res & 0xFF)
 #define FRAME_ADDR(addr) (addr << 12)
+#define TLB_LINE_NUM 64
 extern void reset_all_eflags();
 extern int carry_flag(int dest, int src);
 extern int carry_flag_sub(int dest, int src);
@@ -210,6 +222,9 @@ extern uint32_t get_reg_by_str(bool *success, char *e);
 extern void load_descriptor(uint8_t sReg);
 extern lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);
 extern uint32_t page_translate(lnaddr_t addr, uint32_t len);
+extern void reset_tlb();
+extern uint32_t read_tlb(uint32_t lnAddr, bool *success);
+extern void write_tlb(uint32_t lnAddr, uint32_t addr);
 #define cf_sub(dest, src) cpu.CF = dest < src
 #define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
 #define sf_add(dest, src) cpu.SF = ((dest + src) < 0)

@@ -28,6 +28,7 @@ make_helper(mov_r2cr_v){
     } else if(op_dest->reg == 3){
         // cpu.cr3.val = reg_l(op_src->reg);
         cpu.cr3.val = reg_l(R_EAX);
+        reset_tlb();
         // printf("page base addr%x\n", cpu.cr3.page_directory_base);
     }
     print_asm("mov eax -> cr%d", op_dest->reg);
