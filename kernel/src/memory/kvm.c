@@ -108,6 +108,6 @@ init_segment(void) {
 }
 
 
-PTE* getPde(){
+PTE* getPTE(){
 	return (PTE *)va_to_pa(kptable);
 }
