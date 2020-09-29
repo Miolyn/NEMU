@@ -13,18 +13,17 @@ void create_video_mapping() {
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-	// PTE *ptable = getPTE();
-	// int i = VMEM_ADDR / PAGE_SIZE;
-	// uint32_t pframe_addr = (uint32_t)((void*)VMEM_ADDR);
-	// for(; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++){
-	// 	ptable[i].val = make_pte(pframe_addr);
-	// 	pframe_addr += PAGE_SIZE;
-	// }
+	PTE *ptable = getPTE();
+	int i = VMEM_ADDR / PAGE_SIZE;
+	char *pframe_addr = (char*)((void*)VMEM_ADDR);
+	for(; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++){
+		ptable[i].val = make_pte(pframe_addr);
+		pframe_addr += PAGE_SIZE;
+	}
 	// panic("please implement me");
 }
 
 void video_mapping_write_test() {
-	assert(0);
 	int i;
 	uint32_t *buf = (void *)VMEM_ADDR;
 	for(i = 0; i < SCR_SIZE / 4; i ++) {
