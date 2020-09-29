@@ -13,9 +13,10 @@ void create_video_mapping() {
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
+	// return (PTE *)va_to_pa(kptable);
 	PTE *ptable = getPTE();
 	int i = VMEM_ADDR / PAGE_SIZE;
-	char *pframe_addr = (char*)((void*)VMEM_ADDR);
+	void *pframe_addr = ((void*)VMEM_ADDR);
 	for(; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++){
 		ptable[i].val = make_pte(pframe_addr);
 		pframe_addr += PAGE_SIZE;
