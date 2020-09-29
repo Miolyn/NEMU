@@ -21,7 +21,7 @@ void create_video_mapping() {
 		ptable[i].val = make_pte(pframe_addr);
 		pframe_addr += PAGE_SIZE;
 	}
-	panic("please implement me");
+	// panic("please implement me");
 }
 
 void video_mapping_write_test() {
