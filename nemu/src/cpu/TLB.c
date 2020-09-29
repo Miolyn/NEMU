@@ -7,9 +7,9 @@ void reset_tlb(){
     srand((int)time(0));
     int i;
     if(TLB.TLBLines == NULL){
-        printf("inti tlb\n");
         TLB.TLBLines = (TLBLine*)malloc(TLB_LINE_NUM * sizeof(TLBLine));
     }
+        printf("inti tlb\n");
     for(i = 0; i < TLB.lineNum; i++){
         TLB.TLBLines[i].valid_bit = 0;
     }
