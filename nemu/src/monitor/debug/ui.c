@@ -202,7 +202,7 @@ static int cmd_page(char *args){
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
 	printf("pageEntry.pageFrameAddr:%x, pageIndex:%d,val:%x\n", FRAME_ADDR(pageEntry.pageFrameAddr), lnAddr.page, pageEntryVal);
-    res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, 4);
+    res = FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset;
     printf("offset:%d, addr after page translate: 0x%x\n", lnAddr.offset, res);
     return 0;
 }
