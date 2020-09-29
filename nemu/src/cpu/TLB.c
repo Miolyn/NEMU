@@ -9,13 +9,13 @@ void reset_tlb(){
     if(TLB.TLBLines == NULL){
         TLB.TLBLines = (TLBLine*)malloc(TLB_LINE_NUM * sizeof(TLBLine));
     }
-        printf("inti tlb\n");
     for(i = 0; i < TLB.lineNum; i++){
         TLB.TLBLines[i].valid_bit = 0;
     }
 }
 
 uint32_t read_tlb(uint32_t lnAddr, bool *success){
+    return lnAddr;
     uint32_t v_addr = lnAddr >> 12;
     int i;
     for(i = 0; i < TLB.lineNum; i++){
@@ -29,6 +29,7 @@ uint32_t read_tlb(uint32_t lnAddr, bool *success){
 }
 
 void write_tlb(uint32_t lnAddr, uint32_t addr){
+    return;
     uint32_t v_addr = lnAddr >> 12;
     int i;
     for(i = 0; i < TLB.lineNum; i++){
