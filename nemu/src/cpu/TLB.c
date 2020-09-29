@@ -20,7 +20,6 @@ uint32_t read_tlb(uint32_t lnAddr, bool *success){
     for(i = 0; i < TLB.lineNum; i++){
         if(TLB.TLBLines[i].valid_bit && TLB.TLBLines[i].tag == v_addr){
             *success = true;
-            printf("hit %x\n", TLB.TLBLines[i].addr);
             return TLB.TLBLines[i].addr;
         }
     }
