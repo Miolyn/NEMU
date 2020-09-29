@@ -172,7 +172,7 @@ typedef union{
 } PageTableEntry;
 
 typedef struct{
-	uint32_t tag :20;
+	uint32_t tag ;
 	uint32_t valid_bit:1;
 	uint32_t addr;
 }TLBLine;

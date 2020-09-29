@@ -15,7 +15,6 @@ void reset_tlb(){
 }
 
 uint32_t read_tlb(uint32_t lnAddr, bool *success){
-    return lnAddr;
     uint32_t v_addr = lnAddr >> 12;
     int i;
     for(i = 0; i < TLB.lineNum; i++){
@@ -29,7 +28,6 @@ uint32_t read_tlb(uint32_t lnAddr, bool *success){
 }
 
 void write_tlb(uint32_t lnAddr, uint32_t addr){
-    return;
     uint32_t v_addr = lnAddr >> 12;
     int i;
     for(i = 0; i < TLB.lineNum; i++){
