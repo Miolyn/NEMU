@@ -26,14 +26,7 @@ void create_video_mapping() {
 		pt[(addr >> 12) & 0x3ff].val = make_pte(addr);
 		addr += PAGE_SIZE;
 	}
-	// PTE *ptable = getPTE();
-	// int i = VMEM_ADDR / PAGE_SIZE;
-	// void *pframe_addr = ((void*)VMEM_ADDR);
-	// for(; i < (VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1; i++){
-	// 	ptable[i].val = make_pte(pframe_addr);
-	// 	pframe_addr += PAGE_SIZE;
-	// }
-	// panic("please implement me");
+
 }
 
 void video_mapping_write_test() {
