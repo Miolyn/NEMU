@@ -5,7 +5,7 @@
 #define SCR_SIZE (320 * 200)
 #define NR_PT ((SCR_SIZE + PT_SIZE - 1) / PT_SIZE)
 /* Use the function to get the start address of user page directory. */
-PDE* get_kpdir();
+PDE* get_updir();
 PTE my_pt[1][NR_PTE] align_to_page;
 void create_video_mapping() {
 	/* TODO: create an identical mapping from virtual memory area 
@@ -14,7 +14,7 @@ void create_video_mapping() {
 	 * some page tables to create this mapping.
 	 */
 
-	PDE *pdir = get_kpdir();
+	PDE *pdir = get_updir();
 	PTE *pt = my_pt[0];
 	pdir[0].val = make_pde(va_to_pa(pt));
 	int total = SCR_SIZE / PAGE_SIZE + 1;
