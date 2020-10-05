@@ -10,6 +10,7 @@ void init_idt();
 void init_mm();
 uint32_t loader();
 
+void create_video_mapping();
 void video_mapping_write_test();
 void video_mapping_read_test();
 void video_mapping_clear();

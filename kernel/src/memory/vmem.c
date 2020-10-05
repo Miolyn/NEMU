@@ -22,7 +22,6 @@ void create_video_mapping() {
 	int total = SCR_SIZE / PAGE_SIZE + 1;
 	uint32_t addr = VMEM_ADDR;
 	int i = 0;
-	for(; i != -1; i++);
 	for(; i < total; i++){
 		pt[(addr >> 12) & 0x3ff].val = make_pte(addr);
 		addr += PAGE_SIZE;
