@@ -16,9 +16,9 @@ void create_video_mapping() {
 	 */
 
 
-set_bp();
 	PDE *pdir = get_updir();
 	PTE *pt = my_pt[0];
+	set_bp();
 	pdir[0].val = make_pde(va_to_pa(pt));
 	int total = SCR_SIZE / PAGE_SIZE + 1;
 	uint32_t addr = VMEM_ADDR;
