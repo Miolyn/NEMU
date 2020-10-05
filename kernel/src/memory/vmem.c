@@ -1,7 +1,7 @@
 #include "common.h"
 #include "memory.h"
 #include <string.h>
-
+#include "trap.h"
 #define VMEM_ADDR 0xa0000
 #define SCR_SIZE (320 * 200)
 #define NR_PT ((SCR_SIZE + PT_SIZE - 1) / PT_SIZE)
@@ -15,7 +15,7 @@ void create_video_mapping() {
 	 * some page tables to create this mapping.
 	 */
 
-
+set_bp();
 	PDE *pdir = get_updir();
 	PTE *pt = my_pt[0];
 	pdir[0].val = make_pde(va_to_pa(pt));
