@@ -23,6 +23,9 @@
 #define make_pde(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
 #define make_pte(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
 
+#define GET_PAGE_PAGE(addr) (((addr) >> 12) & 0x3ff)
+#define GET_PAGE_DIR(addr) (((addr) >> 22) & 0x3ff)
+
 uint32_t mm_malloc(uint32_t, int len);
 PTE* getPTE(); 
 #endif
