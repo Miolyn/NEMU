@@ -59,7 +59,7 @@ void init_page(void) {
 		}
 		/*
 	*/
-
+	
 
 	/* make CR3 to be the entry of page directory */
 	cr3.val = 0;
