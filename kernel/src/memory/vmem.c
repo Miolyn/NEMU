@@ -17,16 +17,36 @@ void create_video_mapping() {
 	 */
 	// return (PTE *)va_to_pa(kptable);
 
-	PDE *pdir = get_updir();
-	PTE *pt = my_pt[0];
-	pdir[0].val = make_pde(va_to_pa(pt));
-	int total = SCR_SIZE / PAGE_SIZE + 1;
-	uint32_t addr = VMEM_ADDR;
-	int i = 0;
-	for(; i < total; i++){
-		pt[(addr >> 12) & 0x3ff].val = make_pte(addr);
-		addr += PAGE_SIZE;
+	int pages = SCR_SIZE / PAGE_SIZE + !!(SCR_SIZE % PAGE_SIZE);
+	
+	
+	printk("create video mapping for user address space ...\n");
+	unsigned addr = 0xa0000;
+	int i;
+	PDE *updir = get_updir();
+	for (i = 0; i < pages; i++) {
+	    // create_user_mapping(0, addr, addr);
+		unsigned dir = (((addr) >> 12) & 0x3ff);
+		unsigned page = (((addr) >> 22) & 0x3ff);
+    
+		PTE *pt = my_pt[0];
+    
+		updir[dir].val = make_pde(va_to_pa(pt));
+    
+		pt[page].val = make_pte(addr);
+	    addr += PAGE_SIZE;
 	}
+
+	// PDE *pdir = get_updir();
+	// PTE *pt = my_pt[0];
+	// pdir[0].val = make_pde(va_to_pa(pt));
+	// int total = SCR_SIZE / PAGE_SIZE + 1;
+	// uint32_t addr = VMEM_ADDR;
+	// int i = 0;
+	// for(; i < total; i++){
+	// 	pt[(addr >> 12) & 0x3ff].val = make_pte(addr);
+	// 	addr += PAGE_SIZE;
+	// }
 	// PTE *ptable = getPTE();
 	// int i = VMEM_ADDR / PAGE_SIZE;
 	// void *pframe_addr = ((void*)VMEM_ADDR);
