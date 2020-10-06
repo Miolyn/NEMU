@@ -50,13 +50,12 @@ void init_page(void) {
 		===== referenced code for the inline assembly above =====
 	*/
 		uint32_t pframe_addr = PHY_MEM - PAGE_SIZE;
-		// ptable --;
-		ptable -= 1;
 		// fill PTEs reversely
 		for (; pframe_addr >= 0; pframe_addr -= PAGE_SIZE) {
+			ptable --;
+
 			ptable->val = make_pte(pframe_addr);
 			// ptable --;
-			ptable -= 1;
 		}
 		/*
 	*/
