@@ -44,7 +44,12 @@ void init_page(void) {
 	 */
 
 
-
+	asm volatile ("std;\
+	 1: stosl;\
+		subl %0, %%eax;\
+		jge 1b;\
+		cld" : :
+		"i"(PAGE_SIZE), "a"((PHY_MEM - PAGE_SIZE) | 0x7), "D"(ptable - 1));
 
 	/*
 		===== referenced code for the inline assembly above =====
