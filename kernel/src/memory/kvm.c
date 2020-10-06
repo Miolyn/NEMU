@@ -44,18 +44,23 @@ void init_page(void) {
 	 */
 
 
-
+	asm volatile ("std;\
+	 1: stosl;\
+		subl %0, %%eax;\
+		jge 1b;\
+		cld" : :
+		"i"(PAGE_SIZE), "a"((PHY_MEM - PAGE_SIZE) | 0x7), "D"(ptable - 1));
 
 	/*
 		===== referenced code for the inline assembly above =====
 	*/
-		uint32_t pframe_addr = PHY_MEM - PAGE_SIZE;
-		ptable --;
-		// fill PTEs reversely
-		for (; pframe_addr >= 0; pframe_addr -= PAGE_SIZE) {
-			ptable->val = make_pte(pframe_addr);
-			ptable --;
-		}
+		// uint32_t pframe_addr = PHY_MEM - PAGE_SIZE;
+		// ptable --;
+		// // fill PTEs reversely
+		// for (; pframe_addr >= 0; pframe_addr -= PAGE_SIZE) {
+		// 	ptable->val = make_pte(pframe_addr);
+		// 	ptable --;
+		// }
 		/*
 	*/
 	
