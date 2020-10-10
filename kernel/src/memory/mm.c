@@ -1,7 +1,7 @@
 #include "common.h"
 #include "memory.h"
 #include <string.h>
-
+#include "trap.h"
 static PDE updir[NR_PDE] align_to_page;
 static CR3 ucr3;
 
@@ -34,6 +34,7 @@ uint32_t mm_brk(uint32_t new_brk) {
 }
 
 void init_mm() {
+	set_bp();
 	PDE *kpdir = get_kpdir();
 
 	/* make all PDE invalid */
