@@ -4,6 +4,10 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	if(!cpu.cr0.protect_enable || !cpu.cr0.paging){
 		return addr;
 	}
+	if(addr == 0x7ffffa4){
+		printf("eip at 0x7ffffa4 is 0x%x\n", cpu.eip);
+		assert(0);
+	}
 	PageTableEntry dirPageEntry;
 	PageTableEntry pageEntry;
 	LinearAddr lnAddr;
