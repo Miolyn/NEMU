@@ -108,7 +108,3 @@ init_segment(void) {
 	write_gdtr(gdt, sizeof(gdt));
 }
 
-
-PTE* getPTE(){
-	return (PTE *)va_to_pa(kptable);
-}
