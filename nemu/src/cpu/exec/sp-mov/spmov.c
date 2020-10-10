@@ -30,6 +30,7 @@ make_helper(mov_r2cr_v){
         cpu.cr3.val = reg_l(R_EAX);
         reset_tlb();
         printf("page base addr%x\n", cpu.cr3.page_directory_base);
+        printf("change at %x\n", cpu.eip);
     }
     print_asm("mov eax -> cr%d", op_dest->reg);
     return 2;
