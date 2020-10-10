@@ -5,6 +5,7 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 		return addr;
 	}
 	if(addr == 0x7ffffa4){
+		printf("dirbase:0x%x\n", cpu.cr3.page_directory_base);
 		printf("eip at 0x7ffffa4 is 0x%x\n", cpu.eip);
 		assert(0);
 	}
