@@ -12,7 +12,7 @@ void reset_tlb(){
     for(i = 0; i < TLB.lineNum; i++){
         TLB.TLBLines[i].valid_bit = 0;
     }
-    printf("reset tlb--------------------------------\n");
+    // printf("reset tlb--------------------------------\n");
 }
 
 uint32_t read_tlb(uint32_t lnAddr, bool *success){
