@@ -23,7 +23,7 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	dirPageEntry.val = dirPageEntryVal;
-	printf("dir val: %x\n", dirPageEntryVal);
+	// printf("dir val: %x\n", dirPageEntryVal);
 	assert(dirPageEntry.p == 1);
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
