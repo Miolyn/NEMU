@@ -22,7 +22,7 @@ void load_descriptor(uint8_t sReg){
 	} else{
 		// 4k
 		cpu.sRegs[sReg].seg_limit <<= 12;
-		cpu.sRegs[sReg].seg_limit |= 0xffffffff;
+		cpu.sRegs[sReg].seg_limit &= 0xffffffff;
 	}
 }
 
