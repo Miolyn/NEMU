@@ -1,5 +1,4 @@
 #include "nemu.h"
-
 uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	if(!cpu.cr0.protect_enable || !cpu.cr0.paging){
 		return addr;
