@@ -18,10 +18,10 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	uint32_t dirPageEntryVal = hwaddr_read(FRAME_ADDR(dirBaseAddr) + lnAddr.dir * 4, 4);
 	dirPageEntry.val = dirPageEntryVal;
 	// printf("dir val: %x\n", dirPageEntryVal);
-	assert(dirPageEntry.p == 1);
+	Assert(dirPageEntry.p == 1, "page dir error at eip:0x%x", cpu.eip);
 	uint32_t pageEntryVal = hwaddr_read(FRAME_ADDR(dirPageEntry.pageFrameAddr) + lnAddr.page * 4, 4);
 	pageEntry.val = pageEntryVal;
-	assert(pageEntry.p == 1);
+	Assert(pageEntry.p == 1, "page page entry error at eip:0x%x", cpu.eip);
 	uint32_t res;
 	if(lnAddr.offset + len <= 1 << 12){
 		// res = hwaddr_read(FRAME_ADDR(pageEntry.pageFrameAddr) + lnAddr.offset, len);
