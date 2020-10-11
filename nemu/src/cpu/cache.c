@@ -163,7 +163,8 @@ void cache_deal_dirt_l2(struct Cache *this, uint32_t setID, uint32_t lineID){
     uint32_t addr = this->createCacheAddr(this, setID, lineID);
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
-        lnaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
+        // lnaddr_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
+        dram_write(addr + i, 1, this->cacheSet[setID].cacheLine[lineID].block[i]);
     }
     this->cacheSet[setID].cacheLine[lineID].dirt_bit = 0;
 }
@@ -172,7 +173,8 @@ void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
     AddrHelper cAddr = this->getCacheAddr(this, addr);
     int i;
     for(i = 0; i < CACHE_BLOCK; i++){
-        pl->block[i] = lnaddr_read(addr + i, 1);
+        pl->block[i] = dram_read(addr + i, 1) & (~0u >> ((4 - len) << 3));
+        // pl->block[i] = lnaddr_read(addr + i, 1);
     }
     pl->tag = cAddr.tag;
     pl->valid = 1;
