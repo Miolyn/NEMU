@@ -20,7 +20,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	printf("len lnaddr:%d\n", (int)len);
+	// printf("len lnaddr:%d\n", (int)len);
     addr = page_translate(addr, len);
 	return hwaddr_read(addr, len);
 }
