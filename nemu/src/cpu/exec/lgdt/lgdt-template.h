@@ -9,9 +9,11 @@ make_helper(concat(lgdt_m_, SUFFIX)){
     uint16_t limit = swaddr_read(op_src->addr, 2, R_DS);
     uint32_t base = 0;
     if(ops_decoded.is_operand_size_16){
-        base = lnaddr_read(op_src->addr + 2, 3);
+        // base = lnaddr_read(op_src->addr + 2, 3);
+        base = swaddr_read(op_src->addr + 2, 3, R_DS);
     } else{
-        base = lnaddr_read(op_src->addr + 2, 4);
+        // base = lnaddr_read(op_src->addr + 2, 4);
+        base = swaddr_read(op_src->addr + 2, 4, R_DS);
     }
     cpu.gdtr.base_addr = base;
     // printf("seg table base:%x\n", base);
