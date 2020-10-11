@@ -228,7 +228,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
 #endif
     addr = seg_translate(addr, len, sReg);
 	c_write(addr, len, data);
-    // lnaddr_write(addr, len, data);
+    lnaddr_write(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
