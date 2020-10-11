@@ -122,6 +122,7 @@ void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
         memcpy(this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, buf, len);
     }
     this->cacheSet[cAddr.set].cacheLine[loc].dirt_bit = 1;
+    lnaddr_write(addr, len, buf2uint(buf));
 }
 
 int cache_miss(struct Cache *this, uint32_t addr){
@@ -229,7 +230,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
 #endif
     addr = seg_translate(addr, len, sReg);
 	c_write(addr, len, data);
-    lnaddr_write(addr, len, data);
+    // lnaddr_write(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
