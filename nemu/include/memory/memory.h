@@ -28,7 +28,11 @@ extern void swaddr_write_seg(swaddr_t, size_t, uint32_t, uint32_t);
 void lnaddr_write(lnaddr_t, size_t, uint32_t);
 void hwaddr_write(hwaddr_t, size_t, uint32_t);
 #define swr4(addr, sReg) swaddr_read(addr, 4, sReg)
+uint32_t c_read(uint32_t addr, uint32_t len);
+void c_write(uint32_t addr, uint32_t len, uint32_t data);
 extern uint32_t buf2uint(uint8_t *buf);
+lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);
+uint32_t page_translate(lnaddr_t addr, uint32_t len);
 
 extern void uint2buf(uint8_t *buf, uint32_t data);
 #endif
