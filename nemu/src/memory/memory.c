@@ -20,6 +20,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
+	printf("len lnaddr:%d\n", (int)len);
     addr = page_translate(addr, len);
 	return hwaddr_read(addr, len);
 }
@@ -44,13 +45,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 // }
 
 
-uint32_t _swaddr_read(swaddr_t addr, size_t len) {
-#ifdef DEBUG
-	assert(len == 1 || len == 2 || len == 4);
-#endif
-	int res = c_read(addr, len);
-    return res;
-}
+
 uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
@@ -63,12 +58,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 }
 
 
-void _swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
-#ifdef DEBUG
-	assert(len == 1 || len == 2 || len == 4);
-#endif
-	c_write(addr, len, data);
-}
+
 
 
 void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
@@ -76,7 +66,6 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint32_t sReg) {
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     addr = seg_translate(addr, len, sReg);
-	// c_write(addr, len, data);
     lnaddr_write(addr, len, data);
 }
 
