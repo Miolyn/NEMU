@@ -209,6 +209,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 
     addr = seg_translate(addr, len, sReg);
 	int res = c_read(addr, len);
+    lnaddr_read(addr, len);
     return res;
 }
 
