@@ -182,6 +182,7 @@ void cache_load_miss_l2(struct Cache *this, uint32_t addr, CacheLine *pl, uint32
 
 uint32_t c_read(uint32_t addr, uint32_t len){
 #ifdef DEBUG
+printf("len%d\n", len);
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     memset(buf, 0, sizeof(uint8_t) * 64);
