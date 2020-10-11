@@ -11,12 +11,6 @@ uint32_t page_translate(lnaddr_t addr, uint32_t len){
 	lnAddr.val = addr;
 	bool suc = false;
 
-	if(addr == 0x7ffffa4){
-		printf("dirbase:%d\n", cpu.cr3.page_directory_base);
-		printf("pde:0x%x,%d\n", lnAddr.dir, lnAddr.dir);
-		printf("eip at 0x7ffffa4 is 0x%x\n", cpu.eip);
-		// assert(0);
-	}
 	uint32_t tlb_res = read_tlb(addr, &suc);
 	if(suc) return tlb_res + lnAddr.offset;
 	uint32_t dirBaseAddr = cpu.cr3.page_directory_base;
