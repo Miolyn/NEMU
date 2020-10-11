@@ -106,6 +106,7 @@ void cache_read(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
     } else{
         memcpy(buf, this->cacheSet[cAddr.set].cacheLine[loc].block + cAddr.blockOffset, len);
     }
+    lnaddr_read(addr, len);
 }
 
 void cache_write(struct Cache *this, uint8_t *buf, uint32_t addr, uint32_t len){
@@ -209,7 +210,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint32_t sReg) {
 
     addr = seg_translate(addr, len, sReg);
 	int res = c_read(addr, len);
-    lnaddr_read(addr, len);
+    // lnaddr_read(addr, len);
     return res;
 }
 
