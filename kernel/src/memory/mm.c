@@ -34,15 +34,15 @@ uint32_t mm_brk(uint32_t new_brk) {
 }
 
 void init_mm() {
-	// set_bp();
+	set_bp();
 	PDE *kpdir = get_kpdir();
 
 	/* make all PDE invalid */
 	memset(updir, 0, NR_PDE * sizeof(PDE));
-
+	set_bp();
 	/* create the same mapping above 0xc0000000 as the kernel mapping does */
 	memcpy(&updir[KOFFSET / PT_SIZE], &kpdir[KOFFSET / PT_SIZE], 
 			(PHY_MEM / PT_SIZE) * sizeof(PDE));
-
+	set_bp();
 	ucr3.val = (uint32_t)va_to_pa((uint32_t)updir) & ~0xfff;
 }
