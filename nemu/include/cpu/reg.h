@@ -206,6 +206,9 @@ typedef struct{
 	
 } InteruptGate;
 
+// typedef GateDescription GateDesc;
+typedef int INT;
+
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
 	return index;
