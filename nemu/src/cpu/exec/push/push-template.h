@@ -24,4 +24,20 @@ make_instr_helper(rm)
 
 make_instr_helper(i)
 
+#if DATA_BYTE != -1
+
+make_helper(concat(pusha_, SUFFIX)){
+	uint32_t tmp = cpu.eip;
+	PUSH_STACK(REG(R_EAX));
+	PUSH_STACK(REG(R_ECX));
+	PUSH_STACK(REG(R_EDX));
+	PUSH_STACK(REG(R_EBX));
+	PUSH_STACK(tmp);
+	PUSH_STACK(REG(R_EBP));
+	PUSH_STACK(REG(R_ESI));
+	PUSH_STACK(REG(R_EDI));
+	return 1;
+}
+#endif
+
 #include "cpu/exec/template-end.h"
