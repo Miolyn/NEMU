@@ -181,7 +181,31 @@ typedef struct {
 	TLBLine *TLBLines;
 	int lineNum;
 } TLBCache;
+
 extern TLBCache TLB;
+
+typedef struct{
+	union {
+		struct{
+			uint32_t offset0 : 16;
+			uint32_t selector : 16;
+		};
+		uint32_t val1;
+	};
+
+	union{
+		struct {
+			uint32_t : 5;
+			uint32_t zero : 3;
+			uint32_t zero1 : 5;
+			uint32_t dpl : 2;
+			uint32_t p : 1;
+		};
+		uint32_t val2;
+	};
+	
+} InteruptGate;
+
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
 	return index;
