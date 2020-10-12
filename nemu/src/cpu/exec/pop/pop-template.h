@@ -13,6 +13,13 @@ make_instr_helper(r)
 
 make_helper(concat(popa_, SUFFIX)){
     REG(R_EDI) = POP();
+    REG(R_ESI) = POP();
+    REG(R_EBP) = POP();
+    POP();
+    REG(R_EBP) = POP();
+    REG(R_EDX) = POP();
+    REG(R_ECX) = POP();
+    REG(R_EAX) = POP();
     return 1;
 }
 #endif

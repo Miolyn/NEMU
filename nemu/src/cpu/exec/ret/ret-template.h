@@ -37,6 +37,15 @@ make_helper(concat(ret_i_, SUFFIX)){
     // read one opcode before deal
     return 0;
 }
+
+make_helper(concat(iret_, SUFFIX)){
+    if(!cpu.cr0.protect_enable){
+        cpu.eip = POP();
+        cpu.cs.selector.val = POP();
+        cpu.ef = POP();
+    }
+    return 1;
+}
 #endif
 
 

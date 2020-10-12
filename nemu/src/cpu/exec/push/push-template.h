@@ -27,7 +27,7 @@ make_instr_helper(i)
 #if DATA_BYTE != -1
 
 make_helper(concat(pusha_, SUFFIX)){
-	uint32_t tmp = cpu.eip;
+	uint32_t tmp = REG(R_ESP);
 	PUSH_STACK(REG(R_EAX));
 	PUSH_STACK(REG(R_ECX));
 	PUSH_STACK(REG(R_EDX));
