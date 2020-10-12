@@ -11,5 +11,9 @@ static void do_execute(){
 make_instr_helper(rm)
 make_instr_helper(r)
 
+make_helper(concat(popa_, SUFFIX)){
+    REG(R_EDI) = POP();
+    return 1;
+}
 #endif
 #include "cpu/exec/template-end.h"

@@ -85,4 +85,7 @@ void_helper(push_stack_l);
 void_op_helper(pop_stack_b);
 void_op_helper(pop_stack_w);
 void_op_helper(pop_stack_l);
+make_helper(pop_b);
+make_helper(pop_w);
+make_helper(pop_l);
 #endif

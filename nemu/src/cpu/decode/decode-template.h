@@ -280,5 +280,17 @@ void_op_helper(concat(pop_stack_, SUFFIX)) {
 #endif
 }
 
+make_helper(concat(pop_, SUFFIX)){
+#if DATA_BYTE != 1
+	uint32_t res = swaddr_read(reg_l(R_ESP), DATA_BYTE, R_SS);
+	reg_l(R_ESP) = reg_l(R_ESP) + DATA_BYTE;
+#else
+	uint32_t res = swaddr_read(reg_l(R_ESP), 4, R_SS);
+	reg_l(R_ESP) = reg_l(R_ESP) + 4;
+#endif
+
+	return res;
+}
+
 
 #include "cpu/exec/template-end.h"
