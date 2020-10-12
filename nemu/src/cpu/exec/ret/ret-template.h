@@ -39,10 +39,11 @@ make_helper(concat(ret_i_, SUFFIX)){
 }
 
 make_helper(concat(iret_, SUFFIX)){
-    if(!cpu.cr0.protect_enable){
-        cpu.eip = POP();
-        cpu.cs.selector.val = POP();
-        cpu.ef = POP();
+    cpu.eip = POP();
+    cpu.cs.selector.val = POP();
+    cpu.ef = POP();
+    if(cpu.cr0.protect_enable){
+        load_descriptor(R_CS);
     }
     return 1;
 }
