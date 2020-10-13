@@ -48,8 +48,9 @@ RETURN VALUE
        is not performed, 0 will be returned without causing any other effect.  
 	   If count is zero and fd refers to a file other than a regular file, the results are not specified.
 			*/
-			tf->ebp = tf->ebp;
-
+			// tf->ebp = tf->ebp;
+			asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
+			tf->eax = tf->edx;
 		}
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
