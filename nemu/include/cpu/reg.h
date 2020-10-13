@@ -21,7 +21,7 @@ typedef union{
 		uint16_t ti : 1;
 		uint16_t index :13;
 	};
-	uint32_t val;
+	uint16_t val;
 }Selector;
 
 typedef struct {
