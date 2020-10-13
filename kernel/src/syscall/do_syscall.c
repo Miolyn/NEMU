@@ -48,7 +48,7 @@ RETURN VALUE
        is not performed, 0 will be returned without causing any other effect.  
 	   If count is zero and fd refers to a file other than a regular file, the results are not specified.
 			*/
-			
+			tf->ebp = tf->ebp;
 
 		}
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
