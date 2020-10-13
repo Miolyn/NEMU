@@ -39,6 +39,7 @@ make_helper(concat(ret_i_, SUFFIX)){
 }
 
 make_helper(concat(iret_, SUFFIX)){
+    printf("%d\n", (int)(DATA_BYTE));
     cpu.eip = POP();
     cpu.cs.selector.val = POP();
     cpu.ef = POP();
