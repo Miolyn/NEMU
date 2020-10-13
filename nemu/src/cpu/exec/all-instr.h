@@ -53,3 +53,4 @@
 #include "sp-mov/spmov.h"
 #include "data-mov/movsreg.h"
 #include "std/std.h"
+#include "lidt/lidt.h"

@@ -3,7 +3,6 @@
 
 #include "common.h"
 #include "../../lib-common/x86-inc/cpu.h"
-#include "../../lib-common/x86-inc/mmu.h"
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
@@ -101,6 +100,11 @@ typedef struct {
 		uint16_t table_limit;
 	} gdtr;
 
+	struct IDTR{
+		uint32_t base_addr;
+		uint16_t table_limit;
+	}idtr;
+
 	CR0 cr0;
 	CR3 cr3;
 
@@ -146,7 +150,7 @@ typedef struct{
 		};
 	};
 	
-}Descriptor;
+}SegDescriptor;
 
 typedef union{
 	uint32_t val;
@@ -205,11 +209,29 @@ typedef struct{
 		uint32_t val2;
 	};
 	
-} InteruptGate;
+} InteruptDescriptorTable;
 
 // typedef GateDescription GateDesc;
-typedef GateDesc GateDescription;
-// typedef int INT;
+typedef struct GateDescriptor {
+	union{
+		struct{
+			uint32_t offset_15_0      : 16;
+			uint32_t selector          : 16;
+		};
+		uint32_t dword0;
+	};
+	union{
+		struct{
+			uint32_t pad0             : 8;
+			uint32_t type             : 4;
+			uint32_t system           : 1;
+			uint32_t privilege_level  : 2;
+			uint32_t present          : 1;
+			uint32_t offset_31_16     : 16;
+		};
+		uint32_t dword1;
+	};
+} GateDesc;
 
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
