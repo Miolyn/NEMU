@@ -13,8 +13,8 @@ void init_wp_pool();
 void init_ddr3();
 // #ifdef HAS_DEVICE
 
-// void init_device();
-// void init_sdl();
+void init_device();
+void init_sdl();
 // #endif
 FILE *log_fp = NULL;
 
@@ -43,11 +43,11 @@ void init_monitor(int argc, char *argv[]) {
 	/* Initialize the watchpoint pool. */
 	init_wp_pool();
 
-	// /* Initialize device */
-	// init_device();
+	/* Initialize device */
+	init_device();
 
-	// /* init sdl */
-	// init_sdl();
+	/* init sdl */
+	init_sdl();
 
 	/* Display welcome message. */
 	welcome();
