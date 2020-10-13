@@ -31,9 +31,12 @@ void raise_intr(uint8_t NO){
     // Push (EFLAGS);
     // Push (long pointer to return location); (* 3 words padded to 4 *) CS:EIP ¡û selector:offset from gate;
     // Figure 9-5 instr the stack
+    printf("push ef:%x\n", cpu.ef);
     push(cpu.ef);
     push(cpu.cs.selector.val);
+    printf("push cpu.cs:%x\n", cpu.cs.selector.val);
     push(cpu.eip);
+    printf("push eip:%x\n", cpu.eip);
     cpu.cs.selector.val = gateDesc.selector;
     // printf("before start load\n");
     if(cpu.cr0.protect_enable){
@@ -44,6 +47,6 @@ void raise_intr(uint8_t NO){
     // THEN CS:EIP ¡û selector:offset from gate;
 
     uint32_t offset = gateDesc.offset_15_0 + (gateDesc.offset_31_16 << 16);
-    cpu.eip = (cpu.sRegs[R_CS].base_addr << 4) + offset; 
+    cpu.eip = (cpu.cs.base_addr << 4) + offset; 
     longjmp(jbuf, 1);
 }

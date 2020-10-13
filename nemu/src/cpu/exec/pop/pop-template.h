@@ -16,7 +16,7 @@ make_helper(concat(popa_, SUFFIX)){
     REG(R_ESI) = POP();
     REG(R_EBP) = POP();
     POP();
-    REG(R_EBP) = POP();
+    REG(R_EBX) = POP();
     REG(R_EDX) = POP();
     REG(R_ECX) = POP();
     REG(R_EAX) = POP();
