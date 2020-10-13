@@ -78,26 +78,26 @@ void cpu_exec(volatile uint32_t n) {
 				
 		}
 		printf("\n");
-		j = R_ESI;
-		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
-			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_DS), swaddr_read(reg_l(j), 2, R_DS), swaddr_read(reg_l(j), 1, R_DS));
-		} else{
-			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
-		}
-		j = R_EDI;
-		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
-			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_DS), swaddr_read(reg_l(j), 2, R_DS), swaddr_read(reg_l(j), 1, R_DS));
-		} else{
-			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
-		}
-		j = R_EBP;
-		printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
-		j = R_ESP;
-		if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
-			printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_SS), swaddr_read(reg_l(j), 2, R_SS), swaddr_read(reg_l(j), 1, R_SS));
-		} else{
-			printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
-		}
+		// j = R_ESI;
+		// if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		// 	printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_DS), swaddr_read(reg_l(j), 2, R_DS), swaddr_read(reg_l(j), 1, R_DS));
+		// } else{
+		// 	printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		// }
+		// j = R_EDI;
+		// if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		// 	printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_DS), swaddr_read(reg_l(j), 2, R_DS), swaddr_read(reg_l(j), 1, R_DS));
+		// } else{
+		// 	printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		// }
+		// j = R_EBP;
+		// printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		// j = R_ESP;
+		// if (reg_l(j) < (1 << (10 + 10 + 3 + (27 - 10 - 10 - 3)))){
+		// 	printf("reg %s:0x%x ,mem:l:0x%x,w:0x%x,b:0x%x ;\n", regsl[j], reg_l(j), swaddr_read(reg_l(j), 4, R_SS), swaddr_read(reg_l(j), 2, R_SS), swaddr_read(reg_l(j), 1, R_SS));
+		// } else{
+		// 	printf("reg_%s:0x%x ;\n", regsl[j], reg_l(j));
+		// }
 		printf("CF:%d; PF:%d; AF:%d; ZF:%d; SF:%d; OF:%d; \n", cpu.CF,
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
 		
