@@ -54,3 +54,5 @@
 #include "data-mov/movsreg.h"
 #include "std/std.h"
 #include "lidt/lidt.h"
+#include "cli/cli.h"
+#include "int/int.h"

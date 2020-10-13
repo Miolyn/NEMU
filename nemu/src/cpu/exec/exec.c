@@ -152,7 +152,7 @@ helper_fun opcode_table [256] = {
 /* 0xc0 */	group2_i_b, group2_i_v, ret_i_w, ret_rel_v,
 /* 0xc4 */	inv, inv, mov_i2rm_b, mov_i2rm_v,
 /* 0xc8 */	inv, leave, inv, inv,
-/* 0xcc */	int3, inv, inv, iret_v,
+/* 0xcc */	int3, int_i_b, inv, iret_v,
 /* 0xd0 */	group2_1_b, group2_1_v, group2_cl_b, group2_cl_v,
 /* 0xd4 */	inv, inv, nemu_trap, inv,
 /* 0xd8 */	inv, inv, inv, inv,
@@ -163,7 +163,7 @@ helper_fun opcode_table [256] = {
 /* 0xec */	inv, inv, inv, inv,
 /* 0xf0 */	inv, inv, repnz, rep,
 /* 0xf4 */	inv, inv, group3_b, group3_v,
-/* 0xf8 */	inv, inv, inv, inv,
+/* 0xf8 */	inv, inv, cli, inv,
 /* 0xfc */	cld, std, group4, group5
 };
 

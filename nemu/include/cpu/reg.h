@@ -276,6 +276,7 @@ extern uint32_t page_translate(lnaddr_t addr, uint32_t len);
 extern void reset_tlb();
 extern uint32_t read_tlb(uint32_t lnAddr, bool *success);
 extern void write_tlb(uint32_t lnAddr, uint32_t addr);
+void raise_intr(uint8_t NO);
 #define cf_sub(dest, src) cpu.CF = dest < src
 #define cf_add(dest, src) cpu.CF = ((dest + src) < dest)
 #define sf_add(dest, src) cpu.SF = ((dest + src) < 0)
