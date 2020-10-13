@@ -26,6 +26,8 @@ static void init_log() {
 static void welcome() {
 	printf("Welcome to NEMU!\nThe executable is %s.\nFor help, type \"help\"\n",
 			exec_file);
+	printf("author:lyn\n");
+
 }
 
 void init_monitor(int argc, char *argv[]) {
