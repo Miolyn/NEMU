@@ -35,9 +35,11 @@ void raise_intr(uint8_t NO){
     push(cpu.cs.selector.val);
     push(cpu.eip);
     cpu.cs.selector.val = gateDesc.selector;
+    printf("before start load\n");
     if(cpu.cr0.protect_enable){
         load_descriptor(R_CS);
     }
+    printf("complete load\n");
     // IF 32-bit gate
     // THEN CS:EIP ¡û selector:offset from gate;
 
