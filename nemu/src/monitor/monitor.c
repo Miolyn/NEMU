@@ -1,5 +1,5 @@
 #include "nemu.h"
-
+#include "device/device.h"
 #define ENTRY_START 0x100000
 // #define ENTRY_START 0x0
 
@@ -11,7 +11,11 @@ void load_elf_tables(int, char *[]);
 void init_regex();
 void init_wp_pool();
 void init_ddr3();
+// #ifdef HAS_DEVICE
 
+// void init_device();
+// void init_sdl();
+// #endif
 FILE *log_fp = NULL;
 
 static void init_log() {
@@ -38,6 +42,12 @@ void init_monitor(int argc, char *argv[]) {
 
 	/* Initialize the watchpoint pool. */
 	init_wp_pool();
+
+	// /* Initialize device */
+	// init_device();
+
+	// /* init sdl */
+	// init_sdl();
 
 	/* Display welcome message. */
 	welcome();

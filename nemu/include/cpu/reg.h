@@ -115,7 +115,7 @@ typedef struct {
 		};
 	};
 	
-
+	bool INTR;
 } CPU_state;
 
 

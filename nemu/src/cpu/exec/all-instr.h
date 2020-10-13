@@ -56,3 +56,4 @@
 #include "lidt/lidt.h"
 #include "cli/cli.h"
 #include "int/int.h"
+#include "io/io.h"

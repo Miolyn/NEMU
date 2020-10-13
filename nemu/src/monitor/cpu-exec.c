@@ -2,6 +2,7 @@
 #include "cpu/helper.h"
 #include <setjmp.h>
 #include "monitor/watchpoint.h"
+#include "device/i8259.h"
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -34,41 +35,16 @@ void do_int3() {
 	nemu_state = STOP;
 }
 
-/* Simulate how the CPU works. */
-void cpu_exec(volatile uint32_t n) {
-	if(nemu_state == END) {
-		printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
-		return;
-	}
-	nemu_state = RUNNING;
 
-#ifdef DEBUG
-	volatile uint32_t n_temp = n;
-#endif
-
-	setjmp(jbuf);
-	int cnt = 0;
-	// bool de = true;
-	for(; n > 0; n --) {
-#ifdef DEBUG
-		swaddr_t eip_temp = cpu.eip;
-		if((n & 0xffff) == 0) {
-			/* Output some dots while executing the program. */
-			fputc('.', stderr);
-		}
-#endif
-
-		/* Execute one instruction, including instruction fetch,
-		 * instruction decode, and the actual execution. */
-		// if (cpu.eip == 0x100199){
-		// 	assert(0);
-		// }
-		if(de){
+void debug1(){
+	if(de){
 		printf("----------------------------------------------------------------------------\n");
 		printf("start to exec at eip:%x and opcode is %x\n", seg_translate(cpu.eip, 4, R_CS), instr_fetch(cpu.eip, 1));
-		}
-		int instr_len = exec(cpu.eip);
-		if(de){
+	}
+}
+
+void debug2(){
+	if(de){
 		printf("end exec\n");
 		int j;
 		for(j = R_EAX; j <= R_EDI; j++){
@@ -102,9 +78,37 @@ void cpu_exec(volatile uint32_t n) {
 			cpu.PF, cpu.AF, cpu.ZF, cpu.SF, cpu.OF);
 		
 		printf("----------------------------------------------------------------------------\n");
-		++cnt;
-		printf("cnt:%d\n", cnt);
+	}
+}
+/* Simulate how the CPU works. */
+void cpu_exec(volatile uint32_t n) {
+	if(nemu_state == END) {
+		printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
+		return;
+	}
+	nemu_state = RUNNING;
+
+#ifdef DEBUG
+	volatile uint32_t n_temp = n;
+#endif
+
+	setjmp(jbuf);
+	// bool de = true;
+	for(; n > 0; n --) {
+#ifdef DEBUG
+		swaddr_t eip_temp = cpu.eip;
+		if((n & 0xffff) == 0) {
+			/* Output some dots while executing the program. */
+			fputc('.', stderr);
 		}
+#endif
+
+		/* Execute one instruction, including instruction fetch,
+		 * instruction decode, and the actual execution. */
+		debug1();
+
+		int instr_len = exec(cpu.eip);
+		debug2();
 		cpu.eip += instr_len;
 #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len);
@@ -122,6 +126,12 @@ void cpu_exec(volatile uint32_t n) {
 		extern void device_update();
 		device_update();
 #endif
+
+		if(cpu.INTR && cpu.IF){
+			uint32_t intr_no = i8259_query_intr();
+			i8259_ack_intr();
+			raise_intr(intr_no);
+		}
 
 		if(nemu_state != RUNNING) { return; }
 	}

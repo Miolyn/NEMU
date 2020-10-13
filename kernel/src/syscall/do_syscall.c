@@ -1,7 +1,7 @@
 #include "irq.h"
 
 #include <sys/syscall.h>
-
+void serial_printc(char);
 void add_irq_handle(int, void (*)(void));
 uint32_t mm_brk(uint32_t);
 int fs_ioctl(int, uint32_t, void *);
@@ -49,8 +49,21 @@ RETURN VALUE
 	   If count is zero and fd refers to a file other than a regular file, the results are not specified.
 			*/
 			// tf->ebp = tf->ebp;
-			asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
-			tf->eax = tf->edx;
+			uint32_t fd = tf->ebx;
+
+			if(fd == 1 || fd == 2){
+				#ifdef HAS_DEVICE
+				char *buf = (char*)tf->ecx;
+				int i;
+				for(i = 0; i < tf->ecx; i++){
+					serial_printc(*buf);
+					++buf;
+				}
+				#else
+				asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
+				#endif
+				tf->eax = tf->edx;
+			}
 			break;
 		}
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);

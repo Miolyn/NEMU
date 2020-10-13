@@ -1,5 +1,5 @@
 #include "common.h"
-
+#include "device/mmio.h"
 lnaddr_t seg_translate(swaddr_t addr, uint32_t len, uint32_t sReg);
 uint32_t page_translate(lnaddr_t addr, uint32_t len);
 uint32_t dram_read(hwaddr_t, size_t);
@@ -10,11 +10,19 @@ void c_write(uint32_t addr, uint32_t len, uint32_t data);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	uint32_t ioNo = is_mmio(addr);
+	if(ioNo != -1){
+		return mmio_read(addr, len, ioNo);
+	}
 	// return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 	return c_read(addr, len);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
+	uint32_t ioNo = is_mmio(addr);
+	if(ioNo != -1){
+		mmio_write(addr, len, data, ioNo);
+	}
 	// dram_write(addr, len, data);
 	c_write(addr, len, data);
 }

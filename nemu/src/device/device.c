@@ -1,4 +1,6 @@
 #include "common.h"
+// #include "device/device.h"
+
 #ifdef HAS_DEVICE
 
 void init_serial();
