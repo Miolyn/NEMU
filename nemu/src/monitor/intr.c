@@ -31,12 +31,12 @@ void raise_intr(uint8_t NO){
     // Push (EFLAGS);
     // Push (long pointer to return location); (* 3 words padded to 4 *) CS:EIP ¡û selector:offset from gate;
     // Figure 9-5 instr the stack
-    printf("push ef:%x\n", cpu.ef);
+    // printf("push ef:%x\n", cpu.ef);
     push(cpu.ef);
     push(cpu.cs.selector.val);
-    printf("push cpu.cs:%x\n", cpu.cs.selector.val);
+    // printf("push cpu.cs:%x\n", cpu.cs.selector.val);
     push(cpu.eip);
-    printf("push eip:%x\n", cpu.eip);
+    // printf("push eip:%x\n", cpu.eip);
     cpu.cs.selector.val = gateDesc.selector;
     // printf("before start load\n");
     if(cpu.cr0.protect_enable){
