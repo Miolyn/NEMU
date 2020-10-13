@@ -51,6 +51,7 @@ RETURN VALUE
 			// tf->ebp = tf->ebp;
 			asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 			tf->eax = tf->edx;
+			break;
 		}
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
