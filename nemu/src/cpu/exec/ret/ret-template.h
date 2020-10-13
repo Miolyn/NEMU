@@ -41,6 +41,7 @@ make_helper(concat(ret_i_, SUFFIX)){
 make_helper(concat(iret_, SUFFIX)){
     cpu.eip = POP();
     cpu.cs.selector.val = POP();
+    printf("cs:%d\n", cpu.cs.selector.val);
     cpu.ef = POP();
     if(cpu.cr0.protect_enable){
         load_descriptor(R_CS);
