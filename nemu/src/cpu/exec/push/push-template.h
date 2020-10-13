@@ -27,6 +27,7 @@ make_instr_helper(i)
 #if DATA_BYTE != -1
 
 make_helper(concat(pusha_, SUFFIX)){
+	printf("push size:%d\n", DATA_BYTE);
 	uint32_t tmp = REG(R_ESP);
 	PUSH_STACK(REG(R_EAX));
 	PUSH_STACK(REG(R_ECX));
