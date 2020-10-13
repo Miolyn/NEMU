@@ -30,6 +30,7 @@ make_helper(nemu_trap) {
 	switch(cpu.eax) {
 		case 2:{
 			int i;
+			printf("\n");
 			for(i = 0; i < reg_l(R_EDX); i++){
 				printf("%c", swaddr_read(reg_l(R_ECX) + i, 1, R_DS));
 			}
