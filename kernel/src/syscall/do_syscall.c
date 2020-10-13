@@ -56,6 +56,8 @@ void do_syscall(TrapFrame *tf) {
 				asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 				#endif
 				tf->eax = tf->edx;
+			} else{
+				assert(0);
 			}
 			break;
 		}
