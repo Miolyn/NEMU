@@ -40,13 +40,13 @@ make_helper(concat(ret_i_, SUFFIX)){
 
 make_helper(concat(iret_, SUFFIX)){
     cpu.eip = POP();
-    printf("pop eip :%x\n", cpu.eip);
+    // printf("pop eip :%x\n", cpu.eip);
     // cpu.cs.selector.val = POP();
     cpu.sRegs[R_CS].selector.val = POP();
-    printf("pop cs:%x\n", cpu.cs.selector.val);
-    printf("cs:%d\n", cpu.cs.selector.val);
+    // printf("pop cs:%x\n", cpu.cs.selector.val);
+    // printf("cs:%d\n", cpu.cs.selector.val);
     cpu.ef = POP();
-    printf("cpu ef:%x\n", cpu.ef);
+    // printf("cpu ef:%x\n", cpu.ef);
     if(cpu.cr0.protect_enable){
         load_descriptor(R_CS);
     }
