@@ -3,9 +3,10 @@
 #define instr out
 
 make_helper(concat(out_a2i_, SUFFIX)){
-    ioaddr_t ioNo = instr_fetch(eip + 1, DATA_BYTE);
+    assert(0);
+    ioaddr_t ioNo = instr_fetch(eip + 1, 1);
     pio_write(ioNo, DATA_BYTE, REG(R_EAX));
-    return 1 + DATA_BYTE;
+    return 2;
 }
 
 make_helper(concat(out_a2dx_,SUFFIX)){
