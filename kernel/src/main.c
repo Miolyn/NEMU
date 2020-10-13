@@ -26,7 +26,7 @@ void init() {
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
 	 * Before setting up correct paging, no global variable can be used. */
-	init_page();
+	// init_page();
 
 	/* After paging is enabled, transform %esp to virtual address. */
 	asm volatile("addl %0, %%esp" : : "i"(KOFFSET));
@@ -42,7 +42,7 @@ void init() {
 void init_cond() {
 #ifdef IA32_INTR
 	/* Reset the GDT, since the old GDT in start.S cannot be used in the future. */
-	// init_segment();
+	init_segment();
 
 	/* Set the IDT by setting up interrupt and exception handlers.
 	 * Note that system call is the only exception implemented in NEMU.
