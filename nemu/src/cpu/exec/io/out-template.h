@@ -9,7 +9,7 @@ make_helper(concat(out_a2i_, SUFFIX)){
 }
 
 make_helper(concat(out_a2dx_,SUFFIX)){
-    assert(0);
+    // assert(0);
 
     pio_write(reg_w(R_EDX), DATA_BYTE, REG(R_EAX));
     return 1;
