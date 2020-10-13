@@ -35,17 +35,10 @@ void do_syscall(TrapFrame *tf) {
 			// ssize_t write(int fd, const void *buf, size_t count);
 			// write() writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.
 			/*
-RETURN VALUE
+		RETURN VALUE
        On success, the number of bytes written is returned (zero indicates nothing was written). 
 	    It is not an error if this number is smaller than the number of  bytes  requested;  this
        may happen for example because the disk device was filled.  See also NOTES.
-
-       On error, -1 is returned, and errno is set appropriately.
-
-       If  count  is zero and fd refers to a regular file, 
-	   then write() may return a failure status if one of the errors below is detected. 
-	    If no errors are detected, or error detection
-       is not performed, 0 will be returned without causing any other effect.  
 	   If count is zero and fd refers to a file other than a regular file, the results are not specified.
 			*/
 			// tf->ebp = tf->ebp;
@@ -55,7 +48,7 @@ RETURN VALUE
 				#ifdef HAS_DEVICE
 				char *buf = (char*)tf->ecx;
 				int i;
-				for(i = 0; i < tf->ecx; i++){
+				for(i = 0; i < tf->edx; i++){
 					serial_printc(*buf);
 					++buf;
 				}

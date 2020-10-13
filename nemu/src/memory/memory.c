@@ -22,6 +22,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	uint32_t ioNo = is_mmio(addr);
 	if(ioNo != -1){
 		mmio_write(addr, len, data, ioNo);
+		return;
 	}
 	// dram_write(addr, len, data);
 	c_write(addr, len, data);
