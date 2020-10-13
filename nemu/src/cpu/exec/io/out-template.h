@@ -5,11 +5,12 @@
 make_helper(concat(out_a2i_, SUFFIX)){
     ioaddr_t ioNo = instr_fetch(eip + 1, 1);
     pio_write(ioNo, DATA_BYTE, REG(R_EAX));
-    assert(0);
     return 2;
 }
 
 make_helper(concat(out_a2dx_,SUFFIX)){
+    assert(0);
+
     pio_write(reg_w(R_EDX), DATA_BYTE, REG(R_EAX));
     return 1;
 }
