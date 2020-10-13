@@ -31,7 +31,26 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_ioctl: sys_ioctl(tf); break;
 
 		/* TODO: Add more system calls. */
+		case SYS_write: {
+			// ssize_t write(int fd, const void *buf, size_t count);
+			// write() writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.
+			/*
+RETURN VALUE
+       On success, the number of bytes written is returned (zero indicates nothing was written). 
+	    It is not an error if this number is smaller than the number of  bytes  requested;  this
+       may happen for example because the disk device was filled.  See also NOTES.
 
+       On error, -1 is returned, and errno is set appropriately.
+
+       If  count  is zero and fd refers to a regular file, 
+	   then write() may return a failure status if one of the errors below is detected. 
+	    If no errors are detected, or error detection
+       is not performed, 0 will be returned without causing any other effect.  
+	   If count is zero and fd refers to a file other than a regular file, the results are not specified.
+			*/
+			
+
+		}
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
 }
