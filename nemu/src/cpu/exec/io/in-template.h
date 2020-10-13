@@ -11,7 +11,7 @@ make_helper(concat(in_i2a_, SUFFIX)){
 
 make_helper(concat(in_dx2a_,SUFFIX)){
     ioaddr_t ioNo = reg_w(R_EDX);
-    // assert(0);
+    assert(0);
     REG(R_EAX) = pio_read(ioNo, DATA_BYTE);
     return 1;
 }
