@@ -57,3 +57,4 @@
 #include "cli/cli.h"
 #include "int/int.h"
 #include "io/io.h"
+#include "sti/sti.h"
