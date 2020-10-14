@@ -16,7 +16,7 @@ main(void) {
 	init_timer();
 
 	add_irq_handle(0, timer_event);
-	add_irq_handle(2, keyboard_event);
+	add_irq_handle(0, keyboard_event);
 	init_FLOAT_vfprintf();
 
 	Log("game start!");
