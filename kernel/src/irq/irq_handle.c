@@ -40,7 +40,7 @@ void irq_handle(TrapFrame *tf) {
 	if (irq < 0) {
 
 		// return;
-		panic("Unhandled exception! irq:%d", irq);
+		panic("Unhandled exception! irq:%u", irq);
 	} else if (irq == 0x80) {
 		do_syscall(tf);
 	} else if (irq < 1000) {
