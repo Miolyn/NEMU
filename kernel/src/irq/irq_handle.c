@@ -38,7 +38,8 @@ void irq_handle(TrapFrame *tf) {
 	int irq = tf->irq;
 
 	if (irq < 0) {
-
+		//.globl irq_empty;
+		//	irq_empty:	pushl $0;  pushl   $-1; jmp asm_do_irq
 		return;
 		panic("Unhandled exception! irq:%u,", (irq == -1));
 	} else if (irq == 0x80) {
