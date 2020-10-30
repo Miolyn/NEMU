@@ -18,9 +18,16 @@ get_keycode(int index);
 void
 press_key(int scan_code) {
 	int i;
+	int code = scan_code & 0x7f;
 	for (i = 0; i < NR_KEYS; i ++) {
-		if (get_keycode(i) == scan_code) {
-			key_state[i] = KEY_STATE_PRESS;
+		// É¨Ãèµ½µÄcode>=0x80
+
+		if (get_keycode(i) == code) {
+			if (scan_code & 0x80){
+				key_state[i] = KEY_STATE_RELEASE;
+			} else if(key_state[i] == KEY_STATE_EMPTY){
+				key_state[i] = KEY_STATE_PRESS;
+			}
 		}
 	}
 }
@@ -71,15 +78,14 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	bool ok = false;
 	for(i = 0; i < NR_KEYS; i++){
 		if(query_key(i) == KEY_STATE_PRESS){
-			release_key(i);
-			// key_state[i] = KEY_STATE_WAIT_RELEASE;
-			key_press_callback(i);
+			key_press_callback(get_keycode(i));
+			key_state[i] = KEY_STATE_EMPTY;
 			ok = true;
 			break;
 		} else if(query_key(i) == KEY_STATE_RELEASE){
-			clear_key(i);
 			// key_state[i] = KEY_STATE_EMPTY;
-			key_release_callback(i);
+			key_release_callback(get_keycode(i));
+			key_state[i] = KEY_STATE_EMPTY;
 			ok = true;
 			break;
 		}

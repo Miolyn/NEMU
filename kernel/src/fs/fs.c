@@ -7,6 +7,11 @@ typedef struct {
 	uint32_t disk_offset;
 } file_info;
 
+
+typedef struct{
+	bool opened;
+	uint32_t offset;
+} Fstate;
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
 /* This is the information about all files in disk. */
@@ -28,6 +33,9 @@ static const file_info file_table[] __attribute__((used)) = {
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
+static Fstate fStates[NR_FILES + 3];
+
+
 int fs_ioctl(int fd, uint32_t request, void *p) {
 	assert(request == TCGETS);
 	return (fd >= 0 && fd <= 2 ? 0 : -1);
@@ -38,3 +46,91 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 
 /* TODO: implement a simplified file system here. */
 
+// The open() system call opens the file specified by pathname. 
+// If the specified file does not exist, it may optionally (if O_CREAT is specified in flags) be created by open().
+// The return value of open() is a file descriptor, a small, nonnegative integer that is used in subsequent system calls 
+int fs_open(const char *pathname, int flags){
+	int i;
+	for(i = 0; i < NR_FILES; i++){
+		if (strcmp(pathname, file_table[i]) == 0){
+			fStates[i + 3].opened = true;
+			fStates[i + 3].offset = 0;
+			return i + 3;
+		}
+	}
+	assert(0);
+	return -1;
+}
+void serial_printc(char);
+// read() attempts to read up to count bytes from file descriptor fd into the buffer starting at buf
+// On  files  that support seeking, the read operation commences at the file offset, 
+// and the file offset is incremented by the number of bytes read.  If the file offset is at or past
+// the end of file, no bytes are read, and read() returns zero.
+int fs_read(int fd, void *buf, int len){
+	assert(fd > 2);
+	assert(fStates[fd].opened);
+	int id = fd - 3;
+	if(fStates[fd].offset >= file_table[id].size) return 0;
+	int l = len;
+	if(fStates[id].offset + l >= file_table[id].size){
+		l = file_table[id].size - fStates[fd].offset - 1;
+	}
+	if (l == 0) return 0;
+	ide_read(buf, file_table[id].disk_offset + fStates[fd].offset, l);
+	fStates[fd].offset += l;
+	return l;
+}
+
+// write() writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.
+
+int fs_write(int fd, void *buf, int len){
+	assert(fd <= 2);
+	#ifdef HAS_DEVICE
+	char *buf = (char*)buf;
+	int i;
+	for(i = 0; i < len; i++){
+		serial_printc(*buf);
+		++buf;
+	}
+	#else
+	asm volatile (".byte 0xd6" : : "a"(2), "c"(buf), "d"(len));
+	#endif
+	return 0;
+}
+
+// lseek() repositions the file offset of the open file description 
+// associated with the file descriptor fd to the argument offset according to the directive whence as follows:
+/*
+       SEEK_SET
+              The file offset is set to offset bytes.
+
+       SEEK_CUR
+              The file offset is set to its current location plus offset bytes.
+
+       SEEK_END
+              The file offset is set to the size of the file plus offset bytes.
+*/
+int fs_lseek(int fd, int offset, int whence){
+	switch (whence){
+		case SEEK_SET: {
+			fStates[fd].offset = offset;
+			return offset;
+		} 
+		case SEEK_CUR: {
+			fStates[fd].offset += offset;
+			return fStates[fd].offset;
+		}
+		case SEEK_END: {
+			fStates[fd].offset = file_table[fd - 3].size + offset;
+			return fStates[fd].offset;
+		}
+	}
+	return -1;
+}
+
+int fs_close(int fd){
+	assert(fd < NR_FILES + 3);
+	fStates[fd].opened = false;
+	fStates[fd].offset = 0;
+	return 0;
+}
