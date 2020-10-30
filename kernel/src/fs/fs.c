@@ -53,6 +53,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 // The return value of open() is a file descriptor, a small, nonnegative integer that is used in subsequent system calls 
 int fs_open(const char *pathname, int flags){
 	Log("fs_open~~");
+	Log("pathname %s", pathname);
 	int i;
 	for(i = 0; i < NR_FILES; i++){
 		Log("filename %s", file_table[i].name);
