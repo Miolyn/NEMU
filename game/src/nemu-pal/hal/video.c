@@ -33,7 +33,7 @@ typedef struct {
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
-
+	Log("into the sdl_blitSurface");
 	int sx = (srcrect == NULL ? 0 : srcrect->x);
 	int sy = (srcrect == NULL ? 0 : srcrect->y);
 	int dx = (dstrect == NULL ? 0 : dstrect->x);
