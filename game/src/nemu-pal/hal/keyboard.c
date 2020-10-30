@@ -37,7 +37,7 @@ keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
 	int key_code = in_byte(0x60);
 	press_key(key_code);
-	assert(0);
+	// assert(0);
 }
 
 static inline int
@@ -90,7 +90,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 			break;
 		}
 	}
-	assert(0);
+	// assert(0);
 	sti();
 	// return false;
 	return ok;
