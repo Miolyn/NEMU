@@ -571,6 +571,7 @@ main_loop() {
 #ifdef PSP
    sdlpal_psp_init();
 #endif
+   Log("ready to init PAL");
    PAL_Init(wScreenWidth, wScreenHeight, fFullScreen);
 
    //
