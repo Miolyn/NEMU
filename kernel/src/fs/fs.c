@@ -34,7 +34,7 @@ static const file_info file_table[] __attribute__((used)) = {
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
-static Fstate fStates[NR_FILES + 3];
+Fstate fStates[NR_FILES + 3];
 
 
 int fs_ioctl(int fd, uint32_t request, void *p) {
