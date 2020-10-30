@@ -51,6 +51,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 // If the specified file does not exist, it may optionally (if O_CREAT is specified in flags) be created by open().
 // The return value of open() is a file descriptor, a small, nonnegative integer that is used in subsequent system calls 
 int fs_open(const char *pathname, int flags){
+	Log("fs_open~~");
 	int i;
 	for(i = 0; i < NR_FILES; i++){
 		if (strcmp(pathname, file_table[i].name) == 0){
@@ -68,6 +69,7 @@ void serial_printc(char);
 // and the file offset is incremented by the number of bytes read.  If the file offset is at or past
 // the end of file, no bytes are read, and read() returns zero.
 int fs_read(int fd, void *buf, int len){
+	Log("fs_read");
 	assert(fd > 2);
 	assert(fStates[fd].opened);
 	int id = fd - 3;
@@ -86,6 +88,7 @@ int fs_read(int fd, void *buf, int len){
 // write() writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.
 
 int fs_write(int fd, void *buf, int len){
+	Log("fs_write");
 	assert(fd <= 2);
 	#ifdef HAS_DEVICE
 	// char *buf = (char*)buf;
@@ -114,6 +117,7 @@ int fs_write(int fd, void *buf, int len){
               The file offset is set to the size of the file plus offset bytes.
 */
 int fs_lseek(int fd, int offset, int whence){
+	Log("fs_lseek");
 	switch (whence){
 		case SEEK_SET: {
 			fStates[fd].offset = offset;
@@ -132,6 +136,7 @@ int fs_lseek(int fd, int offset, int whence){
 }
 
 int fs_close(int fd){
+	Log("fs_close");
 	assert(fd < NR_FILES + 3);
 	fStates[fd].opened = false;
 	fStates[fd].offset = 0;
