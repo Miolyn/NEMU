@@ -114,7 +114,7 @@ PAL_Init(
 
    Log("VIDEO_Init success");
    SDL_WM_SetCaption("Loading...", NULL);
-
+   Log("ready to init Globals");
    e = PAL_InitGlobals();
    if (e != 0)
    {
@@ -571,7 +571,6 @@ main_loop() {
 #ifdef PSP
    sdlpal_psp_init();
 #endif
-   Log("ready to init PAL");
    PAL_Init(wScreenWidth, wScreenHeight, fFullScreen);
 
    //
