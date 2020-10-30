@@ -13,6 +13,7 @@ typedef struct{
 	bool opened;
 	uint32_t offset;
 } Fstate;
+
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
 /* This is the information about all files in disk. */
@@ -54,6 +55,7 @@ int fs_open(const char *pathname, int flags){
 	Log("fs_open~~");
 	int i;
 	for(i = 0; i < NR_FILES; i++){
+		Log("filename %s", file_table[i].name);
 		if (strcmp(pathname, file_table[i].name) == 0){
 			fStates[i + 3].opened = true;
 			fStates[i + 3].offset = 0;
