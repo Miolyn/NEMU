@@ -13,11 +13,23 @@ static const int keycode_array[] = {
 };
 
 static int key_state[NR_KEYS];
+static inline int
+get_keycode(int index);
+void
+press_key(int scan_code) {
+	int i;
+	for (i = 0; i < NR_KEYS; i ++) {
+		if (get_keycode(i) == scan_code) {
+			key_state[i] = KEY_STATE_PRESS;
+		}
+	}
+}
 
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
-	
+	int key_code = in_byte(0x60);
+	press_key(key_code);
 	assert(0);
 }
 
@@ -55,8 +67,25 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 * If no such key is found, the function return false.
 	 * Remember to enable interrupts before returning from the function.
 	 */
-
+	int i;
+	bool ok = false;
+	for(i = 0; i < NR_KEYS; i++){
+		if(query_key(i) == KEY_STATE_PRESS){
+			release_key(i);
+			// key_state[i] = KEY_STATE_WAIT_RELEASE;
+			key_press_callback(i);
+			ok = true;
+			break;
+		} else if(query_key(i) == KEY_STATE_RELEASE){
+			clear_key(i);
+			// key_state[i] = KEY_STATE_EMPTY;
+			key_release_callback(i);
+			ok = true;
+			break;
+		}
+	}
 	assert(0);
 	sti();
-	return false;
+	// return false;
+	return ok;
 }

@@ -7,6 +7,29 @@
 
 int get_fps();
 
+
+/*
+typedef struct {
+	uint32_t flags;
+	SDL_PixelFormat *format;
+	int w, h; // Width and height of the surface
+	uint16_t pitch; // Length of a surface scanline in bytes
+	SDL_Rect clip_rect; // surface clip rectangle
+
+	int refcount;
+	uint8_t *pixels; // Pointer to the actual pixel data
+
+} SDL_Surface;
+
+typedef struct {
+	int16_t x, y; // Position of the upper-left corner of the rectangle
+	uint16_t w, h; // The width and height of the rectangle
+} SDL_Rect;
+*/
+// src the SDL_Surface structure to be copied from
+// srcrect the SDL_Rect structure representing the rectangle to be copied, or NULL to copy the entire surface
+// dst the SDL_Surface structure that is the blit target
+// dstrect the SDL_Rect structure representing the rectangle that is copied into
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
@@ -17,6 +40,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	int dy = (dstrect == NULL ? 0 : dstrect->y);
 	int w = (srcrect == NULL ? src->w : srcrect->w);
 	int h = (srcrect == NULL ? src->h : srcrect->h);
+	// 目标屏幕的宽度小于要复制的矩形
 	if(dst->w - dx < w) { w = dst->w - dx; }
 	if(dst->h - dy < h) { h = dst->h - dy; }
 	if(dstrect != NULL) {
@@ -28,10 +52,16 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `w' X `h' of `src' surface to position (`dx', `dy') of
 	 * `dst' surface.
 	 */
-
-	assert(0);
+	int i, j;
+	for(i = 0; i < w; i++){
+		for(j = 0; j < h; j++){
+			dst->pixels[dx + i + dst->pitch * (dy + j)] = src->pixels[sx + i + src->pitch * (sy + j)];
+		}
+	}
+	// assert(0);
 }
 
+// Use this function to perform a fast fill of a rectangle with a specific color.
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	assert(dst);
 	assert(color <= 0xff);
@@ -40,10 +70,22 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	 * in surface `dst' with color `color'. If dstrect is
 	 * NULL, fill the whole surface.
 	 */
-
-	assert(0);
+	int dx = (dstrect == NULL ? 0 : dstrect->x);
+	int dy = (dstrect == NULL ? 0 : dstrect->y);
+	int w = (dstrect == NULL ? dst->w : dstrect->w);
+	int h = (dstrect == NULL ? dst->h : dstrect->h);
+	int i, j;
+	for(i = 0; i < w; i++){
+		for(j = 0; j < h; j++){
+			dst->pixels[dx + i + dst->pitch * (dy + j)] = color;
+		}
+	}
+	// assert(0);
 }
 
+
+// SDL_SetPalette - Sets the colors in the palette of an 8-bit surface.
+// Sets a portion of the palette for the given 8-bit surface.
 void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, 
 		int firstcolor, int ncolors) {
 	assert(s);
@@ -70,7 +112,8 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
 
 	if(s->flags & SDL_HWSURFACE) {
 		/* TODO: Set the VGA palette by calling write_palette(). */
-		assert(0);
+		write_palette(colors, ncolors);
+		// assert(0);
 	}
 }
 
