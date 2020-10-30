@@ -56,7 +56,6 @@ int fs_open(const char *pathname, int flags){
 	Log("pathname %s", pathname);
 	int i;
 	for(i = 0; i < NR_FILES; i++){
-		Log("filename %s", file_table[i].name);
 		if (strcmp(pathname, file_table[i].name) == 0){
 			fStates[i + 3].opened = true;
 			fStates[i + 3].offset = 0;

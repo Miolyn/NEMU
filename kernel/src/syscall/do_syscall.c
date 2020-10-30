@@ -37,7 +37,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_ioctl: sys_ioctl(tf); break;
 		/* TODO: Add more system calls. */
 		case SYS_open: {
-			tf->eax = fs_open((char*)tf->eax, tf->ecx);
+			tf->eax = fs_open((char*)tf->ebx, tf->ecx);
 			break;
 		}
 		case SYS_read: {
