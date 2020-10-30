@@ -77,6 +77,7 @@ int fs_read(int fd, void *buf, int len){
 		l = file_table[id].size - fStates[fd].offset - 1;
 	}
 	if (l == 0) return 0;
+	memset(buf + l, 0, len - l);
 	ide_read(buf, file_table[id].disk_offset + fStates[fd].offset, l);
 	fStates[fd].offset += l;
 	return l;
@@ -89,14 +90,15 @@ int fs_write(int fd, void *buf, int len){
 	#ifdef HAS_DEVICE
 	// char *buf = (char*)buf;
 	int i;
+	char *b = (char*)buf
 	for(i = 0; i < len; i++){
-		serial_printc(*((char *)buf));
-		++buf;
+		serial_printc(*(b));
+		++b;
 	}
 	#else
-	asm volatile (".byte 0xd6" : : "a"(2), "c"(buf), "d"(len));
+	asm volatile (".byte 0xd6" : : "a"(2), "c"(b), "d"(len));
 	#endif
-	return 0;
+	return len;
 }
 
 // lseek() repositions the file offset of the open file description 
