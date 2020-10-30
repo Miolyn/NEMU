@@ -1,5 +1,6 @@
 #include "common.h"
 #include <sys/ioctl.h>
+#include "string.h"
 
 typedef struct {
 	char *name;
@@ -52,7 +53,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 int fs_open(const char *pathname, int flags){
 	int i;
 	for(i = 0; i < NR_FILES; i++){
-		if (strcmp(pathname, file_table[i]) == 0){
+		if (strcmp(pathname, file_table[i].name) == 0){
 			fStates[i + 3].opened = true;
 			fStates[i + 3].offset = 0;
 			return i + 3;
@@ -86,10 +87,10 @@ int fs_read(int fd, void *buf, int len){
 int fs_write(int fd, void *buf, int len){
 	assert(fd <= 2);
 	#ifdef HAS_DEVICE
-	char *buf = (char*)buf;
+	// char *buf = (char*)buf;
 	int i;
 	for(i = 0; i < len; i++){
-		serial_printc(*buf);
+		serial_printc(*((char *)buf));
 		++buf;
 	}
 	#else
