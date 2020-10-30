@@ -75,7 +75,7 @@ int fs_read(int fd, void *buf, int len){
 	if(fStates[fd].offset >= file_table[id].size) return 0;
 	int l = len;
 	if(fStates[id].offset + l >= file_table[id].size){
-		l = file_table[id].size - fStates[fd].offset - 1;
+		l = file_table[id].size - fStates[fd].offset;
 	}
 	if (l == 0) return 0;
 	memset(buf + l, 0, len - l);
