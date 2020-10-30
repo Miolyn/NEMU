@@ -57,6 +57,7 @@ int fs_open(const char *pathname, int flags){
 		if (strcmp(pathname, file_table[i].name) == 0){
 			fStates[i + 3].opened = true;
 			fStates[i + 3].offset = 0;
+			Log("file open %s", pathname);
 			return i + 3;
 		}
 	}
