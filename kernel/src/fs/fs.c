@@ -90,7 +90,7 @@ int fs_write(int fd, void *buf, int len){
 	#ifdef HAS_DEVICE
 	// char *buf = (char*)buf;
 	int i;
-	char *b = (char*)buf
+	char *b = (char*)buf;
 	for(i = 0; i < len; i++){
 		serial_printc(*(b));
 		++b;
