@@ -16,7 +16,7 @@ typedef struct {
 	uint16_t pitch; // Length of a surface scanline in bytes
 	SDL_Rect clip_rect; // surface clip rectangle
 
-	int refcount;
+	int refcount;                
 	uint8_t *pixels; // Pointer to the actual pixel data
 
 } SDL_Surface;
@@ -33,7 +33,7 @@ typedef struct {
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
-	Log("into the sdl_blitSurface");
+	// Log("into the sdl_blitSurface");
 	int sx = (srcrect == NULL ? 0 : srcrect->x);
 	int sy = (srcrect == NULL ? 0 : srcrect->y);
 	int dx = (dstrect == NULL ? 0 : dstrect->x);
@@ -53,8 +53,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `dst' surface.
 	 */
 	int i, j;
-	for(i = 0; i < w; i++){
-		for(j = 0; j < h; j++){
+	for(j = 0; j < h; j++){
+		for(i = 0; i < w; i++){
 			dst->pixels[dx + i + dst->w * (dy + j)] = src->pixels[sx + i + src->w * (sy + j)];
 		}
 	}
@@ -75,8 +75,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	int w = (dstrect == NULL ? dst->w : dstrect->w);
 	int h = (dstrect == NULL ? dst->h : dstrect->h);
 	int i, j;
-	for(i = 0; i < w; i++){
-		for(j = 0; j < h; j++){
+	for(j = 0; j < h; j++){
+		for(i = 0; i < w; i++){
 			dst->pixels[dx + i + dst->w * (dy + j)] = color;
 		}
 	}
