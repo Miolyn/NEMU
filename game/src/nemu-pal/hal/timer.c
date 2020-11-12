@@ -33,7 +33,7 @@ uint32_t SDL_GetTicks() {
 
 void SDL_Delay(uint32_t ms) {
 	/* TODO: Return from this function after waiting for `ms' milliseconds. */
-	Log("using timer");
+	// Log("using timer");
 	uint32_t tj= SDL_GetTicks();
 	while(SDL_GetTicks() < tj + ms); 
 	// assert(0);
