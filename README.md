@@ -1,3 +1,5 @@
+Nemu抄PA的给个star好嘛，看代码的时候可以根据pa切换分支，默认是pa2
+
 # NEMU2020 Programming Assignment
 
 This project is the programming assignment of the class ICS(Introduction to Computer System) in College of Intelligence and Computing, Tianjin Univerisity.
